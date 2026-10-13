@@ -89,6 +89,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .num span{font-size:.9rem;opacity:.95}
 .num.alt{background:var(--surface);color:var(--fg);border:2px solid var(--red)}
 .num.alt b{color:var(--red)}
+.num.acc.txt b{font-size:1.35rem;line-height:1.2;user-select:auto}
 .num.acc{grid-column:1/-1;background:var(--surface);color:var(--fg);border:2px solid var(--green)}.num.acc b{color:var(--green)}
 @media (min-width:700px){.numbers{grid-template-columns:repeat(auto-fit,minmax(0,1fr))}.num.acc{grid-column:auto}}
 .alerts{display:flex;flex-direction:column;gap:8px}
@@ -222,7 +223,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 </style>
 
 <div id="app"></div>
-<script type="application/json" id="edits">{"edits":{"jeugd/brand/-/7":"Bel je eens je in veiligheid bent","jeugd/brand/-/30":"Sluit alle ramen. Branddeuren vallen automatisch dicht bij brandalarm; is er een deur niet dichtgegaan, sluit ze alsnog. Een branddeur geeft je een half uur extra tijd.","jeugd/afd/-/11":"Verpleegpost, eerste verdieping","jeugd/afd/-/12":"\u003cb>De sleutel van de brandcentrale beneden hangt in de vergaderzaal.\u003c/b>","jeugd/pin/1":"19.7,58.6","jeugd/pin/2":"19.8,71.3","jeugd/pin/3":"39.3,59.5","jeugd/pin/4":"39.3,77.4","jeugd/pin/5":"69.7,67.2","onderhoud/brand/-/13":"\u003cbr>","onderhoud@fr/brand/-/13":"\u003cbr>","onderhoud@en/brand/-/13":"\u003cbr>","alexius/brand/-/10":"\u003cbr>","alexius/brand/-/11":"Verzamelplaats: de \u003cb>binnenplaats\u003c/b> van Sint-Alexius, bij uitslaande brand: evacueer naar het ziekenhuis.","alexius/afd/-/14":"\u003cbr>","alexius/afd/-/15":"Verzamelplaats: de \u003cb>binnenplaats\u003c/b> van Sint-Alexius. Bij uitslaande brand: evacueer naar het ziekenhuis.&nbsp;","alexius/route/00/4":"Op niveau 0 liggen het dagcentrum, het LDC, de parking en de technische ruimtes."},"savedAt":"2026-10-13T08:27:46.661Z"}</script>
+<script type="application/json" id="edits">{"edits": {"jeugd/brand/-/7": "Bel je eens je in veiligheid bent", "jeugd/brand/-/30": "Sluit alle ramen. Branddeuren vallen automatisch dicht bij brandalarm; is er een deur niet dichtgegaan, sluit ze alsnog. Een branddeur geeft je een half uur extra tijd.", "jeugd/afd/-/11": "Verpleegpost, eerste verdieping", "jeugd/afd/-/12": "\u003cb>De sleutel van de brandcentrale beneden hangt in de vergaderzaal.\u003c/b>", "jeugd/pin/1": "19.7,58.6", "jeugd/pin/2": "19.8,71.3", "jeugd/pin/3": "39.3,59.5", "jeugd/pin/4": "39.3,77.4", "jeugd/pin/5": "69.7,67.2", "onderhoud/brand/-/13": "\u003cbr>", "onderhoud@fr/brand/-/13": "\u003cbr>", "onderhoud@en/brand/-/13": "\u003cbr>", "alexius/brand/-/13": "\u003cbr>", "alexius/brand/-/14": "Verzamelplaats: de \u003cb>binnenplaats\u003c/b> van Sint-Alexius, bij uitslaande brand: evacueer naar het ziekenhuis.", "alexius/afd/-/14": "\u003cbr>", "alexius/afd/-/15": "Verzamelplaats: de \u003cb>binnenplaats\u003c/b> van Sint-Alexius. Bij uitslaande brand: evacueer naar het ziekenhuis.&nbsp;", "alexius/route/00/4": "Op niveau 0 liggen het dagcentrum, het LDC, de parking en de technische ruimtes.", "psc/brand/-/13": "Zie je brand in de voorbouw? \u003cb>Sluit meteen de ruimte, als dat kan, bel 112 en vervolgens\u003c/b>&nbsp;\u003cb>bel je naar de achterbouw\u003c/b> om een handbrandmelder in te drukken. Dan gaan de sirenes meteen af."}, "savedAt": "2026-10-13T12:01:31.371Z"}</script>
 
 <script id="main-js">
 // Content model: every block has a scope. "all" = shared by the 5 sites, "site" = one site, "ward" = one afdeling.
@@ -417,8 +418,9 @@ V.brand=()=>{const w=W();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
 <div class="numbers">
   <div class="num"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
-  <div class="num alt"><span>Intern noodnummer</span><b>999</b><span>Daarna melden</span></div>
-  ${w.site==='pz'?'<div class="num acc"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer</span></div>':''}
+  <div class="num alt"><span>Intern noodnummer</span><b>999</b><span>Melding maken eens je veilig bent</span></div>
+  ${w.site==='pz'?'<div class="num acc"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer. Indien ernstig bel eerst 112.</span></div>'
+    :'<div class="num acc txt"><span>Bij een ongeval</span><b>Bel het interne nummer van de verpleging</b><span>Indien ernstig bel eerst 112.</span></div>'}
 </div>
 <div class="card">
   <div class="card-head"><h3>Specifiek op ${w.siteLevel?'deze site':'deze afdeling'}</h3>${sc('ward')}</div>
@@ -676,8 +678,8 @@ const UI={
 const LT={
  fr:{
   brandH:'En cas d’incendie',brandP:'Ce que vous faites, dans cet ordre. Touchez une étape pour voir les détails.',
-  fire:'Pompiers',callFirst:'Toujours appeler en premier',internal:'Numéro d’urgence interne',thenReport:'Signalez ensuite',
-  accident:'En cas d’accident',accidentTxt:'Les infirmiers viennent, avec la valise d’urgence',specific:'Spécifique au service d’entretien',
+  fire:'Pompiers',callFirst:'Toujours appeler en premier',internal:'Numéro d’urgence interne',thenReport:'Signalez une fois en sécurité',
+  accident:'En cas d’accident',accidentTxt:'Les infirmiers viennent, avec la valise d’urgence. Si c’est grave, appelez d’abord le 112.',specific:'Spécifique au service d’entretien',
   s1:['Mettez-vous en sécurité','Ensuite seulement, vous pouvez agir','<p>Assurez-vous d’abord votre propre sécurité avant d’agir.</p>'],
   s2:['Vérifiez et signalez','Panneau d’incendie + DECT, 112 et 999',`<p>Signalez via le détecteur de fumée, le point d’appel manuel ou la clé d’évacuation : cela lance aussi l’évacuation. La fumée peut déjà avoir été détectée par un détecteur de fumée.</p>
     <p>Une notification apparaît sur le panneau d’incendie et le DECT. Chaque service est invité à vérifier la situation.</p>
@@ -745,8 +747,8 @@ const LT={
  },
  en:{
   brandH:'In case of fire',brandP:'What you do, in this order. Tap a step to see the details.',
-  fire:'Fire brigade',callFirst:'Always call first',internal:'Internal emergency number',thenReport:'Then report',
-  accident:'In case of an accident',accidentTxt:'The nurses come, with the emergency kit',specific:'Specific to maintenance',
+  fire:'Fire brigade',callFirst:'Always call first',internal:'Internal emergency number',thenReport:'Report once you are safe',
+  accident:'In case of an accident',accidentTxt:'The nurses come, with the emergency kit. If it is serious, call 112 first.',specific:'Specific to maintenance',
   s1:['Get yourself to safety','Only then can you take action','<p>First ensure your own safety before taking action.</p>'],
   s2:['Check and report','Fire panel + DECT, 112 and 999',`<p>Report via the smoke detector, the manual call point or the key contact: this also starts the evacuation. The smoke may already have been detected by a smoke detector.</p>
     <p>A notification appears on the fire panel and the DECT. Each department is asked to go and check.</p>
