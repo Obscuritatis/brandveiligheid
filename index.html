@@ -669,7 +669,7 @@ const TIPS=[
   [31,'Hang lege brandblussers niet zomaar terug op',32,'Laat ze onmiddellijk terug vullen'],
 ];
 V.blus=()=>`
-<div class="view-head"><h1>Blussen</h1><p>Algemene kennis, gedeeld door alle sites. Je schrijft dit één keer en elke afdeling toont het.</p></div>
+<div class="view-head"><h1>Blussen</h1></div>
 <div class="chips" id="blusChips">
   ${[['blussers','Brandblussers'],['tips','Tips'],['deken','Branddeken'],['klassen','Brandklassen'],['video','Video’s']].map(([k,l])=>`<button class="chip" data-sec="${k}" aria-pressed="${state.sec===k}">${l}</button>`).join('')}
 </div>
@@ -953,7 +953,7 @@ ${exampleBox()}${lassembly()}
   <p class="muted${p.hq?'':' authnote'}" style="font-size:.85rem">${p.hq?t.routeHq:t.routeNote}</p>
 </div>`},
  blus:()=>{const t=T();return `
-<div class="view-head"><h1>${t.blusH}</h1><p>${t.blusP}</p></div>
+<div class="view-head"><h1>${t.blusH}</h1></div>
 <div class="chips" id="blusChips">${Object.entries(t.chips).map(([k,l])=>`<button class="chip" data-sec="${k}" aria-pressed="${state.sec===k}">${l}</button>`).join('')}</div>
 <div id="blusSec">${LBLUS[state.sec]()}</div>`},
  test:()=>{const t=T(),Q=t.quiz.map((q,i,a)=>i===a.length-1?[q[0],[q[1][0],q[1][1],W().verzamelL[lang()].replace(/<span.*$/,'')],q[2]]:q),a=state.ans,done=Object.keys(a).length,good=Q.filter((q,i)=>a[i]===q[2]).length;return `
