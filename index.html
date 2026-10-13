@@ -274,6 +274,41 @@ const WARDS={
   alerts:['De <b>brandcentrale</b> staat op TED niveau 00.','In het <b>ergo-lokaal</b> op niveau 00 hangt een handbrandmelder in de ruimte zelf.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
   plans:[{l:'00',img:'img/verslaving-plan00.webp',leg:LEG+', brandmeldingscentrale (BMC), evacuatieschakelaar'},{l:'01',img:'img/verslaving-plan01.webp',leg:LEG+', evacuatieschakelaar'},{l:'02',img:'img/verslaving-plan02.webp',leg:LEG+', evacuatieschakelaar'}]},
 
+ // Toegevoegd 13/10/2026 uit tien PZ-decks. Plannen zijn uitsneden van de dia's, HQ-versies volgen.
+ activering:{site:'pz',name:'Team activering',label:'Team activering',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdelingen, maar niet in de loods.','<b>Bio-schuimblussers:</b> op verschillende plaatsen in de loods. Te herkennen aan het groene handvat.','<b>Schuimblusser 50L:</b> in de loods.','<b>CO² blussers:</b> in de technische ruimtes, niet in de loods zelf. Te herkennen aan de bredere bek om mee te blussen.','<b>Brandhaspels:</b> op de gangen van de afdelingen, maar niet in de loods.','<b>Brandcentrale:</b> de dichtstbijzijnde is die van algemene psychiatrie.','<b>Handbrandmelders:</b> in de loods en verder op alle gangen.','<b>Rookmelders:</b> in de volledige loods en in de kantoren.'],
+  alerts:['De loods bestaat uit <b>grote ruimtes zonder branddeuren</b>. Bij brand verlaat je de ruimte altijd en evacueer je, want rook verspreidt zich snel.','De dichtstbijzijnde <b>brandcentrale</b> is die van algemene psychiatrie.'],
+  plans:[{l:'00',img:'img/activering-plan00.webp'}]},
+ apotheek:{site:'pz',name:'Apotheek',label:'Apotheek',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,alerts:[],
+  plans:[{l:'01',img:'img/apotheek-plan01.webp'}]},
+ arbeidscentrum:{site:'pz',name:'Arbeidscentrum',label:'Arbeidscentrum',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  meld:'Melding via de rookdetector of de handbrandmelder. Het kan zijn dat de rook al gedetecteerd werd via de rookdetector.',
+  equip:['<b>Schuimblusser 50L:</b> aanwezig.','<b>Bio-schuimblussers:</b> in beide loodsen. Te herkennen aan het groene handvat.','<b>Handbrandmelders:</b> in beide loodsen.','<b>Rookmelders:</b> in de loodsen en de lokalen.'],
+  alerts:['In het arbeidscentrum zijn <b>geen branddeuren</b>. Is de brand te groot, sluit dan meteen de deur van het lokaal of de loods als dat nog kan.','<b>Tijdens de dag altijd de plank van de deur halen!</b>'],
+  plans:[{l:'00',img:'img/arbeidscentrum-plan00.webp',note:'Tijdens de dag altijd de plank van de deur halen!'}]},
+ boekhouding:{site:'pz',name:'Boekhouding',label:'Boekhouding',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,alerts:[],
+  plans:[{l:'01',img:'img/boekhouding-plan01.webp',note:'Het evacuatiesymbool op dit plan duidt aan waar je naartoe kan in geval van nood, afhankelijk van waar de brand zich situeert.'}]},
+ dagcentrum:{site:'pz',name:'Dagcentrum diagnostiek',label:'Dagcentrum diagnostiek',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  equip:[EQUIP_STD[0],EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> op de verpleegpost.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit in een kantoorruimte.','<b>Rookmelders:</b> op alle gangen en in de kantoorruimtes.'],
+  alerts:['De <b>brandcentrale</b> staat op de verpleegpost.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
+  plans:[{l:'00',img:'img/dagcentrum-plan00.webp'},{l:'01',img:'img/dagcentrum-plan01.webp',leg:LEG+', brandmeldingscentrale (BMC), evacuatieschakelaar'}]},
+ hr:{site:'pz',name:'Personeelsdienst (HR)',label:'Personeelsdienst (HR)',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,alerts:[],
+  plans:[{l:'00',img:'img/hr-plan00.webp'}]},
+ mobiel:{site:'pz',name:'Mobiele equipe',label:'Mobiele equipe',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  equip:['<b>Branddeken:</b> aanwezig in de meeste keukens.',EQUIP_STD[1],'<b>CO² blussers:</b> in de technische ruimtes, en ook in de keukens van de WZC’s en aan het onthaal van het PZ. Te herkennen aan de bredere bek om mee te blussen.',EQUIP_STD[3],'<b>Brandcentrales:</b> aan het onthaal en op de meeste verpleegposten van de afdelingen.','<b>Handbrandmelders:</b> in alle gangen. Ze bevinden zich nooit op een kamer of in een ruimte, op een paar uitzonderingen na.',EQUIP_STD[6]],
+  alerts:['Je werkt op <b>verschillende afdelingen</b>. Zorg dat je op elke werkplek weet waar de blusmiddelen, de handbrandmelders en de brandcentrale zijn.'],
+  planExample:1,plans:[]},
+ onthaal:{site:'pz',name:'Onthaal',label:'Onthaal',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  alerts:['Het onthaal <b>bedient zelf het interne noodnummer 999</b>. Zie de procedure hieronder.'],
+  cards:[{h:'Inkomende oproepen 999: actiekaarten personeel',html:'<ul class="plain"><li>Laat <b>maximum 6 keer</b> bellen en neem altijd op.</li><li>Vraag kort wat de noodsituatie is en of er slachtoffers zijn.</li><li>Bij brand bel je altijd <b>zelf nog de brandweer op 112</b>.</li><li>Volg daarna de stappen op de actiekaarten. Stem intern af volgens de situatie.</li><li>Bij een ramp geef je iedereen zijn actiekaart wanneer die zich aanmeldt.</li></ul>'}],
+  plans:[{l:'00',img:'img/onthaal-plan00.webp'}]},
+ staf:{site:'pz',name:'IT, communicatie, directiesecretariaat, staf en drukkerij',label:'IT, communicatie, directiesecretariaat, staf en drukkerij',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdelingen, niet in de keuken van de directie.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> de dichtstbijzijnde is die aan het onthaal.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit in een kantoorruimte.','<b>Rookmelders:</b> op alle gangen en in de kantoorruimtes.'],
+  alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat aan het onthaal.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
+  plans:[{l:'00',img:'img/staf-plan00.webp',leg:LEG+', evacuatieschakelaar'},{l:'01',img:'img/staf-plan01.webp',leg:LEG+', evacuatieschakelaar'}]},
+ voeding:{site:'pz',name:'Voedingsdienst',label:'Voedingsdienst',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,alerts:[],
+  plans:[{l:'-01',img:'img/voeding-planm01.webp'},{l:'00',img:'img/voeding-plan00.webp'}]},
+
  onderhoud:{site:'pz',name:'Onderhoud',label:'Onderhoud',afd:'onderhoud',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,langs:['nl','fr','en'],
   names:{nl:'Onderhoud',fr:'Service d’entretien',en:'Maintenance'},
   verzamelL:{fr:'Parking du service de psychiatrie générale',en:'Car park at the general psychiatry department'},
@@ -287,6 +322,7 @@ const WARDS={
 };
 // Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
 WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
+WARDS.mobiel.plans=WARDS.eetherstel.plans;
 const EXAMPLE={nl:'<b>Voorbeeld.</b> Dit zijn de evacuatieplannen van de afdeling Eetherstel. De plannen verschillen per afdeling: kijk op elke plaats waar je werkt naar het evacuatieplan aan de muur.',
  fr:'<b>Exemple.</b> Voici les plans d’évacuation du service des troubles alimentaires (Eetherstel). Les plans diffèrent selon le service : là où vous travaillez, regardez toujours le plan d’évacuation au mur.',
  en:'<b>Example.</b> These are the evacuation plans of the eating disorder department (Eetherstel). The plans differ per department: wherever you work, always check the evacuation plan on the wall.'};
@@ -421,13 +457,14 @@ AFD.equip=()=>{const w=W();return `
 <div class="view-head"><h1>${w.name}</h1><p>Alles wat op deze afdeling anders is dan elders.</p></div>
 <div class="card">
   <div class="card-head"><h2>Detectie- en blusmiddelen op de afdeling</h2>${sc('ward')}</div>
-  <ul class="plain">${w.equip.map(e=>`<li>${e}</li>`).join('')}</ul>
+  ${w.equip?`<ul class="plain">${w.equip.map(e=>`<li>${e}</li>`).join('')}</ul>`:'<div class="todo"><b>Nog aan te vullen:</b> de PowerPoint bevat geen overzicht van de blusmiddelen op deze afdeling.</div>'}
   <p class="hl">Zorg er altijd voor dat je weet waar deze zich bevinden op de afdeling waar je werkt.</p>
 </div>
 <div class="card">
   <div class="card-head"><h2>Melding en alarm</h2>${sc('ward')}</div>
-  <ul class="plain">${w.alerts.map(a=>`<li>${a}</li>`).join('')}<li>Melding via rookdetector, branddrukknop of sleutelcontact start meteen ook de evacuatie.</li></ul>
+  <ul class="plain">${w.alerts.map(a=>`<li>${a}</li>`).join('')}<li>${w.meld||'Melding via rookdetector, branddrukknop of sleutelcontact start meteen ook de evacuatie.'}</li></ul>
 </div>
+${(w.cards||[]).map(c=>`<div class="card"><div class="card-head"><h2>${c.h}</h2>${sc('ward')}</div>${c.html}</div>`).join('')}
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`};
 AFD.hestia=()=>`
 <div class="view-head"><h1>Mobiel team Hestia</h1><p>Alles wat voor het mobiele team anders is dan elders.</p></div>
@@ -778,7 +815,7 @@ if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
 function navHTML(){return TABS.map(([k,l])=>(k==='afd'&&W().siteLevel&&(l='Site'),lang()!=='nl'&&(l=UI[lang()].tabs[k]),`<button class="tab" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
 function homeHTML(){
-  if(state.screen==='pz'){const s=SITES[0],ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz');return `
+  if(state.screen==='pz'){const s=SITES[0],ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
 <button class="back" data-home="home">‹ Alle sites</button>
 <div class="view-head"><h1>${s.name}</h1><p>Kies de afdeling waar je werkt. De app onthoudt je keuze.</p></div>
 <div class="picks">${ws.map(([k,w])=>`<button class="pick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.name}</b>${w.names?`<small>${w.names.fr} · ${w.names.en}</small>`:''}</span></button>`).join('')}
