@@ -770,7 +770,9 @@ const LBLUS={
  klassen:()=>{const t=T();return `<div class="card"><div class="card-head"><h2>${t.classesH}</h2>${sc('all')}</div><div class="classes">${t.classes.map(c=>`<div class="cls"><img src="img/${c[0]}.webp" alt="${c[0]}"><p><b>${c[0]} · ${c[1]}</b>${c[2]}</p></div>`).join('')}</div></div>`},
 };
 
-const state={screen:store.get('plek',null)?null:'home',tab:'brand',lvl:'00',sec:'blussers',ans:store.get(qkey(),{}),edit:false,draft:null,msg:''};
+// Each new visit starts on the site overview; a reload in the same tab (e.g. after saving) keeps the current screen.
+let SEEN=false;try{SEEN=sessionStorage.getItem('open')==='1';sessionStorage.setItem('open','1')}catch(e){}
+const state={screen:SEEN&&store.get('plek',null)?null:'home',tab:'brand',lvl:'00',sec:'blussers',ans:store.get(qkey(),{}),edit:false,draft:null,msg:''};
 const ok=TABS.map(t=>t[0]);
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
