@@ -159,6 +159,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .pair .yes{border-color:var(--green)} .pair .yes figcaption i{color:var(--green)}
 .pair i{font-style:normal;font-weight:700}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
+.video{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;margin:4px 0 10px}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.vlink{font-weight:600;color:var(--accent,inherit)}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.9rem}
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 
@@ -522,10 +523,24 @@ const TIPS=[
 V.blus=()=>`
 <div class="view-head"><h1>Blussen</h1><p>Algemene kennis, gedeeld door alle sites. Je schrijft dit één keer en elke afdeling toont het.</p></div>
 <div class="chips" id="blusChips">
-  ${[['blussers','Brandblussers'],['tips','Tips'],['deken','Branddeken'],['klassen','Brandklassen']].map(([k,l])=>`<button class="chip" data-sec="${k}" aria-pressed="${state.sec===k}">${l}</button>`).join('')}
+  ${[['blussers','Brandblussers'],['tips','Tips'],['deken','Branddeken'],['klassen','Brandklassen'],['video','Video’s']].map(([k,l])=>`<button class="chip" data-sec="${k}" aria-pressed="${state.sec===k}">${l}</button>`).join('')}
 </div>
 <div id="blusSec">${BLUS[state.sec]()}</div>`;
+// Instructievideo's (BHVNederland, YouTube). Gekozen 13/10/2026 op vraag van Johan.
+const VIDEOS=[
+ {id:'HFSCj56rx9U',h:{nl:'Blussen met een schuimblusser',fr:'Éteindre avec un extincteur à mousse',en:'Using a foam extinguisher'},p:{nl:'Een brand in een open vuilnisbak blussen met een schuimblusser.',fr:'Éteindre un feu dans une poubelle ouverte avec un extincteur à mousse.',en:'Putting out a fire in an open waste bin with a foam extinguisher.'}},
+ {id:'Crtg3EX2GBA',h:{nl:'Blussen met een CO²-blusser',fr:'Éteindre avec un extincteur au CO²',en:'Using a CO² extinguisher'},p:{nl:'Een brandende vloeistof blussen met een CO²-blusser.',fr:'Éteindre un liquide en feu avec un extincteur au CO².',en:'Putting out a burning liquid with a CO² extinguisher.'}},
+ {id:'5jEJaWAgAf8',h:{nl:'Blussen met een branddeken',fr:'Éteindre avec une couverture anti-feu',en:'Using a fire blanket'},p:{nl:'Een persoon die vuur heeft gevat blussen met een branddeken.',fr:'Éteindre une personne en feu avec une couverture anti-feu.',en:'Putting out a person on fire with a fire blanket.'}},
+];
+const VID_UI={nl:{intro:'Korte instructievideo’s. Kijk ze eens rustig, zodat je weet wat te doen als het nodig is.',open:'Bekijk op YouTube'},
+ fr:{intro:'Courtes vidéos d’instruction (en néerlandais). Regardez-les calmement, pour savoir quoi faire le moment venu.',open:'Voir sur YouTube'},
+ en:{intro:'Short instruction videos (in Dutch). Watch them calmly, so you know what to do when it matters.',open:'Watch on YouTube'}};
+const videoSec=()=>{const L=lang(),u=VID_UI[L];return `<p class="muted">${u.intro}</p>`+VIDEOS.map(v=>`
+ <div class="card"><div class="card-head"><h2>${v.h[L]}</h2>${sc('all')}</div>
+  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}?rel=0" title="${v.h[L]}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  <p>${v.p[L]}</p><p><a class="vlink" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">${u.open}</a></p></div>`).join('')};
 const BLUS={
+ video:videoSec,
  blussers:()=>`
  ${W().bluspoging?`<div class="card"><div class="card-head"><h2>Bluspoging</h2>${sc('all')}</div>
   <p>Kan een brand nog onder controle worden gebracht, gebruik dan de beschikbare blusmiddelen (brandblussers of branddeken). Je onderneemt enkel een bluspoging als:</p>
@@ -629,7 +644,7 @@ const LT={
   routeH:'Itinéraires d’évacuation',routeP:'Les flèches montrent le chemin d’évacuation. Zoomez puis faites glisser le plan.',
   routeNote:'Ce plan vient du PowerPoint. Il sera remplacé par une version de bonne qualité.',routeHq:'Ce sont les plans d’évacuation tels qu’ils sont affichés au mur. Chaque plan montre le chemin depuis un autre endroit (« Vous êtes ici »).',legend:'Légende',
   blusH:'Extinction',blusP:'Connaissances générales, communes à tous les sites.',
-  chips:{blussers:'Extincteurs',tips:'Astuces',deken:'Couverture anti-feu',klassen:'Classes de feu'},
+  chips:{blussers:'Extincteurs',tips:'Astuces',deken:'Couverture anti-feu',klassen:'Classes de feu',video:'Vidéos'},
   attemptH:'Tentative d’extinction',
   attemptP:'Lorsque l’incendie peut encore être maîtrisé, utilisez l’équipement disponible (extincteurs ou couverture anti-feu). Ne tentez d’éteindre l’incendie que si :',
   attempt:['votre propre sécurité est garantie ;','vous n’êtes pas seul : un collègue est là pour vous aider ;','l’incendie est encore sous contrôle et peut être éteint avec un ou plusieurs extincteurs ;','l’alarme incendie a été activée, pour que les collègues soient informés.'],
@@ -698,7 +713,7 @@ const LT={
   routeH:'Escape routes',routeP:'Arrows show the escape route. Zoom in and drag the plan.',
   routeNote:'This plan comes from the PowerPoint. It will be replaced by a high-quality version.',routeHq:'These are the evacuation plans as they hang on the wall. Each plan shows the route from a different spot (“You are here”).',legend:'Legend',
   blusH:'Extinguishing',blusP:'General knowledge, shared by all sites.',
-  chips:{blussers:'Extinguishers',tips:'Tips',deken:'Fire blanket',klassen:'Fire classes'},
+  chips:{blussers:'Extinguishers',tips:'Tips',deken:'Fire blanket',klassen:'Fire classes',video:'Videos'},
   attemptH:'Extinguishing attempt',
   attemptP:'When a fire can still be brought under control, use the available equipment (fire extinguishers or fire blanket). Only attempt to extinguish the fire if:',
   attempt:['your own safety is guaranteed;','you are not alone: a colleague is present to assist;','the fire is still under control and can be put out with one or more extinguishers;','the fire alarm has been activated, so colleagues are aware.'],
@@ -781,6 +796,7 @@ ${exampleBox()}${lassembly()}
 ${Q.map((q,i)=>`<div class="card q"><h3>${q[0]}</h3>${q[1].map((o,j)=>{let c='';if(a[i]!==undefined){if(j===q[2])c='ok';else if(j===a[i])c='bad'}return `<button class="opt ${c}" data-q="${i}" data-o="${j}" ${a[i]!==undefined?'disabled':''}>${o}</button>`}).join('')}</div>`).join('')}`},
 };
 const LBLUS={
+ video:videoSec,
  blussers:()=>{const t=T();return `
  <div class="card"><div class="card-head"><h2>${t.attemptH}</h2>${sc('all')}</div>
   <p>${t.attemptP}</p><ul class="plain">${t.attempt.map(x=>`<li>${x}</li>`).join('')}</ul>
