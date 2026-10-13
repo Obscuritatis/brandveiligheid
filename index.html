@@ -218,7 +218,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 </style>
 
 <div id="app"></div>
-<script type="application/json" id="edits">{"edits": {"jeugd/brand/-/7": "Bel je eens je in veiligheid bent", "jeugd/brand/-/30": "Sluit alle ramen. Branddeuren vallen automatisch dicht bij brandalarm; is er een deur niet dichtgegaan, sluit ze alsnog. Een branddeur geeft je een half uur extra tijd.", "jeugd/afd/-/11": "Verpleegpost, eerste verdieping", "jeugd/afd/-/12": "\u003cb>De sleutel van de brandcentrale beneden hangt in de vergaderzaal.\u003c/b>", "jeugd/pin/1": "19.7,58.6", "jeugd/pin/2": "19.8,71.3", "jeugd/pin/3": "39.3,59.5", "jeugd/pin/4": "39.3,77.4", "jeugd/pin/5": "69.7,67.2"}, "savedAt": "2026-10-13T06:20:35.831Z"}</script>
+<script type="application/json" id="edits">{"edits":{"jeugd/brand/-/7":"Bel je eens je in veiligheid bent","jeugd/brand/-/30":"Sluit alle ramen. Branddeuren vallen automatisch dicht bij brandalarm; is er een deur niet dichtgegaan, sluit ze alsnog. Een branddeur geeft je een half uur extra tijd.","jeugd/afd/-/11":"Verpleegpost, eerste verdieping","jeugd/afd/-/12":"\u003cb>De sleutel van de brandcentrale beneden hangt in de vergaderzaal.\u003c/b>","jeugd/pin/1":"19.7,58.6","jeugd/pin/2":"19.8,71.3","jeugd/pin/3":"39.3,59.5","jeugd/pin/4":"39.3,77.4","jeugd/pin/5":"69.7,67.2","onderhoud/brand/-/13":"\u003cbr>"},"savedAt":"2026-10-13T07:24:03.927Z"}</script>
 
 <script id="main-js">
 // Content model: every block has a scope. "all" = shared by the 5 sites, "site" = one site, "ward" = one afdeling.
@@ -849,9 +849,13 @@ function applyEdits(root){
   const edits=state.edit?state.draft:SAVED.edits,vk=viewKey();
   [...root.querySelectorAll(EDIT_SEL)].filter(el=>!el.parentElement.closest(EDIT_SEL)).forEach((el,i)=>{
     const k=vk+'/'+i;el.dataset.k=k;
+    if(edits[k]!=null&&isEmpty(edits[k])&&!state.edit){const box=el.parentElement.closest('.alert,li:not(.step)');(box&&box.querySelectorAll(EDIT_SEL).length<=1?box:el).hidden=true}
     if(edits[k]!=null){el.innerHTML=edits[k];if(state.edit)el.classList.add('edited');else if(el.classList.contains('todo'))el.classList.replace('todo','filled')}
     if(state.edit){el.contentEditable='true';el.spellcheck=true}
   });
+  // Boxes left without any visible text or picture after emptying are hidden too (deepest first).
+  if(!state.edit)[...root.querySelectorAll('.alert,.alerts,li,ul,ol,.card,.num,.ext,.pair,figure')].reverse().forEach(b=>{
+    if(!b.hidden&&!b.innerText.trim()&&!b.querySelector('img:not([hidden]),.photo,.plan,.chips,button'))b.hidden=true});
 }
 // Pins on photos: position stored as "x,y" (percent) under WID/pin/<n>; draggable in edit mode.
 function applyPins(root){
@@ -874,6 +878,8 @@ document.addEventListener('pointermove',e=>{if(!drag)return;const r=drag.parentE
   drag.style.left=x.toFixed(1)+'%';drag.style.top=y.toFixed(1)+'%';state.draft[WID+'/pin/'+drag.dataset.pin]=x.toFixed(1)+','+y.toFixed(1)});
 document.addEventListener('pointerup',()=>{if(!drag)return;drag=null;
   const m=document.querySelector('.editbar .msg');if(m&&!state.msg){const n=Object.keys(state.draft).length;m.textContent=n+' aanpassing'+(n>1?'en':'')+'.'}});
+// A text block emptied in edit mode disappears in view mode, together with its own box (alert or list item).
+const isEmpty=h=>!h.replace(/<br\s*\/?>|&nbsp;|\s/gi,'');
 function clean(html){
   const d=document.createElement('div');d.innerHTML=html;
   (function walk(n){[...n.childNodes].forEach(c=>{
