@@ -124,6 +124,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .keylist li>span{flex:none;width:24px;height:24px;border-radius:50%;background:var(--red);color:var(--on-red);display:grid;place-items:center;font-weight:700;font-size:.8rem}
 .todo{border:2px dashed var(--amber);background:var(--amber-soft);border-radius:10px;padding:10px 12px}
 .todo b{color:var(--amber)}
+.live .authnote,.live .todo:not(.example){display:none!important}
 .filled{padding:2px 0}
 
 /* plans */
@@ -329,7 +330,7 @@ WARDS.mobiel.plans=WARDS.eetherstel.plans;
 const EXAMPLE={nl:'<b>Voorbeeld.</b> Dit zijn de evacuatieplannen van de afdeling Eetherstel. De plannen verschillen per afdeling: kijk op elke plaats waar je werkt naar het evacuatieplan aan de muur.',
  fr:'<b>Exemple.</b> Voici les plans d’évacuation du service des troubles alimentaires (Eetherstel). Les plans diffèrent selon le service : là où vous travaillez, regardez toujours le plan d’évacuation au mur.',
  en:'<b>Example.</b> These are the evacuation plans of the eating disorder department (Eetherstel). The plans differ per department: wherever you work, always check the evacuation plan on the wall.'};
-const exampleBox=()=>W().planExample?`<div class="todo" style="border-style:solid">${EXAMPLE[lang()]}</div>`:'';
+const exampleBox=()=>W().planExample?`<div class="todo example" style="border-style:solid">${EXAMPLE[lang()]}</div>`:'';
 // WZC's en PSC: één opleiding voor de hele site (alle afdelingen hetzelfde).
 // WZC's en PSC: één opleiding voor de hele site (alle afdelingen hetzelfde). Uit de decks van 13/10/2026.
 const SITE_BASE={afd:'site',siteLevel:1,shelter:1,bluspoging:1,olie:1};
@@ -572,7 +573,7 @@ ${exampleBox()}${assembly()}
   ${p.note?`<div class="alert"><i>!</i><p>${p.note}</p></div>`:''}
   ${p.legImg?'<div class="legend-row"><img src="img/legende.webp" alt="Legende van het plan"><p class="muted" style="font-size:.9rem">Legende: brandmelder, blusapparaat, brandhaspel, richting vluchtweg, nooduitgang, verzamelpunt, EHBO, elektrisch gevaar, vluchtweg en compartimentering.</p></div>'
    :p.leg?`<p class="muted" style="font-size:.9rem">Legende: ${p.leg}.</p>`:''}
-  <p class="muted" style="font-size:.85rem">${p.hq?(p.views.length>1?'Dit zijn de evacuatieplannen zoals ze aan de muur hangen. Elk plan toont de vluchtweg vanaf een andere plaats ("U bent hier").':'Dit is het evacuatieplan zoals het aan de muur hangt.'):'Dit plan komt uit de PowerPoint. Het wordt vervangen door een versie in goede kwaliteit.'}</p>
+  <p class="muted${p.hq?'':' authnote'}" style="font-size:.85rem">${p.hq?(p.views.length>1?'Dit zijn de evacuatieplannen zoals ze aan de muur hangen. Elk plan toont de vluchtweg vanaf een andere plaats ("U bent hier").':'Dit is het evacuatieplan zoals het aan de muur hangt.'):'Dit plan komt uit de PowerPoint. Het wordt vervangen door een versie in goede kwaliteit.'}</p>
 </div>`};
 
 const TIPS=[
@@ -605,6 +606,8 @@ const videoSec=()=>{const L=lang(),u=VID_UI[L];return `<p class="muted">${u.intr
   <p>${v.p[L]}</p>${CAN_EMBED?`<p><a class="vlink" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">${u.open}</a></p>`:''}</div>`).join('')};
 // In de claude.ai-bewerkingsapp laat de beveiliging geen ingesloten video's toe: daar tonen we een knop naar YouTube.
 const CAN_EMBED=/github\.io$/.test(location.hostname)||location.protocol==='file:';
+// Live versie (GitHub Pages): werknotities zoals "komt uit de PowerPoint" en "nog aan te vullen" zijn enkel zichtbaar in de bewerkingsapp.
+const LIVE=/github\.io$/.test(location.hostname);document.documentElement.classList.toggle('live',LIVE);
 const BLUS={
  video:videoSec,
  blussers:()=>`
@@ -850,7 +853,7 @@ ${exampleBox()}${lassembly()}
   <div class="zoom"><span class="muted">${UI[lang()].zoom}</span><button data-z="1">100%</button><button data-z="2">200%</button><button data-z="3">320%</button></div>
   ${p.noteL?`<div class="alert"><i>!</i><p>${p.noteL[lang()]}</p></div>`:''}
   ${p.legL?`<p class="muted" style="font-size:.9rem">${t.legend}: ${p.legL[lang()]}.</p>`:''}
-  <p class="muted" style="font-size:.85rem">${p.hq?t.routeHq:t.routeNote}</p>
+  <p class="muted${p.hq?'':' authnote'}" style="font-size:.85rem">${p.hq?t.routeHq:t.routeNote}</p>
 </div>`},
  blus:()=>{const t=T();return `
 <div class="view-head"><h1>${t.blusH}</h1><p>${t.blusP}</p></div>
