@@ -159,7 +159,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .pair .yes{border-color:var(--green)} .pair .yes figcaption i{color:var(--green)}
 .pair i{font-style:normal;font-weight:700}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.video{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;margin:4px 0 10px}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.vlink{font-weight:600;color:var(--accent,inherit)}
+.video{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;margin:4px 0 10px}.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.vlink{font-weight:600;color:var(--accent,inherit)}.vplay{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;text-decoration:none}.vplay span{width:64px;height:64px;border-radius:50%;background:#c4161c;display:grid;place-items:center;font-size:1.6rem;padding-left:4px}.vplay small{font-weight:600;font-size:.95rem}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:.9rem}
 .chip[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 
@@ -537,8 +537,11 @@ const VID_UI={nl:{intro:'Korte instructievideo’s. Kijk ze eens rustig, zodat j
  en:{intro:'Short instruction videos (in Dutch). Watch them calmly, so you know what to do when it matters.',open:'Watch on YouTube'}};
 const videoSec=()=>{const L=lang(),u=VID_UI[L];return `<p class="muted">${u.intro}</p>`+VIDEOS.map(v=>`
  <div class="card"><div class="card-head"><h2>${v.h[L]}</h2>${sc('all')}</div>
-  <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}?rel=0" title="${v.h[L]}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
-  <p>${v.p[L]}</p><p><a class="vlink" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">${u.open}</a></p></div>`).join('')};
+  ${CAN_EMBED?`<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}?rel=0" title="${v.h[L]}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`
+   :`<a class="video vplay" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener"><span>▶</span><small>${u.open}</small></a>`}
+  <p>${v.p[L]}</p>${CAN_EMBED?`<p><a class="vlink" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener">${u.open}</a></p>`:''}</div>`).join('')};
+// In de claude.ai-bewerkingsapp laat de beveiliging geen ingesloten video's toe: daar tonen we een knop naar YouTube.
+const CAN_EMBED=/github\.io$/.test(location.hostname)||location.protocol==='file:';
 const BLUS={
  video:videoSec,
  blussers:()=>`
