@@ -170,6 +170,11 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .progress{height:8px;background:var(--line);border-radius:999px;overflow:hidden}
 .progress span{display:block;height:100%;background:var(--green);transition:width .3s}
 
+/* language bar */
+.langbar{max-width:1100px;margin:8px auto 0;display:flex;gap:6px}
+.langbar button{background:transparent;border:1.5px solid rgba(255,255,255,.7);color:var(--on-red);border-radius:999px;padding:3px 14px;font-weight:700;cursor:pointer}
+.langbar button[aria-pressed="true"]{background:var(--on-red);color:#b3121b;border-color:var(--on-red)}
+.homebody .langbar{display:none!important}
 /* start screens */
 .homebody .tabbar,.homebody .side,.homebody #editBtn,.homebody #sosBtn{display:none!important}
 .homebody .where b::after{display:none}
@@ -227,6 +232,7 @@ const SHELL=`<header class="top">
     <button class="editbtn" id="editBtn" hidden aria-label="Bewerken"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/></svg><span>Bewerken</span></button>
     <button class="sos" id="sosBtn">Bij brand</button>
   </div>
+  <div class="langbar" id="langbar" role="group" aria-label="Taal / Langue / Language" hidden></div>
 </header>
 
 <div class="shell">
@@ -267,7 +273,24 @@ const WARDS={
   equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdeling.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> op TED niveau 00.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit op een kamer of in een ruimte, met uitzondering van het ergo-lokaal op niveau 00.',EQUIP_STD[6]],
   alerts:['De <b>brandcentrale</b> staat op TED niveau 00.','In het <b>ergo-lokaal</b> op niveau 00 hangt een handbrandmelder in de ruimte zelf.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
   plans:[{l:'00',img:'img/verslaving-plan00.webp',leg:LEG+', brandmeldingscentrale (BMC), evacuatieschakelaar'},{l:'01',img:'img/verslaving-plan01.webp',leg:LEG+', evacuatieschakelaar'},{l:'02',img:'img/verslaving-plan02.webp',leg:LEG+', evacuatieschakelaar'}]},
+
+ onderhoud:{site:'pz',name:'Onderhoud',label:'Onderhoud',afd:'onderhoud',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,langs:['nl','fr','en'],
+  names:{nl:'Onderhoud',fr:'Service d’entretien',en:'Maintenance'},
+  verzamelL:{fr:'Parking du service de psychiatrie générale',en:'Car park at the general psychiatry department'},
+  alerts:['Je werkt op <b>alle afdelingen</b>. Zorg dat je op elke werkplek weet waar de blusmiddelen, de handbrandmelders en de brandcentrale zijn.','<b>Handbrandmelders</b> hangen ook in de technische ruimtes.'],
+  alertsL:{fr:['Vous travaillez dans <b>tous les services</b>. Sur chaque lieu de travail, sachez où se trouvent les moyens d’extinction, les points d’appel manuels et le panneau d’incendie.','Des <b>points d’appel manuels</b> se trouvent aussi dans les locaux techniques.'],
+   en:['You work in <b>every department</b>. At each workplace, know where the extinguishers, manual call points and fire panel are.','<b>Manual call points</b> are also located in technical rooms.']},
+  equip:['<b>Branddekens:</b> aanwezig in alle keukens.','<b>Bio-schuimblussers:</b> op elke gang, op gesloten afdelingen soms in een gesloten kast. Te herkennen aan het groene handvat of de indrukknop.','<b>CO² blussers:</b> in de technische ruimtes en soms in keukens. Te herkennen aan de bredere bek om mee te blussen.','<b>Brandhaspels:</b> op elke gang.','<b>Brandcentrales:</b> meestal op de verpleegpost.','<b>Handbrandmelders:</b> in alle gangen, nooit op een patiëntenkamer. Ook in de technische ruimtes.','<b>Rookmelders:</b> op alle gangen en in alle kamers en ruimtes.'],
+  equipL:{fr:['<b>Couvertures anti-feu :</b> dans toutes les cuisines.','<b>Extincteurs à biomousse :</b> dans chaque couloir, parfois dans une armoire fermée dans les services fermés. Reconnaissables à la poignée verte ou au bouton à presser.','<b>Extincteurs au CO² :</b> dans les locaux techniques et parfois dans les cuisines. Reconnaissables à la buse plus large.','<b>Dévidoirs d’incendie :</b> dans chaque couloir.','<b>Panneaux d’alarme incendie :</b> le plus souvent au poste des infirmiers.','<b>Points d’appel manuels :</b> dans tous les couloirs, jamais dans une chambre de patient. Aussi dans les locaux techniques.','<b>Détecteurs de fumée :</b> dans tous les couloirs, chambres et espaces.'],
+   en:['<b>Fire blankets:</b> in all kitchens.','<b>Bio-foam extinguishers:</b> in every corridor, on closed wards sometimes in a locked cabinet. Recognisable by the green handle or the push button.','<b>CO² extinguishers:</b> in technical rooms and sometimes in kitchens. Recognisable by the wider nozzle.','<b>Fire hoses:</b> in every corridor.','<b>Fire alarm panels:</b> mostly at the nurses’ station.','<b>Manual call points:</b> in all corridors, never in a patient’s room. Also in technical rooms.','<b>Smoke detectors:</b> in all corridors, rooms and spaces.']},
+  planExample:1,plans:[]},
 };
+// Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
+WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
+const EXAMPLE={nl:'<b>Voorbeeld.</b> Dit zijn de evacuatieplannen van de afdeling Eetherstel. De plannen verschillen per afdeling: kijk op elke plaats waar je werkt naar het evacuatieplan aan de muur.',
+ fr:'<b>Exemple.</b> Voici les plans d’évacuation du service des troubles alimentaires (Eetherstel). Les plans diffèrent selon le service : là où vous travaillez, regardez toujours le plan d’évacuation au mur.',
+ en:'<b>Example.</b> These are the evacuation plans of the eating disorder department (Eetherstel). The plans differ per department: wherever you work, always check the evacuation plan on the wall.'};
+const exampleBox=()=>W().planExample?`<div class="todo" style="border-style:solid">${EXAMPLE[lang()]}</div>`:'';
 // WZC's en PSC: één opleiding voor de hele site (alle afdelingen hetzelfde).
 const SITE_STUB={afd:'site',siteLevel:1,verzamel:null,shelter:1,bluspoging:1,olie:1,alerts:[],plans:[]};
 [['alexius','WZC Sint-Alexius'],['passionisten','WZC Passionisten'],['nazareth','WZC Huize Nazareth'],['psc','PSC Leuven']]
@@ -420,13 +443,25 @@ AFD.site=()=>`
 <div class="card"><div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('site')}</div>${TODO_SITE}</div>
 <div class="card"><div class="card-head"><h2>Melding en alarm</h2>${sc('site')}</div>${TODO_SITE}</div>
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('site')}</div>${assembly()}</div>`;
+AFD.onderhoud=()=>{const w=W();return `
+<div class="view-head"><h1>${w.name}</h1><p>Je komt op alle afdelingen van het ziekenhuis. Dit geldt overal.</p></div>
+<div class="card">
+  <div class="card-head"><h2>Detectie- en blusmiddelen in het ziekenhuis</h2>${sc('ward')}</div>
+  <ul class="plain">${w.equip.map(e=>`<li>${e}</li>`).join('')}</ul>
+  <p class="hl">Zorg er altijd voor dat je weet waar deze zich bevinden op de afdeling waar je werkt.</p>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Melding en alarm</h2>${sc('ward')}</div>
+  <ul class="plain">${w.alerts.map(a=>`<li>${a}</li>`).join('')}<li>Melding via rookdetector, branddrukknop of sleutelcontact start meteen ook de evacuatie.</li></ul>
+</div>
+<div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`};
 V.afd=()=>AFD[W().afd]();
 
 V.route=()=>{const w=W();state.view=state.view||0;if(!w.plans.length)return `
 <div class="view-head"><h1>Vluchtroutes</h1><p>De evacuatieplannen van deze site.</p></div>
 ${assembly()}<div class="card"><div class="card-head"><h2>Evacuatieplannen</h2>${sc('site')}</div>${TODO_SITE}</div>`;let p=w.plans.find(x=>x.l===state.lvl);if(!p){p=w.plans[0];state.lvl=p.l}return `
 <div class="view-head"><h1>Vluchtroutes</h1><p>Pijlen tonen de vluchtweg. Zoom in of sleep het plan om je kamer te vinden.</p></div>
-${assembly()}
+${exampleBox()}${assembly()}
 <div class="card">
   <div class="card-head"><div class="seg" role="group" aria-label="Verdieping">
     ${w.plans.map(x=>`<button data-lvl="${x.l}" aria-pressed="${x.l===p.l}">Niveau ${x.l}</button>`).join('')}</div>${sc('ward')}</div>
@@ -500,22 +535,251 @@ function quiz(){const w=W(),q=[
  if(w.shelter)q.push(['Wat doe je bij schuilen ter plaatse met de branddeuren?',['Openzetten voor de brandweer','Gesloten houden','Op slot doen'],1]);
  if(w.verzamel)q.push(['Waar verzamel je na evacuatie?',['Sportterrein voor het gebouw','In de inkomhal',w.verzamel],2]);
  return q}
-const qkey=()=>WID==='jeugd'?'eip-quiz':'quiz-'+WID;
+const qkey=()=>(WID==='jeugd'?'eip-quiz':'quiz-'+WID)+(W().langs&&LANG!=='nl'&&W().langs.includes(LANG)?'-'+LANG:'');
 V.test=()=>{const QUIZ=quiz(),a=state.ans,done=Object.keys(a).length,good=QUIZ.filter((q,i)=>a[i]===q[2]).length;return `
 <div class="view-head"><h1>Test jezelf</h1><p>${QUIZ.length} vragen over ${W().name.toLowerCase()}. Je antwoorden blijven alleen op dit toestel bewaard.</p></div>
 <div class="card"><div class="card-head"><b style="font-variant-numeric:tabular-nums">${good} van ${QUIZ.length} juist</b>${done?'<button class="chip" id="reset">Opnieuw</button>':''}</div><div class="progress"><span style="width:${good/QUIZ.length*100}%"></span></div></div>
 ${QUIZ.map((q,i)=>`<div class="card q"><h3>${q[0]}</h3>${q[1].map((o,j)=>{let c='';if(a[i]!==undefined){if(j===q[2])c='ok';else if(j===a[i])c='bad'}return `<button class="opt ${c}" data-q="${i}" data-o="${j}" ${a[i]!==undefined?'disabled':''}>${o}</button>`}).join('')}</div>`).join('')}`};
 
+// Languages: only wards with `langs` get FR/EN. NL uses the views above; FR/EN use the views below,
+// built from the translated PowerPoints of Onderhoud. Edit keys get "@fr"/"@en" so translations are edited separately.
+const LANG_NAMES={nl:'NL',fr:'FR',en:'EN'};
+let LANG=store.get('lang','nl');
+const lang=()=>(W().langs&&W().langs.includes(LANG))?LANG:'nl';
+const UI={
+ fr:{tabs:{brand:'Incendie',afd:'Service',route:'Évacuation',blus:'Extinction',test:'Test'},sos:'Incendie',hospital:'Hôpital psychiatrique',
+  allSites:'Tous les sites',assembly:'Point de rassemblement',level:'Niveau',zoom:'Zoom',edited:'Dernière modification le'},
+ en:{tabs:{brand:'Fire',afd:'Department',route:'Escape routes',blus:'Extinguishing',test:'Test'},sos:'Fire',hospital:'Psychiatric hospital',
+  allSites:'All sites',assembly:'Assembly point',level:'Level',zoom:'Zoom',edited:'Last edited on'},
+};
+const LT={
+ fr:{
+  brandH:'En cas d’incendie',brandP:'Ce que vous faites, dans cet ordre. Touchez une étape pour voir les détails.',
+  fire:'Pompiers',callFirst:'Toujours appeler en premier',internal:'Numéro d’urgence interne',thenReport:'Signalez ensuite',
+  accident:'En cas d’accident',accidentTxt:'Les infirmiers viennent, avec la valise d’urgence',specific:'Spécifique au service d’entretien',
+  s1:['Mettez-vous en sécurité','Ensuite seulement, vous pouvez agir','<p>Assurez-vous d’abord votre propre sécurité avant d’agir.</p>'],
+  s2:['Vérifiez et signalez','Panneau d’incendie + DECT, 112 et 999',`<p>Signalez via le détecteur de fumée, le point d’appel manuel ou la clé d’évacuation : cela lance aussi l’évacuation. La fumée peut déjà avoir été détectée par un détecteur de fumée.</p>
+    <p>Une notification apparaît sur le panneau d’incendie et le DECT. Chaque service est invité à vérifier la situation.</p>
+    <p class="hl">Ne réinitialisez JAMAIS l’alarme sans d’abord vérifier s’il y a un véritable incendie !</p>
+    <p>En cas d’incendie : appelez le <b>112</b> et signalez via le numéro d’urgence interne <b>999</b>. Donnez le plus d’informations possible :</p>
+    <ul class="plain"><li>localisation et étendue</li><li>victimes éventuelles</li><li>besoin d’aide supplémentaire : appuyez <b>deux fois brièvement</b> sur le bouton d’urgence en haut du DECT</li></ul>`],
+  s3:['Éteignez ou fermez la porte','Petit feu : éteindre. Grand feu : enfermer',`<p>Le feu est dans une pièce et encore contrôlable ? Utilisez un extincteur ou une couverture anti-feu (voir <a href="#blus" data-go="blus">Extinction</a>).</p>
+    <p>Le feu est trop grand et la porte peut encore être fermée ? <b>Faites-le immédiatement.</b> Cela réduit la fumée dans le couloir.</p>
+    <p>Fermez toutes les fenêtres. Les portes coupe-feu se ferment automatiquement quand l’alarme est déclenchée ; sinon, fermez-les manuellement. Une porte coupe-feu vous donne 30 minutes de plus.</p>
+    <p class="hl">Ne verrouillez aucune porte ni fenêtre !</p>`],
+  s4:['Évacuez le service','Les personnes les plus mobiles d’abord',`<p>Après vous être mis en sécurité, évacuez d’abord les personnes les plus mobiles. Aidez les personnes moins mobiles seulement quand tout le monde est en sécurité et que c’est encore possible.</p>
+    <p>Si ce n’est plus possible, passez au <b>confinement</b> (voir en bas de cette page).</p>
+    <p>Vous devez traverser de la fumée ? Restez près du sol : la fumée monte, et il y a plus d’oxygène près du sol.</p>
+    <p class="hl">Si vous ouvrez une porte coupe-feu en sortant, refermez-la derrière vous !</p>
+    <div class="ext"><img src="img/deur.webp" alt="Main qui touche une poignée de porte pour sentir la chaleur"><p><b>Vous ne savez pas où est le feu ?</b> Vérifiez la chaleur des portes : cherchez de la fumée sous la porte, approchez la main de la porte et touchez doucement la poignée. S’il y a des signes de feu, prenez un autre chemin.</p></div>`],
+  s5:['Quittez le service','Calmement, en groupe, vers le point de rassemblement',`<p>Quittez le service en groupe si possible, calmement et dans l’ordre. Ne courez pas et ne criez pas. Suivez les panneaux d’évacuation.</p>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogramme sortie de secours"><img src="img/geenlift.webp" alt="En cas d’incendie : interdit d’utiliser l’ascenseur"></div>
+    <p>Laissez vos effets personnels derrière vous. Si possible, éteignez les appareils électriques.</p>
+    %ASSEMBLY%
+    <p>Une fois à l’extérieur, ne rentrez <b>pas</b> dans le bâtiment. Faites l’appel et signalez toute personne disparue au responsable du point de rassemblement.</p>
+    <p class="hl">Ne rentrez qu’après l’autorisation des pompiers.</p>`],
+  shelterH:'Confinement (shelter-in-place)',
+  shelterP:'Les personnes restent temporairement dans un lieu sûr au lieu d’évacuer. On le fait quand l’évacuation serait trop risquée, par exemple en cas de fumée qui se propage rapidement, ou quand la sécurité des personnes vulnérables ne peut pas être garantie pendant l’évacuation.',
+  goal:'Objectif',goals:['Se protéger contre un danger immédiat, comme la fumée ou le feu, en restant dans une zone protégée derrière une porte coupe-feu.','Gagner du temps jusqu’à l’arrivée des secours et jusqu’à ce que l’évacuation soit possible.','Réduire la panique chez les personnes vulnérables.'],
+  how:'Comment ça marche',
+  shelterSteps:[['Évaluez la situation.','Est-il plus sûr de garder les résidents là où ils sont ? Tenez compte de l’emplacement du feu, de la propagation de la fumée et du fonctionnement des compartiments incendie.'],
+   ['Sécurisez la zone.','Gardez toutes les portes coupe-feu du compartiment fermées. Gardez fenêtres et portes fermées et bouchez les fentes avec des chiffons humides si nécessaire.'],
+   ['Prenez soin des résidents.','Gardez-les calmes et guidez-les vers une zone sûre dans le service. Accordez une attention particulière aux personnes ayant des problèmes respiratoires ; utilisez si possible des aides comme des masques à oxygène.'],
+   ['Préparez une évacuation.','Préparez fauteuils roulants, draps d’évacuation et aides au cas où la situation s’aggrave. Répartissez les tâches, comme l’accompagnement des résidents moins mobiles.']],
+  afdP:'Vous travaillez dans tous les services de l’hôpital. Ceci s’applique partout.',
+  equipH:'Systèmes de détection et d’extinction à l’hôpital',equipNote:'Assurez-vous toujours de savoir où ils se trouvent dans le service où vous travaillez.',
+  alarmH:'Notification et alarme',alarmExtra:'Une notification via le détecteur de fumée, le point d’appel manuel ou la clé d’évacuation lance aussi immédiatement l’évacuation.',
+  routeH:'Itinéraires d’évacuation',routeP:'Les flèches montrent le chemin d’évacuation. Zoomez puis faites glisser le plan.',
+  routeNote:'Ce plan vient du PowerPoint. Il sera remplacé par une version de bonne qualité.',routeHq:'Ce sont les plans d’évacuation tels qu’ils sont affichés au mur. Chaque plan montre le chemin depuis un autre endroit (« Vous êtes ici »).',legend:'Légende',
+  blusH:'Extinction',blusP:'Connaissances générales, communes à tous les sites.',
+  chips:{blussers:'Extincteurs',tips:'Astuces',deken:'Couverture anti-feu',klassen:'Classes de feu'},
+  attemptH:'Tentative d’extinction',
+  attemptP:'Lorsque l’incendie peut encore être maîtrisé, utilisez l’équipement disponible (extincteurs ou couverture anti-feu). Ne tentez d’éteindre l’incendie que si :',
+  attempt:['votre propre sécurité est garantie ;','vous n’êtes pas seul : un collègue est là pour vous aider ;','l’incendie est encore sous contrôle et peut être éteint avec un ou plusieurs extincteurs ;','l’alarme incendie a été activée, pour que les collègues soient informés.'],
+  attemptHl:'Ne faites qu’une seule tentative d’extinction. Si la situation n’est plus sous contrôle, quittez les lieux, fermez la porte (sans la verrouiller) et procédez à une évacuation complète.',
+  onSites:'Sur les sites : extincteurs à biomousse et extincteurs au CO² (locaux techniques).',
+  foamH:'Extincteur à biomousse',foamC:'Classes de feu A et B',foamF:['Distance <b>4 à 1–1,5 m</b>','Autonomie <b>20–45 s</b>','Peu de dégâts'],
+  foam:['Retirez l’extincteur du support mural et retirez la goupille de sûreté.','Gardez l’extincteur à la verticale et visez la base des flammes.','Solides : jet interrompu. Liquides : jet continu.','La mousse empêche le rallumage.','Sûr pour une utilisation sur des personnes en feu.'],
+  co2H:'Extincteur au CO²',co2C:'Classes de feu B, C et E',co2F:['Distance <b>min. 1–1,5 m</b>','Autonomie <b>±20 s</b>','Aucun dégât'],
+  co2:['Retirez l’extincteur du support mural et retirez la goupille de sûreté.','Idéal pour les ordinateurs et les installations électriques.','Liquides : jet continu.','<span class="hl">Ne visez jamais une personne : risque d’engelures (−78 °C).</span>','<span class="hl">Jamais dans un petit espace fermé : l’oxygène chute très vite.</span>'],
+  tipsH:'Astuces et conseils',
+  tips:[['Ne jamais arroser contre le vent','Combattez le feu avec le vent'],['Ne vaporisez pas au hasard','Éteignez une surface en feu de l’avant vers l’arrière'],['Ne vaporisez pas seulement le sol si du liquide brûlant coule','Éteignez un liquide en feu de haut en bas, de préférence avec plusieurs extincteurs'],['Ne videz pas les extincteurs l’un après l’autre','Pour un grand feu, utilisez plusieurs extincteurs en même temps'],['Ne partez pas tout de suite après avoir éteint','Attention au rallumage'],['Ne raccrochez pas les extincteurs vides','Faites-les remplir immédiatement']],
+  blanketH:'Éteindre avec une couverture anti-feu',blanketHl:'Uniquement pour les petits feux contrôlables.',
+  blanket:['Tirez sur les deux sangles noires : la boîte s’ouvre.','Tournez la couverture vers l’intérieur autour de vos mains, pour que les flammes n’atteignent pas vos mains.','Tenez la couverture devant vous et posez-la sur la surface en feu.','Bouchez toutes les ouvertures et laissez la couverture en place. Sans oxygène, le feu s’éteint.'],
+  clothesH:'Les vêtements de quelqu’un prennent feu',clothesP:'Une couverture anti-feu est aussi idéale pour éteindre une personne.',
+  clothes:['Allongez la personne si possible.','Couvrez-la de haut en bas, pour que les flammes ne soient pas poussées vers la tête.','Pressez la couverture contre la personne. Laissez la tête découverte.','Refroidissez ensuite avec de l’eau tiède. L’eau froide peut provoquer une hypothermie.'],
+  neverH:'Quand jamais ?',never:['Le feu est trop grand.','Vous ne vous sentez pas en sécurité pour éteindre vous-même.'],
+  oil:'<b>Huile en feu :</b> l’huile peut s’infiltrer dans la couverture et prendre feu elle-même.',oilExc:' Exception : si la couverture anti-feu est le seul moyen dont vous disposez pour ralentir le feu.',
+  once:'N’utilisez une couverture anti-feu qu’une seule fois.',
+  classesH:'Quels types d’incendies existe-t-il ?',
+  classes:[['A','Matériaux solides','bois, papier, textiles'],['B','Liquides','huile, essence, graisses'],['C','Gaz','butane, propane, gaz naturel'],['D','Métaux combustibles','magnésium, aluminium, lithium…'],['E','Électrique','pas une vraie classe, mais souvent indiquée sur les extincteurs'],['F','Huiles et graisses chaudes','friteuses']],
+  testH:'Testez-vous',testP:n=>`${n} questions. Vos réponses restent uniquement sur cet appareil.`,good:(g,n)=>`${g} sur ${n} correctes`,again:'Recommencer',
+  quiz:[['Que faites-vous en tout premier en cas d’incendie ?',['Appeler le 112','Me mettre en sécurité','Réinitialiser le panneau d’incendie'],1],
+   ['Quel est le numéro d’urgence interne en cas d’incendie ?',['112','100','999'],2],
+   ['Quand faites-vous une tentative d’extinction ?',['Toujours, le plus vite possible','Quand vous êtes en sécurité, qu’un collègue aide, que le feu est maîtrisable et que l’alarme est activée','Seulement si les pompiers ne sont pas encore là'],1],
+   ['Quel extincteur ne dirigez-vous jamais vers une personne ?',['Extincteur à biomousse','Extincteur au CO²','Aucun des deux'],1],
+   ['L’huile de friture brûle. Utilisez-vous la couverture anti-feu ?',['Oui, toujours','Non, sauf si c’est votre seul moyen pour ralentir le feu','Seulement pour un petit feu'],1],
+   ['Que faites-vous des portes coupe-feu pendant le confinement ?',['Les ouvrir pour les pompiers','Les garder fermées','Les verrouiller'],1],
+   ['Où vous rassemblez-vous après l’évacuation ?',['Sur le terrain de sport','Dans le hall d’entrée','Parking du service de psychiatrie générale'],2]],
+ },
+ en:{
+  brandH:'In case of fire',brandP:'What you do, in this order. Tap a step to see the details.',
+  fire:'Fire brigade',callFirst:'Always call first',internal:'Internal emergency number',thenReport:'Then report',
+  accident:'In case of an accident',accidentTxt:'The nurses come, with the emergency kit',specific:'Specific to maintenance',
+  s1:['Get yourself to safety','Only then can you take action','<p>First ensure your own safety before taking action.</p>'],
+  s2:['Check and report','Fire panel + DECT, 112 and 999',`<p>Report via the smoke detector, the manual call point or the key contact: this also starts the evacuation. The smoke may already have been detected by a smoke detector.</p>
+    <p>A notification appears on the fire panel and the DECT. Each department is asked to go and check.</p>
+    <p class="hl">NEVER reset the alarm without first checking whether there is an actual fire!</p>
+    <p>In case of fire: call <b>112</b> and report via the internal emergency number <b>999</b>. Give as much information as possible:</p>
+    <ul class="plain"><li>location and extent</li><li>any victims</li><li>extra help needed: press the emergency button at the top of the DECT <b>twice briefly</b></li></ul>`],
+  s3:['Extinguish or close the door','Small fire: extinguish. Large fire: contain',`<p>Is the fire in a room and still under control? Use a fire extinguisher or fire blanket (see <a href="#blus" data-go="blus">Extinguishing</a>).</p>
+    <p>Is the fire too large and can you still close the door? <b>Do it immediately.</b> This reduces smoke in the hallway.</p>
+    <p>Close all windows. Fire doors close automatically when the alarm goes off; if one does not, close it manually. A fire door gives you 30 extra minutes.</p>
+    <p class="hl">Do not lock any doors or windows!</p>`],
+  s4:['Evacuate the department','Most mobile people first',`<p>After securing yourself, evacuate the most mobile people first. Only help the less mobile people once everyone else is safe and it is still possible.</p>
+    <p>If that is no longer possible, switch to <b>shelter-in-place</b> (see the bottom of this page).</p>
+    <p>Do you have to go through smoke? Stay low to the ground: smoke rises, and there is more oxygen near the floor.</p>
+    <p class="hl">If you open a fire door on your way out, close it behind you!</p>
+    <div class="ext"><img src="img/deur.webp" alt="Hand feeling a door handle for heat"><p><b>Don’t know where the fire is?</b> Check doors for heat: look for smoke under the door, hold your hand near the door and gently touch the handle. If you notice any sign of fire, take another route.</p></div>`],
+  s5:['Leave the department','Calmly, as a group, to the assembly point',`<p>Leave the department as a group if possible, calmly and in an orderly way. No running or shouting. Follow the evacuation signs.</p>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Emergency exit sign"><img src="img/geenlift.webp" alt="In case of fire: do not use the lift"></div>
+    <p>Leave your personal belongings behind. If possible, switch off electrical devices.</p>
+    %ASSEMBLY%
+    <p>Once outside, do <b>not</b> go back in. Take attendance and report any missing persons to the person in charge at the assembly point.</p>
+    <p class="hl">Only go back in after permission from the fire brigade.</p>`],
+  shelterH:'Shelter-in-place',
+  shelterP:'People temporarily stay in a safe place instead of evacuating. You do this when evacuation would be too risky, for example with rapidly spreading smoke, or when the safety of vulnerable people cannot be guaranteed during an evacuation.',
+  goal:'Purpose',goals:['Protection from immediate danger, such as smoke or fire, by staying in a protected area behind a fire door.','Gaining time until the emergency services arrive and evacuation becomes possible.','Reducing panic among vulnerable people.'],
+  how:'How it works',
+  shelterSteps:[['Assess the situation.','Is it safer to keep the residents where they are? Consider the location of the fire, the spread of smoke and whether the fire compartments are working.'],
+   ['Secure the area.','Keep all fire doors in the compartment closed. Keep windows and doors shut and seal gaps with wet cloths if necessary.'],
+   ['Care for the residents.','Keep them calm and guide them to a safe zone within the department. Give extra attention to people with breathing problems; use aids such as oxygen masks if possible.'],
+   ['Prepare for evacuation.','Have wheelchairs, evacuation sheets and aids ready in case the situation gets worse. Assign tasks, such as helping less mobile residents.']],
+  afdP:'You work in every department of the hospital. This applies everywhere.',
+  equipH:'Detection and extinguishing systems in the hospital',equipNote:'Always make sure you know where these are in the department where you are working.',
+  alarmH:'Notification and alarm',alarmExtra:'A notification via smoke detector, manual call point or key contact also starts the evacuation immediately.',
+  routeH:'Escape routes',routeP:'Arrows show the escape route. Zoom in and drag the plan.',
+  routeNote:'This plan comes from the PowerPoint. It will be replaced by a high-quality version.',routeHq:'These are the evacuation plans as they hang on the wall. Each plan shows the route from a different spot (“You are here”).',legend:'Legend',
+  blusH:'Extinguishing',blusP:'General knowledge, shared by all sites.',
+  chips:{blussers:'Extinguishers',tips:'Tips',deken:'Fire blanket',klassen:'Fire classes'},
+  attemptH:'Extinguishing attempt',
+  attemptP:'When a fire can still be brought under control, use the available equipment (fire extinguishers or fire blanket). Only attempt to extinguish the fire if:',
+  attempt:['your own safety is guaranteed;','you are not alone: a colleague is present to assist;','the fire is still under control and can be put out with one or more extinguishers;','the fire alarm has been activated, so colleagues are aware.'],
+  attemptHl:'Only ever make one extinguishing attempt. If the situation is no longer under control, leave the scene, close the door (without locking it) and proceed with a full evacuation.',
+  onSites:'On the sites: bio-foam extinguishers and CO² extinguishers (technical rooms).',
+  foamH:'Bio-foam extinguisher',foamC:'Fire classes A and B',foamF:['Distance <b>4 to 1–1.5 m</b>','Autonomy <b>20–45 s</b>','Little damage'],
+  foam:['Take the extinguisher from the wall holder and pull the safety pin.','Keep the extinguisher upright and aim at the base of the flames.','Solids: interrupted spray. Liquids: continuous spray.','The foam prevents re-ignition.','Safe to use on people whose clothes are on fire.'],
+  co2H:'CO² extinguisher',co2C:'Fire classes B, C and E',co2F:['Distance <b>min. 1–1.5 m</b>','Autonomy <b>±20 s</b>','No damage'],
+  co2:['Take the extinguisher from the wall holder and pull the safety pin.','Ideal for computers and electrical installations.','Liquids: continuous spray.','<span class="hl">Never aim at a person: frostbite (−78 °C).</span>','<span class="hl">Never in a small, enclosed space: oxygen drops very quickly.</span>'],
+  tipsH:'Tips & tricks',
+  tips:[['Never spray against the wind','Fight the fire with the wind'],['Don’t spray randomly','Extinguish a burning surface from front to back'],['Don’t only spray the floor when burning liquid drips down','Extinguish burning liquid from top to bottom, preferably with several extinguishers at once'],['Don’t empty one extinguisher after another','Use several extinguishers at once for a large fire'],['Don’t just walk away after extinguishing','Watch out for re-ignition'],['Don’t rehang empty extinguishers','Have them refilled immediately']],
+  blanketH:'Using a fire blanket',blanketHl:'Only for small, controllable fires.',
+  blanket:['Pull the two black straps: the box clicks open.','Turn the blanket inwards around your hands, so the flames cannot reach your hands.','Hold the blanket in front of you and lay it over the burning surface.','Seal all openings and leave the blanket in place. Without oxygen, the fire goes out.'],
+  clothesH:'Someone’s clothing catches fire',clothesP:'A fire blanket is also ideal for putting out a person.',
+  clothes:['Lay the person down if possible.','Cover them from top to bottom, so the flames are not pushed towards the head.','Press the blanket against the person. Keep the head uncovered.','Then cool with lukewarm water. Cold water can cause hypothermia.'],
+  neverH:'When never?',never:['The fire is too large.','You don’t feel safe putting it out yourself.'],
+  oil:'<b>Burning oil:</b> the oil can soak into the blanket and catch fire itself.',oilExc:' Exception: if the fire blanket is the only means you have to slow the fire down.',
+  once:'Only ever use a fire blanket once.',
+  classesH:'What types of fire are there?',
+  classes:[['A','Solids','wood, paper, textiles'],['B','Liquids','oil, petrol, fats'],['C','Gases','butane, propane, natural gas'],['D','Flammable metals','magnesium, aluminium, lithium…'],['E','Electrical','not an official class, but shown on extinguishers'],['F','Hot oils and fats','deep fryers']],
+  testH:'Test yourself',testP:n=>`${n} questions. Your answers are only stored on this device.`,good:(g,n)=>`${g} of ${n} correct`,again:'Start again',
+  quiz:[['What do you do first in case of fire?',['Call 112','Get myself to safety','Reset the fire panel'],1],
+   ['What is the internal emergency number for fire?',['112','100','999'],2],
+   ['When do you make an extinguishing attempt?',['Always, as fast as possible','When you are safe, a colleague helps, the fire can be put out and the alarm is activated','Only if the fire brigade is not there yet'],1],
+   ['Which extinguisher do you never aim at a person?',['Bio-foam extinguisher','CO² extinguisher','Neither'],1],
+   ['The frying oil is on fire. Do you use the fire blanket?',['Yes, always','No, unless it is your only means to slow the fire down','Only for a small fire'],1],
+   ['What do you do with the fire doors during shelter-in-place?',['Open them for the fire brigade','Keep them closed','Lock them'],1],
+   ['Where do you gather after evacuation?',['On the sports field','In the entrance hall','Car park at the general psychiatry department'],2]],
+ },
+};
+const T=()=>LT[lang()];
+const lassembly=()=>`<div class="assembly"><img src="img/verzamelpunt.webp" alt=""><div><small>${UI[lang()].assembly}</small><b>${W().verzamelL[lang()]}</b></div></div>`;
+const LV={
+ brand:()=>{const t=T(),w=W();return `
+<div class="view-head"><h1>${t.brandH}</h1><p>${t.brandP}</p></div>
+<div class="numbers">
+  <div class="num"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
+  <div class="num alt"><span>${t.internal}</span><b>999</b><span>${t.thenReport}</span></div>
+  <div class="num acc"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>
+</div>
+<div class="card"><div class="card-head"><h3>${t.specific}</h3>${sc('ward')}</div>
+  <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
+<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1],t[k][2].replace('%ASSEMBLY%',lassembly()))).join('')}</ol>
+<div class="card" id="shelter">
+  <div class="card-head"><h2>${t.shelterH}</h2>${sc('all')}</div>
+  <p>${t.shelterP}</p>
+  <h3>${t.goal}</h3>
+  <ul class="plain">${t.goals.map(g=>`<li>${g}</li>`).join('')}</ul>
+  <h3>${t.how}</h3>
+  <ol class="keylist">${t.shelterSteps.map((s,i)=>`<li><span>${i+1}</span><p><b>${s[0]}</b> ${s[1]}</p></li>`).join('')}</ol>
+</div>`},
+ afd:()=>{const t=T(),w=W();return `
+<div class="view-head"><h1>${w.names[lang()]}</h1><p>${t.afdP}</p></div>
+<div class="card"><div class="card-head"><h2>${t.equipH}</h2>${sc('ward')}</div>
+  <ul class="plain">${w.equipL[lang()].map(e=>`<li>${e}</li>`).join('')}</ul>
+  <p class="hl">${t.equipNote}</p></div>
+<div class="card"><div class="card-head"><h2>${t.alarmH}</h2>${sc('ward')}</div>
+  <ul class="plain">${w.alertsL[lang()].map(a=>`<li>${a}</li>`).join('')}<li>${t.alarmExtra}</li></ul></div>
+<div class="card"><div class="card-head"><h2>${UI[lang()].assembly}</h2>${sc('ward')}</div>${lassembly()}</div>`},
+ route:()=>{const t=T(),w=W();state.view=state.view||0;let p=w.plans.find(x=>x.l===state.lvl);if(!p){p=w.plans[0];state.lvl=p.l}return `
+<div class="view-head"><h1>${t.routeH}</h1><p>${t.routeP}</p></div>
+${exampleBox()}${lassembly()}
+<div class="card">
+  <div class="card-head"><div class="seg" role="group" aria-label="${UI[lang()].level}">
+    ${w.plans.map(x=>`<button data-lvl="${x.l}" aria-pressed="${x.l===p.l}">${UI[lang()].level} ${x.l}</button>`).join('')}</div>${sc('ward')}</div>
+  ${p.views&&p.views.length>1?`<div class="chips">${p.views.map((v,i)=>`<button class="chip" data-view="${i}" aria-pressed="${i===Math.min(state.view,p.views.length-1)}">Plan ${i+1}</button>`).join('')}</div>`:''}
+  <div class="plan" id="plan"><img src="${p.views?p.views[Math.min(state.view,p.views.length-1)]:p.img}" alt="${t.routeH} ${p.l}"></div>
+  <div class="zoom"><span class="muted">${UI[lang()].zoom}</span><button data-z="1">100%</button><button data-z="2">200%</button><button data-z="3">320%</button></div>
+  ${p.noteL?`<div class="alert"><i>!</i><p>${p.noteL[lang()]}</p></div>`:''}
+  ${p.legL?`<p class="muted" style="font-size:.9rem">${t.legend}: ${p.legL[lang()]}.</p>`:''}
+  <p class="muted" style="font-size:.85rem">${p.hq?t.routeHq:t.routeNote}</p>
+</div>`},
+ blus:()=>{const t=T();return `
+<div class="view-head"><h1>${t.blusH}</h1><p>${t.blusP}</p></div>
+<div class="chips" id="blusChips">${Object.entries(t.chips).map(([k,l])=>`<button class="chip" data-sec="${k}" aria-pressed="${state.sec===k}">${l}</button>`).join('')}</div>
+<div id="blusSec">${LBLUS[state.sec]()}</div>`},
+ test:()=>{const t=T(),Q=t.quiz,a=state.ans,done=Object.keys(a).length,good=Q.filter((q,i)=>a[i]===q[2]).length;return `
+<div class="view-head"><h1>${t.testH}</h1><p>${t.testP(Q.length)}</p></div>
+<div class="card"><div class="card-head"><b style="font-variant-numeric:tabular-nums">${t.good(good,Q.length)}</b>${done?`<button class="chip" id="reset">${t.again}</button>`:''}</div><div class="progress"><span style="width:${good/Q.length*100}%"></span></div></div>
+${Q.map((q,i)=>`<div class="card q"><h3>${q[0]}</h3>${q[1].map((o,j)=>{let c='';if(a[i]!==undefined){if(j===q[2])c='ok';else if(j===a[i])c='bad'}return `<button class="opt ${c}" data-q="${i}" data-o="${j}" ${a[i]!==undefined?'disabled':''}>${o}</button>`}).join('')}</div>`).join('')}`},
+};
+const LBLUS={
+ blussers:()=>{const t=T();return `
+ <div class="card"><div class="card-head"><h2>${t.attemptH}</h2>${sc('all')}</div>
+  <p>${t.attemptP}</p><ul class="plain">${t.attempt.map(x=>`<li>${x}</li>`).join('')}</ul>
+  <p class="hl">${t.attemptHl}</p><p class="muted">${t.onSites}</p></div>
+ <div class="grid2">
+ <div class="card"><div class="ext"><img src="img/blusser.webp" alt=""><div><h3>${t.foamH}</h3><p class="muted">${t.foamC}</p></div></div>
+  <div class="facts">${t.foamF.map(f=>`<span class="fact">${f}</span>`).join('')}</div>
+  <ul class="plain">${t.foam.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+ <div class="card"><div class="ext"><img src="img/blusser.webp" alt=""><div><h3>${t.co2H}</h3><p class="muted">${t.co2C}</p></div></div>
+  <div class="facts">${t.co2F.map(f=>`<span class="fact">${f}</span>`).join('')}</div>
+  <ul class="plain">${t.co2.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+ </div>`},
+ tips:()=>{const t=T();return `<div class="card"><div class="card-head"><h2>${t.tipsH}</h2>${sc('all')}</div><div class="pairs">${TIPS.map((x,i)=>`<div class="pair">
+  <figure class="no"><img src="img/tip${x[0]}.webp" alt=""><figcaption><i>✕</i>${t.tips[i][0]}</figcaption></figure>
+  <figure class="yes"><img src="img/tip${x[2]}.webp" alt=""><figcaption><i>✓</i>${t.tips[i][1]}</figcaption></figure></div>`).join('')}</div></div>`},
+ deken:()=>{const t=T();return `<div class="grid2">
+ <div class="card"><div class="card-head"><h2>${t.blanketH}</h2>${sc('all')}</div><div class="ext"><img src="img/branddeken.webp" alt=""><p class="hl">${t.blanketHl}</p></div>
+  <ol class="plain">${t.blanket.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+ <div class="card"><div class="card-head"><h2>${t.clothesH}</h2>${sc('all')}</div><div class="ext"><img src="img/kledij.webp" alt=""><p>${t.clothesP}</p></div>
+  <ol class="plain">${t.clothes.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+ <div class="card"><div class="card-head"><h2>${t.neverH}</h2>${sc('all')}</div>
+  <ul class="plain">${t.never.map(x=>`<li>${x}</li>`).join('')}<li>${t.oil}${W().olie?t.oilExc:''}</li></ul>
+  <p class="hl">${t.once}</p></div></div>`},
+ klassen:()=>{const t=T();return `<div class="card"><div class="card-head"><h2>${t.classesH}</h2>${sc('all')}</div><div class="classes">${t.classes.map(c=>`<div class="cls"><img src="img/${c[0]}.webp" alt="${c[0]}"><p><b>${c[0]} · ${c[1]}</b>${c[2]}</p></div>`).join('')}</div></div>`},
+};
+
 const state={screen:store.get('plek',null)?null:'home',tab:'brand',lvl:'00',sec:'blussers',ans:store.get(qkey(),{}),edit:false,draft:null,msg:''};
 const ok=TABS.map(t=>t[0]);
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
-function navHTML(){return TABS.map(([k,l])=>(k==='afd'&&W().siteLevel&&(l='Site'),`<button class="tab" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
+function navHTML(){return TABS.map(([k,l])=>(k==='afd'&&W().siteLevel&&(l='Site'),lang()!=='nl'&&(l=UI[lang()].tabs[k]),`<button class="tab" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
 function homeHTML(){
   if(state.screen==='pz'){const s=SITES[0],ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz');return `
 <button class="back" data-home="home">‹ Alle sites</button>
 <div class="view-head"><h1>${s.name}</h1><p>Kies de afdeling waar je werkt. De app onthoudt je keuze.</p></div>
-<div class="picks">${ws.map(([k,w])=>`<button class="pick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.name}</b></span></button>`).join('')}
+<div class="picks">${ws.map(([k,w])=>`<button class="pick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.name}</b>${w.names?`<small>${w.names.fr} · ${w.names.en}</small>`:''}</span></button>`).join('')}
 <button class="pick" disabled><span><b>Andere afdelingen</b><small>Volgen later</small></span></button></div>`}
   return `
 <div class="view-head"><h1>Waar werk je?</h1><p>Kies je site. Daarna zie je de opleiding brandveiligheid voor jouw afdeling of site.</p></div>
@@ -527,10 +791,14 @@ function render(){
   document.body.classList.toggle('homebody',!!state.screen);
   if(state.screen){if(state.edit)cancelEditSilently();main.innerHTML=homeHTML();
     document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
-  document.getElementById('whereSite').textContent=W().siteLevel?'Alle afdelingen':siteName();
-  main.innerHTML=(state.edit?editBar():'')+`<div class="view">${V[state.tab]()}</div>`+stamp();
+  document.getElementById('whereSite').textContent=W().siteLevel?'Alle afdelingen':lang()!=='nl'?UI[lang()].hospital:siteName();
+  const VV=lang()!=='nl'?LV:V;document.documentElement.lang=lang();
+  main.innerHTML=(state.edit?editBar():'')+`<div class="view">${VV[state.tab]()}</div>`+stamp();
+  const lb=document.getElementById('langbar');lb.hidden=!W().langs;
+  if(W().langs)lb.innerHTML=W().langs.map(l=>`<button data-lang="${l}" aria-pressed="${l===lang()}">${LANG_NAMES[l]}</button>`).join('');
+  document.getElementById('sosBtn').textContent=lang()!=='nl'?UI[lang()].sos:'Bij brand';
   applyEdits(main.querySelector('.view'));applyPins(main);
-  document.getElementById('whereWard').textContent=W().name;
+  document.getElementById('whereWard').textContent=W().names?W().names[lang()]:W().name;
   const eb=document.getElementById('editBtn');eb.querySelector('span').textContent=state.edit?'Klaar':'Bewerken';eb.setAttribute('aria-label',state.edit?'Bewerkmodus sluiten':'Bewerken');
   document.getElementById('tabbar').innerHTML=navHTML();
   document.body.classList.toggle('editmode',state.edit);
@@ -553,6 +821,7 @@ document.addEventListener('click',e=>{
   const o=e.target.closest('.opt');if(o){state.ans[o.dataset.q]=+o.dataset.o;store.set(qkey(),state.ans);return render()}
   if(e.target.id==='reset'){state.ans={};store.set(qkey(),{});return render()}
   if(e.target.closest('#sosBtn')){go('brand');const f=document.querySelector('.step'),b=f&&f.querySelector('button');b&&b.click();return}
+  const lg=e.target.closest('[data-lang]');if(lg){if(state.edit)return;LANG=lg.dataset.lang;store.set('lang',LANG);state.ans=store.get(qkey(),{});return render()}
   const hm=e.target.closest('[data-home]');if(hm){state.screen=hm.dataset.home;render();return window.scrollTo({top:0})}
   const wd=e.target.closest('[data-ward]');if(wd){WID=wd.dataset.ward;store.set('ward',WID);store.set('plek',1);state.ans=store.get(qkey(),{});state.screen=null;return go('brand')}
   if(e.target.closest('#whereBtn')){if(state.edit)return;state.screen=state.screen?'home':(W().site==='pz'?'pz':'home');render();return window.scrollTo({top:0})}
@@ -574,7 +843,7 @@ function closeSheet(){document.getElementById('sheetHost').innerHTML='';document
 // Edit mode: every text block in a view gets a stable key (view/subview/index). Edits are stored as key -> html
 // in the JSON block above, and saving republishes the whole page with that JSON replaced.
 const EDIT_SEL='h1,h2,h3,p,li:not(.keylist li):not(.step),figcaption,.step-t b,.step-t span,.assembly b,.assembly small,.num span,.num b,.fact,.todo';
-function viewKey(){return WID+'/'+state.tab+'/'+(state.tab==='blus'?state.sec:state.tab==='route'?state.lvl:'-')}
+function viewKey(){return WID+(lang()!=='nl'?'@'+lang():'')+'/'+state.tab+'/'+(state.tab==='blus'?state.sec:state.tab==='route'?state.lvl:'-')}
 function applyEdits(root){
   if(state.tab==='test')return;
   const edits=state.edit?state.draft:SAVED.edits,vk=viewKey();
@@ -622,7 +891,7 @@ function editBar(){const n=Object.keys(state.draft).length;return `<div class="e
   <p><b>Bewerkmodus.</b> Klik op een tekst om ze aan te passen. Ctrl+B maakt tekst vet.</p>
   <button class="cancel" id="cancelBtn">Annuleren</button><button class="save" id="saveBtn">Opslaan</button>
   <span class="msg">${state.msg||(n?n+' aangepaste tekst'+(n>1?'en':'')+'. Gewijzigde blokken hebben een gele streep. <button class="cancel" id="resetAllBtn" style="padding:3px 10px">Alles terug naar origineel</button>':'Nog geen wijzigingen.')}</span></div>`}
-function stamp(){if(!SAVED.savedAt)return '';const d=new Date(SAVED.savedAt);return `<p class="stamp">Laatst aangepast op ${d.toLocaleDateString('nl-BE')} om ${d.toLocaleTimeString('nl-BE',{hour:'2-digit',minute:'2-digit'})}</p>`}
+function stamp(){if(!SAVED.savedAt)return '';const d=new Date(SAVED.savedAt);if(lang()!=='nl')return `<p class="stamp">${UI[lang()].edited} ${d.toLocaleDateString(lang()+'-BE')} ${d.toLocaleTimeString(lang()+'-BE',{hour:'2-digit',minute:'2-digit'})}</p>`;return `<p class="stamp">Laatst aangepast op ${d.toLocaleDateString('nl-BE')} om ${d.toLocaleTimeString('nl-BE',{hour:'2-digit',minute:'2-digit'})}</p>`}
 function startEdit(){state.edit=true;state.draft=Object.assign({},SAVED.edits);state.msg='';render()}
 function cancelEditSilently(){state.edit=false;state.draft=null;state.msg=''}
 function cancelEdit(){state.edit=false;state.draft=null;state.msg='';render()}
