@@ -127,6 +127,7 @@ ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px}
 .filled{padding:2px 0}
 
 /* plans */
+.lvlsel{font:inherit;font-weight:700;padding:8px 12px;border-radius:999px;border:0;background:var(--surface);color:var(--red);max-width:100%}
 .seg{display:inline-flex;flex-wrap:wrap;background:var(--line);border-radius:999px;padding:3px;gap:2px;align-self:flex-start}
 .seg button{border:0;background:none;padding:7px 12px;white-space:nowrap;border-radius:999px;cursor:pointer;font-weight:700;font-variant-numeric:tabular-nums}
 .seg button[aria-pressed="true"]{background:var(--surface);color:var(--red);box-shadow:0 1px 3px rgba(0,0,0,.15)}
@@ -329,9 +330,61 @@ const EXAMPLE={nl:'<b>Voorbeeld.</b> Dit zijn de evacuatieplannen van de afdelin
  en:'<b>Example.</b> These are the evacuation plans of the eating disorder department (Eetherstel). The plans differ per department: wherever you work, always check the evacuation plan on the wall.'};
 const exampleBox=()=>W().planExample?`<div class="todo" style="border-style:solid">${EXAMPLE[lang()]}</div>`:'';
 // WZC's en PSC: één opleiding voor de hele site (alle afdelingen hetzelfde).
-const SITE_STUB={afd:'site',siteLevel:1,verzamel:null,shelter:1,bluspoging:1,olie:1,alerts:[],plans:[]};
-[['alexius','WZC Sint-Alexius'],['passionisten','WZC Passionisten'],['nazareth','WZC Huize Nazareth'],['psc','PSC Leuven']]
- .forEach(([id,n])=>WARDS[id]=Object.assign({site:id,name:n,label:n},SITE_STUB));
+// WZC's en PSC: één opleiding voor de hele site (alle afdelingen hetzelfde). Uit de decks van 13/10/2026.
+const SITE_BASE={afd:'site',siteLevel:1,shelter:1,bluspoging:1,olie:1};
+const LEG_SITE='Brandblusser (schuimblusser of CO²), brandhaspel, branddeken, handbrandmelder';
+Object.assign(WARDS,{
+ alexius:{...SITE_BASE,site:'alexius',name:'WZC Sint-Alexius',label:'WZC Sint-Alexius',
+  verzamel:'Binnenplaats van Sint-Alexius',
+  verzamelNote:'Bij een <b>uitzonderlijke evacuatie</b> is de verzamelplaats de parking van Algemene psychiatrie in het ziekenhuis. Blijf niet op straat staan en zorg dat je altijd veilig bent.',
+  alerts:['De <b>brandcentrale</b> (Honeywell) hangt in de verpleegpost op niveau 1. Ernaast hangt een rood kastje met de sleutelbediening voor de evacuatie.','In de <b>parking</b> staat een grote poederblusser van 50 kg.','Verzamelplaats: de <b>binnenplaats</b> van Sint-Alexius.'],
+  equip:['<b>Branddekens:</b> in elke keuken, behalve in het seniorenrestaurant.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen, en ook daarbuiten. Te herkennen aan het groene handvat.','<b>CO² blussers:</b> in elke keuken en aan de technische ruimtes. Te herkennen aan de bredere bek om mee te blussen.','<b>Poederblusser (50 kg):</b> enkel in de parking.','<b>Brandhaspels:</b> in elke brandkast, gang en parking.','<b>Brandcentrale:</b> in de verpleegpost op de eerste verdieping en in de technische ruimte van de parking.','<b>Handbrandmelders:</b> in alle gangen. Ze bevinden zich nooit op een kamer of in een ruimte.','<b>Rookmelders:</b> op alle gangen en in alle kamers en ruimtes.'],
+  centrale:{p:['Sint-Alexius heeft een brandcentrale van <b>Honeywell</b>. Ze hangt in de <b>verpleegpost op niveau 1</b>.','Elke brandcentrale heeft een sleutel. Naast de brandcentrale hangt een <b>rood kastje</b> met de sleutelbediening voor de evacuatie.','Reset enkel bij vals alarm of als het probleem is opgelost. Activeer de evacuatie indien nodig. Een sleutel is altijd nodig om de centrale te bedienen.'],imgs:[['img/alexius-centrale.webp','Brandcentrale in de verpleegpost, niveau 1']]},
+  plans:[{l:'00',t:'Niveau 0',img:'img/alexius-plan00.webp',note:'Op niveau 0 liggen het dagcentrum, het LDC, de parking en de technische ruimtes. In de parking staat de grote poederblusser van 50 kg.',leg:LEG_SITE},
+   {l:'01',t:'Niveau 1',img:'img/alexius-plan01.webp',note:'Niveau 1: Veldborn, Daalborn en De Varen.',leg:LEG_SITE+', evacuatieschakelaar'},
+   {l:'02',t:'Niveau 2',img:'img/alexius-plan02.webp',note:'Niveau 2: Germanusborn en Minneborn. Het raam naar het platte dak is aangeduid.',leg:LEG_SITE+', evacuatieschakelaar'},
+   {l:'03',t:'Niveau 3',img:'img/alexius-plan03.webp',note:'Niveau 3: technische ruimtes onder het dak.',leg:'Brandblusser (schuimblusser of CO²), brandhaspel, handbrandmelder'}]},
+ nazareth:{...SITE_BASE,site:'nazareth',name:'WZC Huize Nazareth',label:'WZC Huize Nazareth',
+  verzamel:'Binnenplein Huize Nazareth (de meeste afdelingen)',
+  verzamelList:['<b>Administratie:</b> binnenplein Huize Nazareth of troostplek','<b>Kapel:</b> binnenplein Huize Nazareth of troostplek','<b>Prieeltje:</b> zij-uitgang prieeltje of uitgang terras','<b>Heilig Hart:</b> binnenplein Huize Nazareth, troostplek of zij-uitgang prieeltje','<b>Sint Franciscus:</b> binnenplein Huize Nazareth, zone achteraan, parking of zij-uitgang prieeltje','<b>Sint Elisabeth:</b> binnenplein Huize Nazareth','<b>Sint Jozef:</b> binnenplein Huize Nazareth','<b>Toren:</b> binnenplein Huize Nazareth of troostplek','<b>Nacht:</b> binnenplein Huize Nazareth'],
+  alerts:['Er hangt een <b>brandcentrale op elke afdeling</b>: in de verpleegpost van Sint Franciscus, Sint Elisabeth, Sint Jozef en Heilig Hart.','<b>Eens de evacuatiesleutel wordt omgedraaid, start de evacuatie!</b>','De sleutels moeten <b>altijd op de brandcentrale</b> blijven.','Kijk bij <b>Verzamelplaats</b> (tab Site) waar jouw afdeling verzamelt.'],
+  equip:['<b>Branddekens:</b> in elke keuken, behalve in het seniorenrestaurant.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen, en ook daarbuiten. Te herkennen aan het groene handvat.','<b>CO² blussers:</b> in elke keuken en aan de technische ruimtes. Te herkennen aan de bredere bek om mee te blussen.','<b>Brandhaspels:</b> in elke brandkast en gang.','<b>Brandcentrales:</b> in de verpleegpost van elke afdeling (zie hieronder).','<b>Handbrandmelders:</b> in alle gangen. Ze bevinden zich nooit op een kamer of in een ruimte.','<b>Rookmelders:</b> op alle gangen en in alle kamers en ruimtes.'],
+  centrale:{p:['Huize Nazareth heeft brandcentrales van <b>Limotec (type MD2400)</b>, op elke afdeling:'],
+   list:['<b>1. Verpleegpost Sint Franciscus</b>, met evacuatiesleutel','<b>2. Verpleegpost Sint Elisabeth</b>, met evacuatiesleutel','<b>3. Verpleegpost Sint Jozef</b>, evacuatie enkel via het bedieningspaneel','<b>4. Verpleegpost Heilig Hart</b>, met evacuatiesleutel, plus een herhaalbord aan de kapper'],
+   p2:['Naast elke brandcentrale, behalve op Sint Jozef, staat een extra <b>geel kastje</b> om de evacuatie te starten. <b>Eens de sleutel wordt omgedraaid, start de evacuatie!</b>','<b>Resetten:</b> draai de sleutel bij "bediening" van 0 naar 1 en duw op de toets reset. Het alarm kan zich blijven herhalen als de oorzaak van de melding niet is opgelost.','Elke brandcentrale heeft ook zelf een sleutel. Deze sleutels moeten altijd op de brandcentrale blijven.'],
+   imgs:[['img/nazareth-centrale-franciscus.webp','Sint Franciscus'],['img/nazareth-centrale-elisabeth.webp','Sint Elisabeth'],['img/nazareth-centrale-jozef.webp','Sint Jozef'],['img/nazareth-centrale-hhart.webp','Heilig Hart']]},
+  plans:[{l:'fr00',t:'Sint Franciscus en Prieeltje · 00',img:'img/nazareth-planfr00.webp'},
+   {l:'hh01',t:'Heilig Hart · 01',img:'img/nazareth-planhh01.webp'},
+   {l:'el01',t:'Sint Elisabeth · 01',img:'img/nazareth-planel01.webp'},{l:'el02',t:'Sint Elisabeth · 02',img:'img/nazareth-planel02.webp'},{l:'el03',t:'Sint Elisabeth · 03',img:'img/nazareth-planel03.webp'},
+   {l:'jz02',t:'Sint Jozef · 02',img:'img/nazareth-planjz02.webp'},{l:'jz03',t:'Sint Jozef · 03',img:'img/nazareth-planjz03.webp',note:'Op dit plan staat het <b>sleutelkastje</b> aangeduid.'},
+   {l:'adm01',t:'Administratie, kapel en toren · 01',img:'img/nazareth-planadm01.webp',note:'Op dit plan staat het <b>sleutelkastje</b> aangeduid.'},{l:'adm02',t:'Administratie, kapel en toren · 02',img:'img/nazareth-planadm02.webp'},
+   {l:'adm02z',t:'Administratie · 02 (detail)',img:'img/nazareth-planadm02z.webp',note:'De dichtstbijzijnde handbrandmelder hangt op niveau 1 van de administratie, of aan de traphal van de toren.'},
+   {l:'tor03',t:'Toren · 03',img:'img/nazareth-plantor03.webp'},{l:'tor04',t:'Toren · 04',img:'img/nazareth-plantor04.webp'},
+   {l:'log00',t:'Logistiek en TED · 00',img:'img/nazareth-planlog00.webp'},{l:'cat00',t:'Catacomben en stookplaats · 00',img:'img/nazareth-plancat00.webp'}]},
+ passionisten:{...SITE_BASE,site:'passionisten',name:'WZC Passionisten',label:'WZC Passionisten',
+  verzamel:'Zone achter het ontmoetingscentrum',
+  verzamelNote:'Welke uitgang je neemt, hangt af van waar de brand is.',
+  alerts:['Er hangen <b>twee brandcentrales</b>: aan het onthaal en in de verpleegpost op verdiep 1.','In de <b>parking</b> staat een poederblusser van 50 kg.','Verzamelplaats: de <b>zone achter het ontmoetingscentrum</b>.'],
+  equip:['<b>Branddekens:</b> in elke keuken.','<b>Schuimblussers:</b> in elke brandkast op de gangen, en ook daarbuiten.','<b>CO² blussers:</b> in de buurt van elke keuken en aan de technische ruimtes. Te herkennen aan de bredere bek om mee te blussen.','<b>Poederblusser (50 kg):</b> enkel in de parking.','<b>Brandhaspels:</b> in elke brandkast, gang en parking.','<b>Brandcentrale:</b> aan het onthaal en in de verpleegpost op de eerste verdieping.','<b>Handbrandmelders:</b> in alle gangen. Ze bevinden zich nooit op een kamer of in een ruimte.','<b>Rookmelders:</b> op alle gangen en in alle kamers en ruimtes.'],
+  centrale:{p:['Er hangt een brandcentrale aan het <b>onthaal</b> en in de <b>verpleegpost op verdiep 1</b>.','<b>Activeren:</b> draai de sleutel een kwart naar rechts (open slot). Dan werken de toetsen op de centrale.'],
+   list:['<b>Reset:</b> hiermee reset je het alarm, bijvoorbeeld bij vals alarm. Gebruik deze toets alleen als je 100% zeker bent dat het probleem is opgelost.','<b>Evacuatie:</b> is de evacuatie bij brand nog niet gestart, dan kan je ze met deze toets alsnog starten.'],
+   imgs:[['img/pas-centrale-onthaal.webp','Onthaal'],['img/pas-centrale-vp1.webp','Verpleegpost verdiep 1']]},
+  plans:[{l:'m01',t:'Niveau -1',img:'img/passionisten-planm01.webp',note:'Parking, logistiek en TED.'},
+   {l:'00',t:'Niveau 0',img:'img/passionisten-plan00.webp',note:'Janneke en administratie. De ingang van het gebouw aan de straatkant is aangeduid.'},
+   {l:'01',t:'Niveau 1',img:'img/passionisten-plan01.webp',note:'Mieken, Nieke en Tiske.'},
+   {l:'02',t:'Niveau 2',img:'img/passionisten-plan02.webp',note:'Assistentiewoningen.'},
+   {l:'03',t:'Niveau 3',img:'img/passionisten-plan03.webp',note:'Assistentiewoningen.'}]},
+ psc:{...SITE_BASE,site:'psc',name:'PSC Leuven',label:'PSC Leuven',
+  verzamel:'Koer tussen gebouw A en B, achtertuin of externe site Minnepoort',
+  verzamelNote:'Welke verzamelplaats je gebruikt, hangt af van waar de brand is. Ben je op de openbare weg, zorg dan dat je altijd veilig bent.',
+  meld:'In de <b>achterbouw</b>: melding via de rookdetector, de handbrandmelder of het sleutelcontact. Daarmee start meteen ook de evacuatie.',
+  alerts:['In de <b>voorbouw zijn er geen handbrandmelders</b>. Rookmelders hangen er enkel in de kelder en in het gerenoveerde deel (2de en 3de verdiep).','Zie je brand in de voorbouw? <b>Sluit meteen de ruimte</b> als dat kan en <b>bel naar de achterbouw</b> om een handbrandmelder in te drukken. Dan gaan de sirenes meteen af.','Branddeuren in de traphallen moeten <b>altijd dicht</b> blijven.','De <b>brandcentrale</b> hangt in het staflokaal van de achterbouw.'],
+  equip:['<b>Branddeken:</b> in de keuken en in de gang op het gelijkvloers van de achterbouw.','<b>Poeder- en schuimblussers:</b> op elk verdiep van de voor- en achterbouw. Ze worden vervangen door bio-schuimblussers.','<b>CO² blussers:</b> in de gang van de achterbouw, dicht bij de keuken. Te herkennen aan de bredere bek om mee te blussen.','<b>Brandhaspels:</b> in elke brandkast in de achterbouw.','<b>Brandcentrale:</b> in het staflokaal van de achterbouw.','<b>Handbrandmelders:</b> in alle gangen van de achterbouw.','<b>Rookmelders:</b> op alle gangen en in alle ruimtes van de achterbouw, en in de kelder en het gerenoveerde deel van de voorbouw.'],
+  cards:[{h:'Route naar de externe evacuatiesite Minnepoort',html:'<p>Verlaat het PSC via de <b>Mechelsestraat</b> en ga links. Neem de eerste straat rechts (<b>Lei</b>) en volg die tot aan de kruising met de <b>Dirk Boutslaan</b>. Ga daar links: net om de hoek ligt de voortuin van de <b>Minnepoort</b> (muziekacademie).</p><div class="grid2"><img src="img/psc-minnepoort1.webp" alt="Minnepoort" style="width:100%;border-radius:10px"><img src="img/psc-minnepoort2.webp" alt="Voortuin van de Minnepoort" style="width:100%;border-radius:10px"></div>'}],
+  plans:[{l:'m01',t:'Onderbouw · -1',img:'img/psc-planm01.webp'},
+   {l:'v00',t:'Voorbouw · 0',img:'img/psc-planv00.webp'},{l:'v01',t:'Voorbouw · 1',img:'img/psc-planv01.webp',note:'Op dit plan staat de <b>vluchtladder</b> aangeduid.'},{l:'v02',t:'Voorbouw · 2',img:'img/psc-planv02.webp',note:'Op dit plan staat de <b>vluchtladder</b> aangeduid.'},{l:'v03',t:'Voorbouw · 3',img:'img/psc-planv03.webp',note:'Op dit plan staat de <b>vluchtladder</b> aangeduid.'},
+   {l:'a00',t:'Achterbouw · 0',img:'img/psc-plana00.webp',note:'Hier staan de <b>brandmeldingscentrale</b> en de <b>bediening van het rookluik</b>.'},{l:'a01',t:'Achterbouw · 1',img:'img/psc-plana01.webp'},{l:'a02',t:'Achterbouw · 2',img:'img/psc-plana02.webp'},{l:'a03',t:'Achterbouw · 3',img:'img/psc-plana03.webp'}]},
+});
 const SITES=[
   {id:'pz',name:'Psychiatrisch ziekenhuis',more:true},
   {id:'alexius',name:'WZC Sint-Alexius'},
@@ -476,11 +529,19 @@ AFD.hestia=()=>`
   <div class="todo"><b>Nog aan te vullen:</b> de PowerPoint bevat geen overzicht per huis van de brandcentrale, branddekens en handbrandmelders.</div>
 </div>
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`;
-AFD.site=()=>`
-<div class="view-head"><h1>${W().name}</h1><p>Wat op deze site anders is dan elders. Dit geldt voor alle afdelingen van de site.</p></div>
-<div class="card"><div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('site')}</div>${TODO_SITE}</div>
-<div class="card"><div class="card-head"><h2>Melding en alarm</h2>${sc('site')}</div>${TODO_SITE}</div>
-<div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('site')}</div>${assembly()}</div>`;
+AFD.site=()=>{const w=W(),c=w.centrale;return `
+<div class="view-head"><h1>${w.name}</h1><p>Wat op deze site anders is dan elders. Dit geldt voor alle afdelingen van de site.</p></div>
+<div class="card"><div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('site')}</div>
+  ${w.equip?`<ul class="plain">${w.equip.map(e=>`<li>${e}</li>`).join('')}</ul><p class="hl">Zorg er altijd voor dat je weet waar deze zich bevinden op de afdeling waar je werkt.</p>`:TODO_SITE}</div>
+<div class="card"><div class="card-head"><h2>Melding en alarm</h2>${sc('site')}</div>
+  ${w.alerts&&w.alerts.length?`<ul class="plain">${w.alerts.map(a=>`<li>${a}</li>`).join('')}<li>${w.meld||'Melding via rookdetector, branddrukknop of sleutelcontact start meteen ook de evacuatie.'}</li></ul>`:TODO_SITE}</div>
+${c?`<div class="card"><div class="card-head"><h2>Brandcentrale${c.imgs.length>1?'s':''}</h2>${sc('site')}</div>
+  ${c.p.map(x=>`<p>${x}</p>`).join('')}${c.list?`<ul class="plain">${c.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${(c.p2||[]).map(x=>`<p>${x}</p>`).join('')}
+  <div class="${c.imgs.length>1?'grid2':''}">${c.imgs.map(([src,cap])=>`<figure style="margin:0"><img src="${src}" alt="Brandcentrale ${cap}" style="width:100%;border-radius:10px"><figcaption class="muted">${cap}</figcaption></figure>`).join('')}</div></div>`:''}
+<div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('site')}</div>${assembly()}
+  ${w.verzamelList?`<p>Afgesproken verzamelplaats per afdeling:</p><ul class="plain">${w.verzamelList.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+  ${w.verzamelNote?`<p>${w.verzamelNote}</p>`:''}</div>
+${(w.cards||[]).map(c=>`<div class="card"><div class="card-head"><h2>${c.h}</h2>${sc('site')}</div>${c.html}</div>`).join('')}`};
 AFD.onderhoud=()=>{const w=W();return `
 <div class="view-head"><h1>${w.name}</h1><p>Je komt op alle afdelingen van het ziekenhuis. Dit geldt overal.</p></div>
 <div class="card">
@@ -502,9 +563,10 @@ ${assembly()}<div class="card"><div class="card-head"><h2>Evacuatieplannen</h2>$
 ${exampleBox()}${assembly()}
 <div class="card">
   <div class="card-head"><div class="seg" role="group" aria-label="Verdieping">
-    ${w.plans.map(x=>`<button data-lvl="${x.l}" aria-pressed="${x.l===p.l}">Niveau ${x.l}</button>`).join('')}</div>${sc('ward')}</div>
+    ${w.plans.length>6?`<select class="lvlsel" aria-label="Kies een plan">${w.plans.map(x=>`<option value="${x.l}" ${x.l===p.l?'selected':''}>${x.t||'Niveau '+x.l}</option>`).join('')}</select>`
+     :w.plans.map(x=>`<button data-lvl="${x.l}" aria-pressed="${x.l===p.l}">${x.t||'Niveau '+x.l}</button>`).join('')}</div>${sc(w.siteLevel?'site':'ward')}</div>
   ${p.views&&p.views.length>1?`<div class="chips">${p.views.map((v,i)=>`<button class="chip" data-view="${i}" aria-pressed="${i===Math.min(state.view,p.views.length-1)}">Plan ${i+1}</button>`).join('')}</div>`:''}
-  <div class="plan" id="plan"><img src="${p.views?p.views[Math.min(state.view,p.views.length-1)]:p.img}" alt="Evacuatieplan niveau ${p.l} met vluchtroutes"></div>
+  <div class="plan" id="plan"><img src="${p.views?p.views[Math.min(state.view,p.views.length-1)]:p.img}" alt="Evacuatieplan ${p.t||'niveau '+p.l} met vluchtroutes"></div>
   <div class="zoom"><span class="muted">Zoom</span><button data-z="1">100%</button><button data-z="2">200%</button><button data-z="3">320%</button></div>
   ${p.note?`<div class="alert"><i>!</i><p>${p.note}</p></div>`:''}
   ${p.legImg?'<div class="legend-row"><img src="img/legende.webp" alt="Legende van het plan"><p class="muted" style="font-size:.9rem">Legende: brandmelder, blusapparaat, brandhaspel, richting vluchtweg, nooduitgang, verzamelpunt, EHBO, elektrisch gevaar, vluchtweg en compartimentering.</p></div>'
@@ -863,6 +925,7 @@ function render(){
   document.getElementById('side').innerHTML=navHTML()+(state.edit?`<div class="legend"><b>Waar geldt een tekst?</b><div>${sc('all')}</div><div>${sc('site')}</div>${W().siteLevel?'':`<div>${sc('ward')}</div>`}</div>`:'');
 }
 function go(t){state.tab=t;history.replaceState(null,'','#'+t);render();window.scrollTo({top:0})}
+document.addEventListener('change',e=>{if(e.target.matches('.lvlsel')){state.lvl=e.target.value;state.view=0;render()}});
 document.addEventListener('click',e=>{
   if(state.edit&&e.target.closest('[contenteditable="true"]')){e.preventDefault();return}
   if(e.target.closest('#editBtn'))return state.edit?cancelEdit():startEdit();
