@@ -388,6 +388,88 @@ Object.assign(WARDS,{
    {l:'v00',t:'Voorbouw · 0',img:'img/psc-planv00.webp'},{l:'v01',t:'Voorbouw · 1',img:'img/psc-planv01.webp',note:'Op dit plan staat de <b>vluchtladder</b> aangeduid.'},{l:'v02',t:'Voorbouw · 2',img:'img/psc-planv02.webp',note:'Op dit plan staat de <b>vluchtladder</b> aangeduid.'},{l:'v03',t:'Voorbouw · 3',img:'img/psc-planv03.webp',note:'Op dit plan staat de <b>vluchtladder</b> aangeduid.'},
    {l:'a00',t:'Achterbouw · 0',img:'img/psc-plana00.webp',note:'Hier staan de <b>brandmeldingscentrale</b> en de <b>bediening van het rookluik</b>.'},{l:'a01',t:'Achterbouw · 1',img:'img/psc-plana01.webp'},{l:'a02',t:'Achterbouw · 2',img:'img/psc-plana02.webp'},{l:'a03',t:'Achterbouw · 3',img:'img/psc-plana03.webp'}]},
 });
+// FR/EN voor de WZC's en PSC Leuven (13/10/2026, op vraag van Johan). Vertaald vanaf de Nederlandse tekst, inclusief Johans eigen aanpassingen in de app.
+const LEG_SITE_L={fr:'Extincteur (mousse ou CO²), dévidoir d’incendie, couverture anti-feu, point d’appel manuel',en:'Extinguisher (foam or CO²), fire hose, fire blanket, manual call point'};
+const EVAC_L={fr:', interrupteur d’évacuation',en:', evacuation switch'};
+const SITE_L={
+ alexius:{
+  verzamelL:{fr:'Cour intérieure de Sint-Alexius<span class="valt">Évacuation exceptionnelle (incendie qui se propage vers l’extérieur) : évacuation vers l’hôpital, point de rassemblement sur le parking de la psychiatrie générale.</span>',
+   en:'Inner courtyard of Sint-Alexius<span class="valt">Exceptional evacuation (fire spreading outside): evacuate to the hospital, assembly point at the general psychiatry car park.</span>'},
+  verzamelNoteL:{fr:'En cas d’<b>évacuation exceptionnelle (incendie qui se propage vers l’extérieur)</b>, on évacue vers l’<b>hôpital</b>. Le point de rassemblement est alors le parking de la psychiatrie générale. Ne restez pas dans la rue et veillez à être toujours en sécurité.',
+   en:'In an <b>exceptional evacuation (fire spreading outside)</b>, everyone evacuates to the <b>hospital</b>. The assembly point is then the general psychiatry car park. Do not stay in the street and make sure you are always safe.'},
+  alertsL:{fr:['Le <b>panneau d’incendie</b> (Honeywell) se trouve au poste infirmier du niveau 1. À côté se trouve un boîtier rouge avec la commande à clé pour l’évacuation.','Point de rassemblement : la <b>cour intérieure</b> de Sint-Alexius. En cas d’incendie qui se propage vers l’extérieur : évacuez vers l’hôpital.'],
+   en:['The <b>fire panel</b> (Honeywell) is in the nurses’ station on level 1. Next to it is a red box with the key control for the evacuation.','Assembly point: the <b>inner courtyard</b> of Sint-Alexius. If the fire spreads outside: evacuate to the hospital.']},
+  equipL:{fr:['<b>Couvertures anti-feu :</b> dans chaque cuisine, sauf au restaurant pour seniors.','<b>Extincteurs à biomousse :</b> dans chaque armoire incendie des couloirs, et aussi ailleurs. Reconnaissables à la poignée verte.','<b>Extincteurs au CO² :</b> dans chaque cuisine et près des locaux techniques. Reconnaissables à la buse plus large.','<b>Extincteur à poudre (50 kg) :</b> uniquement au parking.','<b>Dévidoirs d’incendie :</b> dans chaque armoire incendie, couloir et au parking.','<b>Panneau d’incendie :</b> au poste infirmier du premier étage et dans le local technique du parking.','<b>Points d’appel manuels :</b> dans tous les couloirs. Jamais dans une chambre ou une pièce.','<b>Détecteurs de fumée :</b> dans tous les couloirs, chambres et pièces.'],
+   en:['<b>Fire blankets:</b> in every kitchen, except in the seniors’ restaurant.','<b>Bio-foam extinguishers:</b> in every fire cabinet in the corridors, and elsewhere too. Recognisable by the green handle.','<b>CO² extinguishers:</b> in every kitchen and near the technical rooms. Recognisable by the wider nozzle.','<b>Powder extinguisher (50 kg):</b> only in the car park.','<b>Fire hoses:</b> in every fire cabinet, corridor and in the car park.','<b>Fire panel:</b> in the nurses’ station on the first floor and in the technical room of the car park.','<b>Manual call points:</b> in all corridors. Never in a bedroom or a room.','<b>Smoke detectors:</b> in all corridors, bedrooms and rooms.']},
+  centraleL:{fr:{p:['Sint-Alexius a un panneau d’incendie <b>Honeywell</b>. Il se trouve au <b>poste infirmier du niveau 1</b>.','Chaque panneau a une clé. À côté du panneau se trouve un <b>boîtier rouge</b> avec la commande à clé pour l’évacuation.','Ne réinitialisez qu’en cas de fausse alarme ou quand le problème est résolu. Activez l’évacuation si nécessaire. Une clé est toujours nécessaire pour utiliser le panneau.'],caps:['Panneau d’incendie au poste infirmier, niveau 1']},
+   en:{p:['Sint-Alexius has a <b>Honeywell</b> fire panel. It is in the <b>nurses’ station on level 1</b>.','Every panel has a key. Next to the panel is a <b>red box</b> with the key control for the evacuation.','Only reset after a false alarm or when the problem is solved. Activate the evacuation if needed. A key is always needed to operate the panel.'],caps:['Fire panel in the nurses’ station, level 1']}},
+  plansL:{'00':{fr:'Au niveau 0 se trouvent le centre de jour, le LDC, le parking et les locaux techniques.',en:'Level 0 has the day centre, the LDC, the car park and the technical rooms.'},
+   '01':{fr:'Niveau 1 : Veldborn, Daalborn et De Varen.',en:'Level 1: Veldborn, Daalborn and De Varen.'},
+   '02':{fr:'Niveau 2 : Germanusborn et Minneborn. La fenêtre vers le toit plat est indiquée.',en:'Level 2: Germanusborn and Minneborn. The window to the flat roof is marked.'},
+   '03':{fr:'Niveau 3 : locaux techniques sous le toit.',en:'Level 3: technical rooms under the roof.'}},
+ },
+ nazareth:{
+  verzamelL:{fr:'Cour intérieure de Huize Nazareth (la plupart des services)',en:'Inner courtyard of Huize Nazareth (most departments)'},
+  verzamelListL:{fr:['<b>Administration :</b> cour intérieure de Huize Nazareth ou lieu de recueillement (troostplek)','<b>Chapelle :</b> cour intérieure de Huize Nazareth ou lieu de recueillement','<b>Prieeltje :</b> sortie latérale du Prieeltje ou sortie de la terrasse','<b>Heilig Hart :</b> cour intérieure de Huize Nazareth, lieu de recueillement ou sortie latérale du Prieeltje','<b>Sint Franciscus :</b> cour intérieure de Huize Nazareth, zone à l’arrière, parking ou sortie latérale du Prieeltje','<b>Sint Elisabeth :</b> cour intérieure de Huize Nazareth','<b>Sint Jozef :</b> cour intérieure de Huize Nazareth','<b>Tour :</b> cour intérieure de Huize Nazareth ou lieu de recueillement','<b>Nuit :</b> cour intérieure de Huize Nazareth'],
+   en:['<b>Administration:</b> inner courtyard of Huize Nazareth or the remembrance spot (troostplek)','<b>Chapel:</b> inner courtyard of Huize Nazareth or the remembrance spot','<b>Prieeltje:</b> side exit of the Prieeltje or terrace exit','<b>Heilig Hart:</b> inner courtyard of Huize Nazareth, remembrance spot or side exit of the Prieeltje','<b>Sint Franciscus:</b> inner courtyard of Huize Nazareth, area at the back, car park or side exit of the Prieeltje','<b>Sint Elisabeth:</b> inner courtyard of Huize Nazareth','<b>Sint Jozef:</b> inner courtyard of Huize Nazareth','<b>Tower:</b> inner courtyard of Huize Nazareth or the remembrance spot','<b>Night:</b> inner courtyard of Huize Nazareth']},
+  alertsL:{fr:['Il y a un <b>panneau d’incendie dans chaque service</b> : au poste infirmier de Sint Franciscus, Sint Elisabeth, Sint Jozef et Heilig Hart.','<b>Dès que la clé d’évacuation est tournée, l’évacuation démarre !</b>','Les clés doivent <b>toujours rester sur le panneau d’incendie</b>.','Regardez sous <b>Point de rassemblement</b> (onglet Site) où votre service se rassemble.'],
+   en:['There is a <b>fire panel in every department</b>: in the nurses’ station of Sint Franciscus, Sint Elisabeth, Sint Jozef and Heilig Hart.','<b>As soon as the evacuation key is turned, the evacuation starts!</b>','The keys must <b>always stay on the fire panel</b>.','Check <b>Assembly point</b> (Site tab) to see where your department gathers.']},
+  equipL:{fr:['<b>Couvertures anti-feu :</b> dans chaque cuisine, sauf au restaurant pour seniors.','<b>Extincteurs à biomousse :</b> dans chaque armoire incendie des couloirs, et aussi ailleurs. Reconnaissables à la poignée verte.','<b>Extincteurs au CO² :</b> dans chaque cuisine et près des locaux techniques. Reconnaissables à la buse plus large.','<b>Dévidoirs d’incendie :</b> dans chaque armoire incendie et couloir.','<b>Panneaux d’incendie :</b> au poste infirmier de chaque service (voir ci-dessous).','<b>Points d’appel manuels :</b> dans tous les couloirs. Jamais dans une chambre ou une pièce.','<b>Détecteurs de fumée :</b> dans tous les couloirs, chambres et pièces.'],
+   en:['<b>Fire blankets:</b> in every kitchen, except in the seniors’ restaurant.','<b>Bio-foam extinguishers:</b> in every fire cabinet in the corridors, and elsewhere too. Recognisable by the green handle.','<b>CO² extinguishers:</b> in every kitchen and near the technical rooms. Recognisable by the wider nozzle.','<b>Fire hoses:</b> in every fire cabinet and corridor.','<b>Fire panels:</b> in the nurses’ station of every department (see below).','<b>Manual call points:</b> in all corridors. Never in a bedroom or a room.','<b>Smoke detectors:</b> in all corridors, bedrooms and rooms.']},
+  centraleL:{fr:{p:['Huize Nazareth a des panneaux d’incendie <b>Limotec (type MD2400)</b>, dans chaque service :'],
+    list:['<b>1. Poste infirmier Sint Franciscus</b>, avec clé d’évacuation','<b>2. Poste infirmier Sint Elisabeth</b>, avec clé d’évacuation','<b>3. Poste infirmier Sint Jozef</b>, évacuation uniquement via le panneau de commande','<b>4. Poste infirmier Heilig Hart</b>, avec clé d’évacuation, plus un tableau répétiteur au salon de coiffure'],
+    p2:['À côté de chaque panneau, sauf à Sint Jozef, se trouve un <b>boîtier jaune</b> supplémentaire pour lancer l’évacuation. <b>Dès que la clé est tournée, l’évacuation démarre !</b>','<b>Réinitialiser le panneau :</b> tournez la clé « bediening » de 0 à 1 et appuyez sur la touche reset. L’alarme peut se répéter si la cause du signal n’est pas résolue.','Chaque panneau a aussi sa propre clé. Ces clés doivent toujours rester sur le panneau d’incendie.'],caps:['Sint Franciscus','Sint Elisabeth','Sint Jozef','Heilig Hart']},
+   en:{p:['Huize Nazareth has <b>Limotec (type MD2400)</b> fire panels, one in every department:'],
+    list:['<b>1. Nurses’ station Sint Franciscus</b>, with evacuation key','<b>2. Nurses’ station Sint Elisabeth</b>, with evacuation key','<b>3. Nurses’ station Sint Jozef</b>, evacuation only via the control panel','<b>4. Nurses’ station Heilig Hart</b>, with evacuation key, plus a repeater panel at the hairdresser'],
+    p2:['Next to every panel, except at Sint Jozef, there is an extra <b>yellow box</b> to start the evacuation. <b>As soon as the key is turned, the evacuation starts!</b>','<b>Resetting the panel:</b> turn the key at “bediening” from 0 to 1 and press the reset button. The alarm can keep repeating if the cause of the signal has not been fixed.','Every panel also has its own key. These keys must always stay on the fire panel.'],caps:['Sint Franciscus','Sint Elisabeth','Sint Jozef','Heilig Hart']}},
+  plansL:{fr00:{t:{fr:'Sint Franciscus et Prieeltje · 00',en:'Sint Franciscus and Prieeltje · 00'}},
+   hh01:{t:{fr:'Heilig Hart · 01',en:'Heilig Hart · 01'}},el01:{t:{fr:'Sint Elisabeth · 01',en:'Sint Elisabeth · 01'}},el02:{t:{fr:'Sint Elisabeth · 02',en:'Sint Elisabeth · 02'}},el03:{t:{fr:'Sint Elisabeth · 03',en:'Sint Elisabeth · 03'}},
+   jz02:{t:{fr:'Sint Jozef · 02',en:'Sint Jozef · 02'}},jz03:{t:{fr:'Sint Jozef · 03',en:'Sint Jozef · 03'},fr:'Le <b>boîtier à clés</b> est indiqué sur ce plan.',en:'The <b>key box</b> is marked on this plan.'},
+   adm01:{t:{fr:'Administration, chapelle et tour · 01',en:'Administration, chapel and tower · 01'},fr:'Le <b>boîtier à clés</b> est indiqué sur ce plan.',en:'The <b>key box</b> is marked on this plan.'},
+   adm02:{t:{fr:'Administration, chapelle et tour · 02',en:'Administration, chapel and tower · 02'}},
+   adm02z:{t:{fr:'Administration · 02 (détail)',en:'Administration · 02 (detail)'},fr:'Le point d’appel manuel le plus proche se trouve au niveau 1 de l’administration, ou à la cage d’escalier de la tour.',en:'The nearest manual call point is on level 1 of the administration, or at the tower staircase.'},
+   tor03:{t:{fr:'Tour · 03',en:'Tower · 03'}},tor04:{t:{fr:'Tour · 04',en:'Tower · 04'}},
+   log00:{t:{fr:'Logistique et service technique · 00',en:'Logistics and technical service · 00'}},cat00:{t:{fr:'Catacombes et chaufferie · 00',en:'Catacombs and boiler room · 00'}}},
+ },
+ passionisten:{
+  verzamelL:{fr:'Zone derrière le restaurant de quartier',en:'Area behind the neighbourhood restaurant'},
+  verzamelNoteL:{fr:'La sortie que vous prenez dépend de l’endroit où se trouve le feu.',en:'Which exit you take depends on where the fire is.'},
+  alertsL:{fr:['Il y a <b>deux panneaux d’incendie</b> : à l’accueil et au poste infirmier du 1er étage.','Point de rassemblement : la <b>zone derrière le restaurant de quartier</b>.'],
+   en:['There are <b>two fire panels</b>: at reception and in the nurses’ station on the 1st floor.','Assembly point: the <b>area behind the neighbourhood restaurant</b>.']},
+  equipL:{fr:['<b>Couvertures anti-feu :</b> dans chaque cuisine.','<b>Extincteurs à mousse :</b> dans chaque armoire incendie des couloirs, et aussi ailleurs.','<b>Extincteurs au CO² :</b> dans les locaux techniques et au LDC.','<b>Dévidoirs d’incendie :</b> dans chaque armoire incendie, couloir et au parking.','<b>Panneau d’incendie :</b> à l’accueil et au poste infirmier du premier étage.','<b>Points d’appel manuels :</b> dans tous les couloirs. Jamais dans une chambre ou une pièce.','<b>Détecteurs de fumée :</b> dans tous les couloirs, chambres et pièces.'],
+   en:['<b>Fire blankets:</b> in every kitchen.','<b>Foam extinguishers:</b> in every fire cabinet in the corridors, and elsewhere too.','<b>CO² extinguishers:</b> in the technical rooms and at the LDC.','<b>Fire hoses:</b> in every fire cabinet, corridor and in the car park.','<b>Fire panel:</b> at reception and in the nurses’ station on the first floor.','<b>Manual call points:</b> in all corridors. Never in a bedroom or a room.','<b>Smoke detectors:</b> in all corridors, bedrooms and rooms.']},
+  centraleL:{fr:{p:['Il y a un panneau d’incendie à l’<b>accueil</b> et au <b>poste infirmier du 1er étage</b>.','<b>Activer :</b> tournez la clé d’un quart vers la droite (cadenas ouvert). Les touches du panneau fonctionnent alors.'],
+    list:['<b>Reset :</b> réinitialise l’alarme, par exemple après une fausse alarme. N’utilisez cette touche que si vous êtes sûr à 100 % que le problème est résolu.','<b>Évacuation :</b> si l’évacuation n’a pas encore démarré en cas d’incendie, vous pouvez la lancer avec cette touche.'],caps:['Accueil','Poste infirmier 1er étage']},
+   en:{p:['There is a fire panel at <b>reception</b> and in the <b>nurses’ station on the 1st floor</b>.','<b>Activate:</b> turn the key a quarter to the right (open padlock). The buttons on the panel then work.'],
+    list:['<b>Reset:</b> resets the alarm, for example after a false alarm. Only use this button if you are 100% sure the problem is solved.','<b>Evacuation:</b> if the evacuation has not started yet during a fire, you can still start it with this button.'],caps:['Reception','Nurses’ station 1st floor']}},
+  plansL:{m01:{fr:'Parking, logistique et service technique.',en:'Car park, logistics and technical service.'},
+   '00':{fr:'Janneke et administration. L’entrée du bâtiment côté rue est indiquée.',en:'Janneke and administration. The building entrance on the street side is marked.'},
+   '01':{fr:'Mieken, Nieke et Tiske.',en:'Mieken, Nieke and Tiske.'},'02':{fr:'Résidences-services.',en:'Assisted living flats.'},'03':{fr:'Résidences-services.',en:'Assisted living flats.'}},
+ },
+ psc:{
+  verzamelL:{fr:'Cour entre les bâtiments A et B, jardin arrière ou site externe Minnepoort',en:'Courtyard between buildings A and B, back garden or external site Minnepoort'},
+  verzamelNoteL:{fr:'Le point de rassemblement dépend de l’endroit où se trouve le feu. Si vous êtes sur la voie publique, veillez à être toujours en sécurité.',en:'Which assembly point you use depends on where the fire is. If you are on the public road, make sure you are always safe.'},
+  meldL:{fr:'Dans le <b>bâtiment arrière</b> : signalement via le détecteur de fumée, le point d’appel manuel ou la clé. Cela lance aussi immédiatement l’évacuation.',en:'In the <b>rear building</b>: report via the smoke detector, the manual call point or the key contact. This also starts the evacuation immediately.'},
+  alertsL:{fr:['Dans le <b>bâtiment avant, il n’y a pas de points d’appel manuels</b>. Les détecteurs de fumée s’y trouvent uniquement à la cave et dans la partie rénovée (2e et 3e étage).','Vous voyez un feu dans le bâtiment avant ? <b>Fermez immédiatement la pièce, si possible, appelez le 112 puis</b> <b>appelez le bâtiment arrière</b> pour qu’on y enfonce un point d’appel manuel. Les sirènes se déclenchent alors immédiatement.','Les portes coupe-feu des cages d’escalier doivent <b>toujours rester fermées</b>.','Le <b>panneau d’incendie</b> se trouve dans le local du personnel du bâtiment arrière.'],
+   en:['In the <b>front building there are no manual call points</b>. Smoke detectors are only in the basement and in the renovated part (2nd and 3rd floor).','See a fire in the front building? <b>Close the room immediately if you can, call 112 and then</b> <b>call the rear building</b> so someone presses a manual call point there. The sirens then go off immediately.','Fire doors in the stairwells must <b>always stay closed</b>.','The <b>fire panel</b> is in the staff room of the rear building.']},
+  equipL:{fr:['<b>Couverture anti-feu :</b> dans la cuisine et dans le couloir du rez-de-chaussée du bâtiment arrière.','<b>Extincteurs à poudre et à mousse :</b> à chaque étage des bâtiments avant et arrière. Ils sont remplacés par des extincteurs à biomousse.','<b>Extincteurs au CO² :</b> dans le couloir du bâtiment arrière, près de la cuisine. Reconnaissables à la buse plus large.','<b>Dévidoirs d’incendie :</b> dans chaque armoire incendie du bâtiment arrière.','<b>Panneau d’incendie :</b> dans le local du personnel du bâtiment arrière.','<b>Points d’appel manuels :</b> dans tous les couloirs du bâtiment arrière.','<b>Détecteurs de fumée :</b> dans tous les couloirs et pièces du bâtiment arrière, et à la cave et dans la partie rénovée du bâtiment avant.'],
+   en:['<b>Fire blanket:</b> in the kitchen and in the ground-floor corridor of the rear building.','<b>Powder and foam extinguishers:</b> on every floor of the front and rear building. They are being replaced by bio-foam extinguishers.','<b>CO² extinguishers:</b> in the corridor of the rear building, near the kitchen. Recognisable by the wider nozzle.','<b>Fire hoses:</b> in every fire cabinet in the rear building.','<b>Fire panel:</b> in the staff room of the rear building.','<b>Manual call points:</b> in all corridors of the rear building.','<b>Smoke detectors:</b> in all corridors and rooms of the rear building, and in the basement and renovated part of the front building.']},
+  cardsL:{fr:[{h:'Itinéraire vers le site d’évacuation externe Minnepoort',p:'Quittez le PSC par la <b>Mechelsestraat</b> et tournez à gauche. Prenez la première rue à droite (<b>Lei</b>) et suivez-la jusqu’au carrefour avec la <b>Dirk Boutslaan</b>. Tournez à gauche : juste au coin se trouve le jardin avant de la <b>Minnepoort</b> (académie de musique).'}],
+   en:[{h:'Route to the external evacuation site Minnepoort',p:'Leave the PSC via the <b>Mechelsestraat</b> and turn left. Take the first street on the right (<b>Lei</b>) and follow it to the junction with the <b>Dirk Boutslaan</b>. Turn left there: just around the corner is the front garden of the <b>Minnepoort</b> (music academy).'}]},
+  plansL:{m01:{t:{fr:'Sous-sol · -1',en:'Basement · -1'}},v00:{t:{fr:'Bâtiment avant · 0',en:'Front building · 0'}},
+   v01:{t:{fr:'Bâtiment avant · 1',en:'Front building · 1'},fr:'L’<b>échelle d’évacuation</b> est indiquée sur ce plan.',en:'The <b>escape ladder</b> is marked on this plan.'},
+   v02:{t:{fr:'Bâtiment avant · 2',en:'Front building · 2'},fr:'L’<b>échelle d’évacuation</b> est indiquée sur ce plan.',en:'The <b>escape ladder</b> is marked on this plan.'},
+   v03:{t:{fr:'Bâtiment avant · 3',en:'Front building · 3'},fr:'L’<b>échelle d’évacuation</b> est indiquée sur ce plan.',en:'The <b>escape ladder</b> is marked on this plan.'},
+   a00:{t:{fr:'Bâtiment arrière · 0',en:'Rear building · 0'},fr:'Ici se trouvent le <b>panneau d’incendie</b> et la <b>commande du lanterneau de désenfumage</b>.',en:'This is where the <b>fire panel</b> and the <b>smoke vent control</b> are.'},
+   a01:{t:{fr:'Bâtiment arrière · 1',en:'Rear building · 1'}},a02:{t:{fr:'Bâtiment arrière · 2',en:'Rear building · 2'}},a03:{t:{fr:'Bâtiment arrière · 3',en:'Rear building · 3'}}},
+ },
+};
+Object.entries(SITE_L).forEach(([id,L])=>{const w=WARDS[id];Object.assign(w,{langs:['nl','fr','en'],names:{nl:w.name,fr:w.name,en:w.name}},L);
+ if(w.centrale&&L.centraleL)w.centraleL=L.centraleL;
+ w.plans.forEach(p=>{const pl=(L.plansL||{})[p.l]||{};if(pl.t)p.tL=pl.t;if(pl.fr)p.noteL={fr:pl.fr,en:pl.en};
+  if(p.leg){const ev=/evacuatieschakelaar/.test(p.leg);const base=/^Brandblusser \(schuimblusser of CO²\), brandhaspel, handbrandmelder$/.test(p.leg)?{fr:'Extincteur (mousse ou CO²), dévidoir d’incendie, point d’appel manuel',en:'Extinguisher (foam or CO²), fire hose, manual call point'}:LEG_SITE_L;
+   p.legL={fr:base.fr+(ev?EVAC_L.fr:''),en:base.en+(ev?EVAC_L.en:'')}}});
+});
 const SITES=[
   {id:'pz',name:'Psychiatrisch ziekenhuis',more:true},
   {id:'alexius',name:'WZC Sint-Alexius'},
@@ -656,7 +738,7 @@ function quiz(){const w=W(),q=[
  q.push(w.olie?['De frituurolie brandt. Gebruik je de branddeken?',['Ja, altijd','Nee, tenzij het je enige blusmiddel is om de brand te vertragen','Alleen bij een kleine brand'],1]
    :['De frituurolie brandt. Gebruik je de branddeken?',['Ja, altijd','Nooit','Alleen bij een kleine brand'],1]);
  if(w.shelter)q.push(['Wat doe je bij schuilen ter plaatse met de branddeuren?',['Openzetten voor de brandweer','Gesloten houden','Op slot doen'],1]);
- if(w.verzamel)q.push(['Waar verzamel je na evacuatie?',['Sportterrein voor het gebouw','In de inkomhal',w.verzamel],2]);
+ if(w.verzamel)q.push(['Waar verzamel je na evacuatie?',['Sportterrein voor het gebouw','In de inkomhal',w.verzamel.replace(/<span.*$/,'')],2]);
  return q}
 const qkey=()=>(WID==='jeugd'?'eip-quiz':'quiz-'+WID)+(W().langs&&LANG!=='nl'&&W().langs.includes(LANG)?'-'+LANG:'');
 V.test=()=>{const QUIZ=quiz(),a=state.ans,done=Object.keys(a).length,good=QUIZ.filter((q,i)=>a[i]===q[2]).length;return `
@@ -679,7 +761,7 @@ const LT={
  fr:{
   brandH:'En cas d’incendie',brandP:'Ce que vous faites, dans cet ordre. Touchez une étape pour voir les détails.',
   fire:'Pompiers',callFirst:'Toujours appeler en premier',internal:'Numéro d’urgence interne',thenReport:'Signalez une fois en sécurité',
-  accident:'En cas d’accident',accidentTxt:'Les infirmiers viennent, avec la valise d’urgence. Si c’est grave, appelez d’abord le 112.',specific:'Spécifique au service d’entretien',
+  accident:'En cas d’accident',accidentTxt:'Les infirmiers viennent, avec la valise d’urgence. Si c’est grave, appelez d’abord le 112.',specific:'Spécifique au service d’entretien',specificSite:'Spécifique à ce site',siteP:'Ce qui est différent sur ce site. Ceci s’applique à tous les services du site.',siteEquipH:'Systèmes de détection et d’extinction',centraleH:'Panneau d’incendie',centralesH:'Panneaux d’incendie',perDept:'Point de rassemblement convenu par service :',accidentSite:'Appelez le numéro interne des infirmiers',accidentSiteTxt:'Si c’est grave, appelez d’abord le 112.',allDepts:'Tous les services',
   s1:['Mettez-vous en sécurité','Ensuite seulement, vous pouvez agir','<p>Assurez-vous d’abord votre propre sécurité avant d’agir.</p>'],
   s2:['Vérifiez et signalez','Panneau d’incendie + DECT, 112 et 999',`<p>Signalez via le détecteur de fumée, le point d’appel manuel ou la clé d’évacuation : cela lance aussi l’évacuation. La fumée peut déjà avoir été détectée par un détecteur de fumée.</p>
     <p>Une notification apparaît sur le panneau d’incendie et le DECT. Chaque service est invité à vérifier la situation.</p>
@@ -748,7 +830,7 @@ const LT={
  en:{
   brandH:'In case of fire',brandP:'What you do, in this order. Tap a step to see the details.',
   fire:'Fire brigade',callFirst:'Always call first',internal:'Internal emergency number',thenReport:'Report once you are safe',
-  accident:'In case of an accident',accidentTxt:'The nurses come, with the emergency kit. If it is serious, call 112 first.',specific:'Specific to maintenance',
+  accident:'In case of an accident',accidentTxt:'The nurses come, with the emergency kit. If it is serious, call 112 first.',specific:'Specific to maintenance',specificSite:'Specific to this site',siteP:'What is different on this site. This applies to all departments of the site.',siteEquipH:'Detection and extinguishing equipment',centraleH:'Fire panel',centralesH:'Fire panels',perDept:'Agreed assembly point per department:',accidentSite:'Call the nurses’ internal number',accidentSiteTxt:'If it is serious, call 112 first.',allDepts:'All departments',
   s1:['Get yourself to safety','Only then can you take action','<p>First ensure your own safety before taking action.</p>'],
   s2:['Check and report','Fire panel + DECT, 112 and 999',`<p>Report via the smoke detector, the manual call point or the key contact: this also starts the evacuation. The smoke may already have been detected by a smoke detector.</p>
     <p>A notification appears on the fire panel and the DECT. Each department is asked to go and check.</p>
@@ -823,9 +905,9 @@ const LV={
 <div class="numbers">
   <div class="num"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
   <div class="num alt"><span>${t.internal}</span><b>999</b><span>${t.thenReport}</span></div>
-  <div class="num acc"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>
+  ${w.site==='pz'?`<div class="num acc"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}</span></div>`}
 </div>
-<div class="card"><div class="card-head"><h3>${t.specific}</h3>${sc('ward')}</div>
+<div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
   <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
 <ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1],t[k][2].replace('%ASSEMBLY%',lassembly()))).join('')}</ol>
 <div class="card" id="shelter">
@@ -836,7 +918,19 @@ const LV={
   <h3>${t.how}</h3>
   <ol class="keylist">${t.shelterSteps.map((s,i)=>`<li><span>${i+1}</span><p><b>${s[0]}</b> ${s[1]}</p></li>`).join('')}</ol>
 </div>`},
- afd:()=>{const t=T(),w=W();return `
+ afd:()=>{const t=T(),w=W(),L=lang();if(w.siteLevel){const c=w.centraleL&&w.centraleL[L];return `
+<div class="view-head"><h1>${w.names[L]}</h1><p>${t.siteP}</p></div>
+<div class="card"><div class="card-head"><h2>${t.siteEquipH}</h2>${sc('site')}</div>
+  <ul class="plain">${w.equipL[L].map(e=>`<li>${e}</li>`).join('')}</ul><p class="hl">${t.equipNote}</p></div>
+<div class="card"><div class="card-head"><h2>${t.alarmH}</h2>${sc('site')}</div>
+  <ul class="plain">${w.alertsL[L].map(a=>`<li>${a}</li>`).join('')}<li>${w.meldL?w.meldL[L]:t.alarmExtra}</li></ul></div>
+${c?`<div class="card"><div class="card-head"><h2>${c.caps.length>1?t.centralesH:t.centraleH}</h2>${sc('site')}</div>
+  ${c.p.map(x=>`<p>${x}</p>`).join('')}${c.list?`<ul class="plain">${c.list.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}${(c.p2||[]).map(x=>`<p>${x}</p>`).join('')}
+  <div class="${c.caps.length>1?'grid2':''}">${w.centrale.imgs.map(([src],i)=>`<figure style="margin:0"><img src="${src}" alt="${c.caps[i]}" style="width:100%;border-radius:10px"><figcaption class="muted">${c.caps[i]}</figcaption></figure>`).join('')}</div></div>`:''}
+<div class="card"><div class="card-head"><h2>${UI[L].assembly}</h2>${sc('site')}</div>${lassembly()}
+  ${w.verzamelListL?`<p>${t.perDept}</p><ul class="plain">${w.verzamelListL[L].map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+  ${w.verzamelNoteL?`<p>${w.verzamelNoteL[L]}</p>`:''}</div>
+${(w.cardsL?w.cardsL[L]:[]).map((x,i)=>`<div class="card"><div class="card-head"><h2>${x.h}</h2>${sc('site')}</div><p>${x.p}</p>${w.cards[i].html.replace(/^<p>.*?<\/p>/,'')}</div>`).join('')}`}return `
 <div class="view-head"><h1>${w.names[lang()]}</h1><p>${t.afdP}</p></div>
 <div class="card"><div class="card-head"><h2>${t.equipH}</h2>${sc('ward')}</div>
   <ul class="plain">${w.equipL[lang()].map(e=>`<li>${e}</li>`).join('')}</ul>
@@ -849,7 +943,8 @@ const LV={
 ${exampleBox()}${lassembly()}
 <div class="card">
   <div class="card-head"><div class="seg" role="group" aria-label="${UI[lang()].level}">
-    ${w.plans.map(x=>`<button data-lvl="${x.l}" aria-pressed="${x.l===p.l}">${UI[lang()].level} ${x.l}</button>`).join('')}</div>${sc('ward')}</div>
+    ${(()=>{const lbl=x=>x.tL?x.tL[lang()]:UI[lang()].level+' '+(x.t?x.t.replace(/^Niveau /,''):x.l);return w.plans.length>6?`<select class="lvlsel" aria-label="${UI[lang()].level}">${w.plans.map(x=>`<option value="${x.l}" ${x.l===p.l?'selected':''}>${lbl(x)}</option>`).join('')}</select>`
+     :w.plans.map(x=>`<button data-lvl="${x.l}" aria-pressed="${x.l===p.l}">${lbl(x)}</button>`).join('')})()}</div>${sc(w.siteLevel?'site':'ward')}</div>
   ${p.views&&p.views.length>1?`<div class="chips">${p.views.map((v,i)=>`<button class="chip" data-view="${i}" aria-pressed="${i===Math.min(state.view,p.views.length-1)}">Plan ${i+1}</button>`).join('')}</div>`:''}
   <div class="plan" id="plan"><img src="${p.views?p.views[Math.min(state.view,p.views.length-1)]:p.img}" alt="${t.routeH} ${p.l}"></div>
   <div class="zoom"><span class="muted">${UI[lang()].zoom}</span><button data-z="1">100%</button><button data-z="2">200%</button><button data-z="3">320%</button></div>
@@ -861,7 +956,7 @@ ${exampleBox()}${lassembly()}
 <div class="view-head"><h1>${t.blusH}</h1><p>${t.blusP}</p></div>
 <div class="chips" id="blusChips">${Object.entries(t.chips).map(([k,l])=>`<button class="chip" data-sec="${k}" aria-pressed="${state.sec===k}">${l}</button>`).join('')}</div>
 <div id="blusSec">${LBLUS[state.sec]()}</div>`},
- test:()=>{const t=T(),Q=t.quiz,a=state.ans,done=Object.keys(a).length,good=Q.filter((q,i)=>a[i]===q[2]).length;return `
+ test:()=>{const t=T(),Q=t.quiz.map((q,i,a)=>i===a.length-1?[q[0],[q[1][0],q[1][1],W().verzamelL[lang()].replace(/<span.*$/,'')],q[2]]:q),a=state.ans,done=Object.keys(a).length,good=Q.filter((q,i)=>a[i]===q[2]).length;return `
 <div class="view-head"><h1>${t.testH}</h1><p>${t.testP(Q.length)}</p></div>
 <div class="card"><div class="card-head"><b style="font-variant-numeric:tabular-nums">${t.good(good,Q.length)}</b>${done?`<button class="chip" id="reset">${t.again}</button>`:''}</div><div class="progress"><span style="width:${good/Q.length*100}%"></span></div></div>
 ${Q.map((q,i)=>`<div class="card q"><h3>${q[0]}</h3>${q[1].map((o,j)=>{let c='';if(a[i]!==undefined){if(j===q[2])c='ok';else if(j===a[i])c='bad'}return `<button class="opt ${c}" data-q="${i}" data-o="${j}" ${a[i]!==undefined?'disabled':''}>${o}</button>`}).join('')}</div>`).join('')}`},
@@ -900,7 +995,7 @@ const state={screen:SEEN&&store.get('plek',null)?null:'home',tab:'brand',lvl:'00
 const ok=TABS.map(t=>t[0]);
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
-function navHTML(){return TABS.map(([k,l])=>(k==='afd'&&W().siteLevel&&(l='Site'),lang()!=='nl'&&(l=UI[lang()].tabs[k]),`<button class="tab" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
+function navHTML(){return TABS.map(([k,l])=>(lang()!=='nl'&&(l=UI[lang()].tabs[k]),k==='afd'&&W().siteLevel&&(l='Site'),`<button class="tab" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
 function homeHTML(){
   if(state.screen==='pz'){const s=SITES[0],ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
 <button class="back" data-home="home">‹ Alle sites</button>
@@ -917,7 +1012,7 @@ function render(){
   document.body.classList.toggle('homebody',!!state.screen);
   if(state.screen){if(state.edit)cancelEditSilently();main.innerHTML=homeHTML();
     document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
-  document.getElementById('whereSite').textContent=W().siteLevel?'Alle afdelingen':lang()!=='nl'?UI[lang()].hospital:siteName();
+  document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?UI[lang()].hospital:siteName();
   const VV=lang()!=='nl'?LV:V;document.documentElement.lang=lang();
   main.innerHTML=(state.edit?editBar():'')+`<div class="view">${VV[state.tab]()}</div>`+stamp();
   const lb=document.getElementById('langbar');lb.hidden=!W().langs;
