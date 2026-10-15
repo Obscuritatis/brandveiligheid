@@ -311,7 +311,9 @@ const WARDS={
   equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdelingen, niet in de keuken van de directie.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> de dichtstbijzijnde is die aan het onthaal.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit in een kantoorruimte.','<b>Rookmelders:</b> op alle gangen en in de kantoorruimtes.'],
   alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat aan het onthaal.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
   plans:[{l:'00',img:'img/staf-plan00.webp',leg:LEG+', evacuatieschakelaar'},{l:'01',img:'img/staf-plan01.webp',leg:LEG+', evacuatieschakelaar'}]},
- voeding:{site:'pz',name:'Voedingsdienst',label:'Voedingsdienst',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,alerts:[],
+ voeding:{site:'pz',name:'Voedingsdienst',label:'Voedingsdienst',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+  equip:[EQUIP_STD[6],EQUIP_STD[5],EQUIP_STD[1],EQUIP_STD[0],'<b>Automatische blussystemen:</b> verwerkt in de dampkappen. Druk op de <b>rode knop naast de dampkap</b> om het systeem te activeren. Doe dit enkel als het systeem niet vanzelf in werking treedt.'],
+  alerts:['De <b>dampkappen</b> hebben een automatisch blussysteem. Treedt het niet vanzelf in werking? Druk dan op de <b>rode knop naast de dampkap</b>.'],
   plans:[{l:'-01',img:'img/voeding-planm01.webp'},{l:'00',img:'img/voeding-plan00.webp'}]},
 
  onderhoud:{site:'pz',name:'Onderhoud',label:'Onderhoud',afd:'onderhoud',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,langs:['nl','fr','en'],
