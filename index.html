@@ -562,9 +562,9 @@ ${w.shelter?`<div class="card" id="shelter">
   <h3>Zo werkt het</h3>
   <ol class="keylist">
     <li><span>1</span><p><b>Beoordeel de situatie.</b> Is het veiliger om de bewoners op hun huidige plaats te houden? Let op de plaats van het vuur, de rookverspreiding en of de brandcompartimenten werken.</p></li>
-    <li><span>2</span><p><b>Stel de ruimte veilig.</b> Houd alle branddeuren in het compartiment gesloten. Houd ramen en deuren dicht en dicht spleten indien nodig af met natte doeken.</p></li>
-    <li><span>3</span><p><b>Zorg voor de bewoners.</b> Houd hen rustig en begeleid hen naar een veilige zone binnen de afdeling. Personen met ademhalingsproblemen krijgen extra aandacht; gebruik indien nodig hulpmiddelen zoals zuurstofmaskers.</p></li>
-    <li><span>4</span><p><b>Bereid een evacuatie voor.</b> Zet rolstoelen, evacuatiestoffen en hulpmiddelen klaar voor het geval de situatie verslechtert. Wijs taken toe aan het personeel, zoals het begeleiden van minder mobiele bewoners.</p></li>
+    <li><span>2</span><p><b>Stel de ruimte veilig.</b> Houd alle branddeuren in het compartiment gesloten. Houd ramen en deuren dicht en dicht spleten indien mogelijk af met natte doeken.</p></li>
+    <li><span>3</span><p><b>Zorg voor de bewoners.</b> Houd hen rustig en begeleid hen naar een veilige zone binnen de afdeling.</p></li>
+    <li><span>4</span><p><b>Wees klaar voor evacuatie</b> wanneer de brandweer aankomt.</p></li>
   </ol>
 </div>`:''}`};
 function step(t,s,body){
@@ -832,9 +832,9 @@ const LT={
   goal:'Objectif',goals:['Se protéger contre un danger immédiat, comme la fumée ou le feu, en restant dans une zone protégée derrière une porte coupe-feu.','Gagner du temps jusqu’à l’arrivée des secours et jusqu’à ce que l’évacuation soit possible.','Réduire la panique chez les personnes vulnérables.'],
   how:'Comment ça marche',
   shelterSteps:[['Évaluez la situation.','Est-il plus sûr de garder les résidents là où ils sont ? Tenez compte de l’emplacement du feu, de la propagation de la fumée et du fonctionnement des compartiments incendie.'],
-   ['Sécurisez la zone.','Gardez toutes les portes coupe-feu du compartiment fermées. Gardez fenêtres et portes fermées et bouchez les fentes avec des chiffons humides si nécessaire.'],
-   ['Prenez soin des résidents.','Gardez-les calmes et guidez-les vers une zone sûre dans le service. Accordez une attention particulière aux personnes ayant des problèmes respiratoires ; utilisez si possible des aides comme des masques à oxygène.'],
-   ['Préparez une évacuation.','Préparez fauteuils roulants, draps d’évacuation et aides au cas où la situation s’aggrave. Répartissez les tâches, comme l’accompagnement des résidents moins mobiles.']],
+   ['Sécurisez la zone.','Gardez toutes les portes coupe-feu du compartiment fermées. Gardez fenêtres et portes fermées et bouchez les fentes avec des chiffons humides si possible.'],
+   ['Prenez soin des résidents.','Gardez-les calmes et guidez-les vers une zone sûre dans le service.'],
+   ['Soyez prêt pour l’évacuation','à l’arrivée des pompiers.']],
   afdP:'Vous travaillez dans tous les services de l’hôpital. Ceci s’applique partout.',
   equipH:'Systèmes de détection et d’extinction à l’hôpital',equipNote:'Assurez-vous toujours de savoir où ils se trouvent dans le service où vous travaillez.',
   alarmH:'Notification et alarme',alarmExtra:'Une notification via le détecteur de fumée, le point d’appel manuel ou la clé d’évacuation lance aussi immédiatement l’évacuation.',
@@ -901,9 +901,9 @@ const LT={
   goal:'Purpose',goals:['Protection from immediate danger, such as smoke or fire, by staying in a protected area behind a fire door.','Gaining time until the emergency services arrive and evacuation becomes possible.','Reducing panic among vulnerable people.'],
   how:'How it works',
   shelterSteps:[['Assess the situation.','Is it safer to keep the residents where they are? Consider the location of the fire, the spread of smoke and whether the fire compartments are working.'],
-   ['Secure the area.','Keep all fire doors in the compartment closed. Keep windows and doors shut and seal gaps with wet cloths if necessary.'],
-   ['Care for the residents.','Keep them calm and guide them to a safe zone within the department. Give extra attention to people with breathing problems; use aids such as oxygen masks if possible.'],
-   ['Prepare for evacuation.','Have wheelchairs, evacuation sheets and aids ready in case the situation gets worse. Assign tasks, such as helping less mobile residents.']],
+   ['Secure the area.','Keep all fire doors in the compartment closed. Keep windows and doors shut and seal gaps with wet cloths if possible.'],
+   ['Care for the residents.','Keep them calm and guide them to a safe zone within the department.'],
+   ['Be ready to evacuate','when the fire brigade arrives.']],
   afdP:'You work in every department of the hospital. This applies everywhere.',
   equipH:'Detection and extinguishing systems in the hospital',equipNote:'Always make sure you know where these are in the department where you are working.',
   alarmH:'Notification and alarm',alarmExtra:'A notification via smoke detector, manual call point or key contact also starts the evacuation immediately.',
