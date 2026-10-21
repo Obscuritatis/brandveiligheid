@@ -70,6 +70,7 @@ main{flex:1;min-width:0;display:flex;flex-direction:column;gap:18px}
 .num.gas{background:var(--gas);color:var(--on-gas);grid-column:1/-1}
 .num.gas-alt{background:var(--surface);color:var(--fg);border:2px solid var(--gas);grid-column:1/-1}.num.gas-alt b{color:var(--gas-ink);font-size:1.6rem}
 .gasview{display:flex;flex-direction:column;gap:18px}
+.gasext{margin:-8px 0 0;font-size:.9rem;color:var(--muted)}
 .gasview .keylist li>span{background:var(--gas);color:var(--on-gas)}
 .gasview .hl{color:var(--gas-ink)}
 .gasview .nooit{border-left:4px solid var(--red)}.gasview .nooit .hl{color:var(--red)}
@@ -296,7 +297,7 @@ const WARDS={
   plans:[{l:'00',img:'img/verslaving-plan00.webp',leg:LEG+', brandmeldingscentrale (BMC), evacuatieschakelaar'},{l:'01',img:'img/verslaving-plan01.webp',leg:LEG+', evacuatieschakelaar'},{l:'02',img:'img/verslaving-plan02.webp',leg:LEG+', evacuatieschakelaar'}]},
 
  // Toegevoegd 13/10/2026 uit tien PZ-decks. Plannen zijn uitsneden van de dia's, HQ-versies volgen.
- algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',gas:1,afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+ algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   meld:'Melding via het sleutelcontact start ook de evacuatie. Met je badge kan je de deuren meteen ontgrendelen.',
   equip:['<b>Branddekens:</b> aanwezig in elke keuken en in de verpleegpost van AP1.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen van AP1, en ook daarbuiten op AP2. Te herkennen aan het groene handvat.',EQUIP_STD[2],'<b>Brandhaspels:</b> in elke brandkast en op de gang van AP2.','<b>Brandcentrale:</b> in de verpleegpost van AP1.','<b>Handbrandmelders:</b> enkel in de verpleegpost van AP1, niet op de gangen. De evacuatie start je met de <b>sleutel op de verpleegposten</b>.',EQUIP_STD[6]],
   alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.'],
@@ -519,7 +520,7 @@ const ICON={
   test:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
 };
 const TABS=[['brand','Bij brand'],['afd','Afdeling'],['route','Vluchtroutes'],['blus','Blussen'],['test','Test']];
-const tabs=()=>W().gas?[TABS[0],['gas','Bij gas'],...TABS.slice(1)]:TABS;
+const tabs=()=>[TABS[0],['gas','Bij gas'],...TABS.slice(1)];
 const assembly=()=>W().verzamel?`<div class="assembly"><img src="img/verzamelpunt.webp" alt="Pictogram verzamelplaats"><div><small>Verzamelplaats</small><b>${W().verzamel}</b></div></div>`
   :`<div class="todo"><b>Nog aan te vullen:</b> ${W().siteLevel?'de verzamelplaats van deze site volgt met de PowerPoint.':'in de PowerPoint van deze afdeling staat geen verzamelplaats.'}</div>`;
 const TODO_SITE='<div class="todo"><b>Nog aan te vullen:</b> de info voor deze site volgt zodra de PowerPoint er is.</div>';
@@ -675,51 +676,57 @@ AFD.onderhoud=()=>{const w=W();return `
   <ul class="plain">${w.alerts.map(a=>`<li>${a}</li>`).join('')}<li>Melding via de handbrandmelder of het sleutelcontact start meteen ook de evacuatie.</li></ul>
 </div>
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`};
-V.gas=()=>`
+const GAS={
+ nl:{h:'Bij gas',p:'Ruik je gas? Verlaat het gebouw en maak een melding op 555.',num:'Dringende melding technische dienst',numTxt:'Buiten de werkuren: de directie van wacht. Die verwittigt de technieker van wacht. De wachtlijst vind je op het intranet, onder Wachtregeling > Wachtdiensten.',ext:'Van buiten het interne net: 016 80 75 55',
+  stepsH:'Wat doe je bij gasgeur?',steps:[['Verlaat het gebouw.','Ga naar buiten, tot waar je geen gas meer ruikt. Eventueel naar een ander gebouw.'],['Meld op 555','(dringende melding technische dienst).'],['Tel iedereen.','Patiënten, bewoners, medewerkers en anderen, met de aanwezigheidslijsten en de lijst lege bedden. Vergeet de isolatiekamers niet.'],['Houd afstand.','Houd iedereen 50 tot 100 meter weg. Geen ontstekingsbronnen in de buurt: rook- en vuurverbod.'],['Verlucht.','Zet ramen en deuren open.']],
+  neverH:'Doe dit nooit',never:['Geen gsm gebruiken in de ruimte.','Geen elektrische toestellen of verlichting aan- of uitschakelen, ook geen zaklamp.','Geen stekkers uit het stopcontact trekken.'],spark:'Een vonk kan het gas doen ontploffen.',
+  boomH:'Bij gasontploffing of gasbrand',boom:'<b>Blijf weg.</b> Laat de brand branden zolang het gaslek niet gedicht is.',
+  coH:'Koolstofmonoxide (CO)',co:['CO is reukloos en kleurloos. Het ontstaat bij een onvolledige verbranding, bijvoorbeeld door een slecht werkend gastoestel.','Klachten: hoofdpijn, misselijkheid, braken en duizeligheid. Ze verdwijnen wanneer je de ruimte verlaat.'],coDo:['Zet ramen en deuren open.','Zet het gastoestel uit.','Verlaat de ruimte.','Verwittig de hulpdiensten.'],
+  tdH:'Wat doet de technische dienst?',td:['Verwittigt Fluvius, de brandweer (112) en het interne noodnummer 999.','Sluit de gaskranen: eerst de kraan het dichtst bij het toestel, dan de hoofdkraan van het gebouw, dan de hoofdafsluiter buiten.','Volgt de richtlijnen van de brandweer en Fluvius op.'],tdP:'Stookplaatsen hebben gasdetectie met een automatische afsluiter.'},
+ fr:{h:'Odeur de gaz',p:'Vous sentez le gaz ? Quittez le bâtiment et signalez-le au 555.',num:'Appel urgent service technique',numTxt:'En dehors des heures de travail : la direction de garde. Elle prévient le technicien de garde. La liste de garde se trouve sur l’intranet, sous Wachtregeling > Wachtdiensten.',ext:'Depuis l’extérieur du réseau interne : 016 80 75 55',
+  stepsH:'Que faire en cas d’odeur de gaz ?',steps:[['Quittez le bâtiment.','Sortez, jusqu’à un endroit où vous ne sentez plus le gaz. Éventuellement vers un autre bâtiment.'],['Appelez le 555','(appel urgent service technique).'],['Comptez tout le monde.','Patients, résidents, collaborateurs et autres, avec les listes de présence et la liste des lits vides. N’oubliez pas les chambres d’isolement.'],['Gardez vos distances.','Tenez tout le monde à 50 à 100 mètres. Aucune source d’inflammation à proximité : interdiction de fumer et de faire du feu.'],['Aérez.','Ouvrez les fenêtres et les portes.']],
+  neverH:'Ne faites jamais ceci',never:['N’utilisez pas de GSM dans la pièce.','N’allumez ni n’éteignez aucun appareil électrique ni éclairage, même pas une lampe de poche.','Ne retirez aucune fiche de la prise.'],spark:'Une étincelle peut faire exploser le gaz.',
+  boomH:'En cas d’explosion ou d’incendie de gaz',boom:'<b>Restez à distance.</b> Laissez brûler le feu tant que la fuite de gaz n’est pas colmatée.',
+  coH:'Monoxyde de carbone (CO)',co:['Le CO est inodore et incolore. Il se forme lors d’une combustion incomplète, par exemple par un appareil au gaz défectueux.','Symptômes : maux de tête, nausées, vomissements et vertiges. Ils disparaissent quand vous quittez la pièce.'],coDo:['Ouvrez les fenêtres et les portes.','Éteignez l’appareil au gaz.','Quittez la pièce.','Prévenez les services de secours.'],
+  tdH:'Que fait le service technique ?',td:['Prévient Fluvius, les pompiers (112) et le numéro d’urgence interne 999.','Ferme les robinets de gaz : d’abord celui le plus proche de l’appareil, puis le robinet principal du bâtiment, puis la vanne principale extérieure.','Suit les instructions des pompiers et de Fluvius.'],tdP:'Les chaufferies ont une détection de gaz avec une vanne automatique.'},
+ en:{h:'Gas leak',p:'Do you smell gas? Leave the building and report it on 555.',num:'Urgent call technical service',numTxt:'Outside working hours: the manager on call, who contacts the technician on call. The on-call list is on the intranet, under Wachtregeling > Wachtdiensten.',ext:'From outside the internal network: 016 80 75 55',
+  stepsH:'What to do when you smell gas',steps:[['Leave the building.','Go outside, to where you can no longer smell gas. Possibly to another building.'],['Report on 555','(urgent call technical service).'],['Count everyone.','Patients, residents, staff and others, using the attendance lists and the list of empty beds. Don’t forget the isolation rooms.'],['Keep your distance.','Keep everyone 50 to 100 metres away. No ignition sources nearby: no smoking, no open fire.'],['Ventilate.','Open windows and doors.']],
+  neverH:'Never do this',never:['Don’t use a mobile phone in the room.','Don’t switch electrical devices or lights on or off, not even a torch.','Don’t pull plugs out of sockets.'],spark:'A spark can make the gas explode.',
+  boomH:'Gas explosion or gas fire',boom:'<b>Stay away.</b> Let the fire burn as long as the gas leak has not been stopped.',
+  coH:'Carbon monoxide (CO)',co:['CO has no smell and no colour. It forms when burning is incomplete, for example from a faulty gas appliance.','Symptoms: headache, nausea, vomiting and dizziness. They go away once you leave the room.'],coDo:['Open windows and doors.','Switch off the gas appliance.','Leave the room.','Warn the emergency services.'],
+  tdH:'What does the technical service do?',td:['Warns Fluvius, the fire brigade (112) and the internal emergency number 999.','Closes the gas taps: first the one nearest the appliance, then the building’s main tap, then the main valve outside.','Follows the instructions of the fire brigade and Fluvius.'],tdP:'Boiler rooms have gas detection with an automatic shut-off valve.'}};
+const li=a=>a.map(x=>`<li>${x}</li>`).join('');
+V.gas=()=>{const g=GAS[lang()]||GAS.nl;return `
 <div class="gasview">
-<div class="view-head"><h1>Bij gas</h1><p>Ruik je gas? Verlaat het gebouw en maak een melding op 555.</p></div>
+<div class="view-head"><h1>${g.h}</h1><p>${g.p}</p></div>
 <div class="numbers">
-  <div class="num gas"><span>Dringende melding technische dienst</span><b>555</b><span>Buiten de werkuren: de directie van wacht (zie wachtlijst). Die verwittigt de technieker van wacht.</span></div>
+  <div class="num gas"><span>${g.num}</span><b>555</b><span>${g.numTxt}</span></div>
 </div>
+<p class="gasext">${g.ext}</p>
 <div class="card">
-  <div class="card-head"><h2>Wat doe je bij gasgeur?</h2>${sc('all')}</div>
-  <ol class="keylist">
-    <li><span>1</span><p><b>Verlaat het gebouw.</b> Ga naar buiten, tot waar je geen gas meer ruikt. Eventueel naar een ander gebouw.</p></li>
-    <li><span>2</span><p><b>Meld op 555</b> (dringende melding technische dienst).</p></li>
-    <li><span>3</span><p><b>Tel iedereen.</b> Patiënten, bewoners, medewerkers en anderen, met de aanwezigheidslijsten en de lijst lege bedden. Vergeet de isolatiekamers niet.</p></li>
-    <li><span>4</span><p><b>Houd afstand.</b> Houd iedereen 50 tot 100 meter weg. Geen ontstekingsbronnen in de buurt: rook- en vuurverbod.</p></li>
-    <li><span>5</span><p><b>Verlucht.</b> Zet ramen en deuren open.</p></li>
-  </ol>
+  <div class="card-head"><h2>${g.stepsH}</h2>${sc('all')}</div>
+  <ol class="keylist">${g.steps.map(([b,t],i)=>`<li><span>${i+1}</span><p><b>${b}</b> ${t}</p></li>`).join('')}</ol>
 </div>
 <div class="card nooit">
-  <div class="card-head"><h2>Doe dit nooit</h2>${sc('all')}</div>
-  <ul class="plain">
-    <li>Geen gsm gebruiken in de ruimte.</li>
-    <li>Geen elektrische toestellen of verlichting aan- of uitschakelen, ook geen zaklamp.</li>
-    <li>Geen stekkers uit het stopcontact trekken.</li>
-  </ul>
-  <p class="hl">Een vonk kan het gas doen ontploffen.</p>
+  <div class="card-head"><h2>${g.neverH}</h2>${sc('all')}</div>
+  <ul class="plain">${li(g.never)}</ul>
+  <p class="hl">${g.spark}</p>
 </div>
 <div class="card">
-  <div class="card-head"><h2>Bij gasontploffing of gasbrand</h2>${sc('all')}</div>
-  <p><b>Blijf weg.</b> Laat de brand branden zolang het gaslek niet gedicht is.</p>
+  <div class="card-head"><h2>${g.boomH}</h2>${sc('all')}</div>
+  <p>${g.boom}</p>
 </div>
 <div class="card">
-  <div class="card-head"><h2>Koolstofmonoxide (CO)</h2>${sc('all')}</div>
-  <p>CO is reukloos en kleurloos. Het ontstaat bij een onvolledige verbranding, bijvoorbeeld door een slecht werkend gastoestel.</p>
-  <p>Klachten: hoofdpijn, misselijkheid, braken en duizeligheid. Ze verdwijnen wanneer je de ruimte verlaat.</p>
-  <ul class="plain"><li>Zet ramen en deuren open.</li><li>Zet het gastoestel uit.</li><li>Verlaat de ruimte.</li><li>Verwittig de hulpdiensten.</li></ul>
+  <div class="card-head"><h2>${g.coH}</h2>${sc('all')}</div>
+  ${g.co.map(x=>`<p>${x}</p>`).join('')}
+  <ul class="plain">${li(g.coDo)}</ul>
 </div>
 <div class="card">
-  <div class="card-head"><h2>Wat doet de technische dienst?</h2>${sc('all')}</div>
-  <ul class="plain">
-    <li>Verwittigt Fluvius, de brandweer (112) en het interne noodnummer 999.</li>
-    <li>Sluit de gaskranen: eerst de kraan het dichtst bij het toestel, dan de hoofdkraan van het gebouw, dan de hoofdafsluiter buiten.</li>
-    <li>Volgt de richtlijnen van de brandweer en Fluvius op.</li>
-  </ul>
-  <p>Stookplaatsen hebben gasdetectie met een automatische afsluiter.</p>
+  <div class="card-head"><h2>${g.tdH}</h2>${sc('all')}</div>
+  <ul class="plain">${li(g.td)}</ul>
+  <p>${g.tdP}</p>
 </div>
-</div>`;
+</div>`};
 V.afd=()=>AFD[W().afd]();
 
 V.route=()=>{const w=W();state.view=state.view||0;if(!w.plans.length)return `
@@ -859,9 +866,9 @@ const LANG_NAMES={nl:'NL',fr:'FR',en:'EN'};
 let LANG=store.get('lang','nl');
 const lang=()=>(W().langs&&W().langs.includes(LANG))?LANG:'nl';
 const UI={
- fr:{tabs:{brand:'Incendie',afd:'Service',route:'Évacuation',blus:'Extinction',test:'Test'},sos:'Incendie',hospital:'Hôpital psychiatrique',
+ fr:{tabs:{brand:'Incendie',gas:'Gaz',afd:'Service',route:'Évacuation',blus:'Extinction',test:'Test'},sos:'Incendie',hospital:'Hôpital psychiatrique',
   allSites:'Tous les sites',assembly:'Point de rassemblement',level:'Niveau',zoom:'Zoom',edited:'Dernière modification le'},
- en:{tabs:{brand:'Fire',afd:'Department',route:'Escape routes',blus:'Extinguishing',test:'Test'},sos:'Fire',hospital:'Psychiatric hospital',
+ en:{tabs:{brand:'Fire',gas:'Gas',afd:'Department',route:'Escape routes',blus:'Extinguishing',test:'Test'},sos:'Fire',hospital:'Psychiatric hospital',
   allSites:'All sites',assembly:'Assembly point',level:'Level',zoom:'Zoom',edited:'Last edited on'},
 };
 const LT={
@@ -1007,6 +1014,7 @@ const LT={
 const T=()=>LT[lang()];
 const lassembly=()=>`<div class="assembly"><img src="img/verzamelpunt.webp" alt=""><div><small>${UI[lang()].assembly}</small><b>${W().verzamelL[lang()]}</b></div></div>`;
 const LV={
+ gas:()=>V.gas(),
  brand:()=>{const t=T(),w=W();return `
 <div class="view-head"><h1>${t.brandH}</h1><p>${t.brandP}</p></div>
 <div class="numbers">
