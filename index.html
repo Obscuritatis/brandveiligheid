@@ -627,6 +627,12 @@ ${(w.cards||[]).map(c=>`<div class="card"><div class="card-head"><h2>${c.h}</h2>
 AFD.hestia=()=>`
 <div class="view-head"><h1>Mobiel team Hestia</h1><p>Alles wat voor het mobiele team anders is dan elders.</p></div>
 <div class="card">
+  <div class="card-head"><h2>Detectie- en blusmiddelen op de afdeling</h2>${sc('ward')}</div>
+  <p>In het <b>gebouw van Hestia op de site van het ziekenhuis</b>:</p>
+  <ul class="plain">${[EQUIP_STD[6],EQUIP_STD[1],EQUIP_STD[3],EQUIP_STD[0]].map(e=>`<li>${e}</li>`).join('')}</ul>
+  <p class="hl">Zorg er altijd voor dat je weet waar deze zich bevinden op de afdeling waar je werkt.</p>
+</div>
+<div class="card">
   <div class="card-head"><h2>Werken in de huizen van Hestia</h2>${sc('ward')}</div>
   <p>Als mobiel team werk je in verschillende huizen. Alle huizen van Hestia hebben <b>bio-schuimblussers</b>.</p>
   <p class="hl">Zorg er altijd voor dat je weet waar de blusmiddelen zich bevinden in het huis waar je werkt.</p>
