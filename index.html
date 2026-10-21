@@ -22,6 +22,7 @@
   --red:#b3121b; --red-soft:#fbe9e8; --on-red:#ffffff;
   --green:#0a7d3e; --green-soft:#e5f3ea;
   --amber:#8a5a00; --amber-soft:#fff3d6;
+  --gas:#f5c400; --on-gas:#1f1a00; --gas-ink:#7a5c00; --gas-soft:#fff6cc;
   --scope-all:#4b5563; --scope-site:#7a3e8f; --scope-ward:#b3121b;
   --font-display:"Barlow Semi Condensed","Arial Narrow",system-ui,sans-serif;
   --font-body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -30,12 +31,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#151213; --surface:#1f1b1c; --fg:#f1ecea; --muted:#a89e9c; --line:#352f30;
   --red:#e2454c; --red-soft:#3a1a1c; --on-red:#ffffff;
-  --green:#3fbf76; --green-soft:#16301f; --amber:#f0c060; --amber-soft:#3a2e12;
+  --green:#3fbf76; --green-soft:#16301f; --amber:#f0c060; --amber-soft:#3a2e12; --gas-ink:#f5c400; --gas-soft:#3a3210;
   --scope-all:#a3acb9; --scope-site:#c48fd6; --scope-ward:#ff7a80; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#151213; --surface:#1f1b1c; --fg:#f1ecea; --muted:#a89e9c; --line:#352f30;
   --red:#e2454c; --red-soft:#3a1a1c; --on-red:#ffffff;
-  --green:#3fbf76; --green-soft:#16301f; --amber:#f0c060; --amber-soft:#3a2e12;
+  --green:#3fbf76; --green-soft:#16301f; --amber:#f0c060; --amber-soft:#3a2e12; --gas-ink:#f5c400; --gas-soft:#3a3210;
   --scope-all:#a3acb9; --scope-site:#c48fd6; --scope-ward:#ff7a80; color-scheme:dark}
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -65,12 +66,20 @@ main{flex:1;min-width:0;display:flex;flex-direction:column;gap:18px}
 .tab{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:.72rem;color:var(--muted);padding:6px 2px;cursor:pointer;border-radius:8px}
 .tab svg{width:24px;height:24px}
 .tab[aria-current="page"]{color:var(--red);font-weight:700}
+.tab.gas{color:var(--gas-ink)}.tab.gas[aria-current="page"]{color:var(--gas-ink)}
+.num.gas{background:var(--gas);color:var(--on-gas);grid-column:1/-1}
+.num.gas-alt{background:var(--surface);color:var(--fg);border:2px solid var(--gas);grid-column:1/-1}.num.gas-alt b{color:var(--gas-ink);font-size:1.6rem}
+.gasview{display:flex;flex-direction:column;gap:18px}
+.gasview .keylist li>span{background:var(--gas);color:var(--on-gas)}
+.gasview .hl{color:var(--gas-ink)}
+.gasview .nooit{border-left:4px solid var(--red)}.gasview .nooit .hl{color:var(--red)}
 @media (min-width:900px){
   .tabbar{display:none}
   .shell{padding-block:28px 48px}
   .side{display:flex;flex-direction:column;gap:4px;width:220px;flex:none;position:sticky;top:90px;align-self:flex-start}
   .side .tab{flex-direction:row;gap:12px;font-size:1rem;padding:10px 12px;justify-content:flex-start}
   .side .tab[aria-current="page"]{background:var(--red-soft)}
+  .side .tab.gas[aria-current="page"]{background:var(--gas-soft)}
   .side .legend{margin-top:20px}
 }
 
@@ -287,7 +296,7 @@ const WARDS={
   plans:[{l:'00',img:'img/verslaving-plan00.webp',leg:LEG+', brandmeldingscentrale (BMC), evacuatieschakelaar'},{l:'01',img:'img/verslaving-plan01.webp',leg:LEG+', evacuatieschakelaar'},{l:'02',img:'img/verslaving-plan02.webp',leg:LEG+', evacuatieschakelaar'}]},
 
  // Toegevoegd 13/10/2026 uit tien PZ-decks. Plannen zijn uitsneden van de dia's, HQ-versies volgen.
- algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
+ algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',gas:1,afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   meld:'Melding via het sleutelcontact start ook de evacuatie. Met je badge kan je de deuren meteen ontgrendelen.',
   equip:['<b>Branddekens:</b> aanwezig in elke keuken en in de verpleegpost van AP1.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen van AP1, en ook daarbuiten op AP2. Te herkennen aan het groene handvat.',EQUIP_STD[2],'<b>Brandhaspels:</b> in elke brandkast en op de gang van AP2.','<b>Brandcentrale:</b> in de verpleegpost van AP1.','<b>Handbrandmelders:</b> enkel in de verpleegpost van AP1, niet op de gangen. De evacuatie start je met de <b>sleutel op de verpleegposten</b>.',EQUIP_STD[6]],
   alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.'],
@@ -506,9 +515,11 @@ const ICON={
   afd:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 7h6M9 11h6M9 15h3"/></svg>',
   route:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V8l5-4 6 4 5-3v12l-5 3-6-4z"/><path d="M9 4v12M15 8v12"/></svg>',
   blus:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="8" height="13" rx="3"/><path d="M10 8V5h4v3M14 5h4l1 2"/></svg>',
+  gas:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20z"/><path d="M12 10v4M12 17h.01"/></svg>',
   test:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
 };
 const TABS=[['brand','Bij brand'],['afd','Afdeling'],['route','Vluchtroutes'],['blus','Blussen'],['test','Test']];
+const tabs=()=>W().gas?[TABS[0],['gas','Bij gas'],...TABS.slice(1)]:TABS;
 const assembly=()=>W().verzamel?`<div class="assembly"><img src="img/verzamelpunt.webp" alt="Pictogram verzamelplaats"><div><small>Verzamelplaats</small><b>${W().verzamel}</b></div></div>`
   :`<div class="todo"><b>Nog aan te vullen:</b> ${W().siteLevel?'de verzamelplaats van deze site volgt met de PowerPoint.':'in de PowerPoint van deze afdeling staat geen verzamelplaats.'}</div>`;
 const TODO_SITE='<div class="todo"><b>Nog aan te vullen:</b> de info voor deze site volgt zodra de PowerPoint er is.</div>';
@@ -664,6 +675,51 @@ AFD.onderhoud=()=>{const w=W();return `
   <ul class="plain">${w.alerts.map(a=>`<li>${a}</li>`).join('')}<li>Melding via de handbrandmelder of het sleutelcontact start meteen ook de evacuatie.</li></ul>
 </div>
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`};
+V.gas=()=>`
+<div class="gasview">
+<div class="view-head"><h1>Bij gas</h1><p>Ruik je gas? Verlaat het gebouw en maak een melding op 555.</p></div>
+<div class="numbers">
+  <div class="num gas"><span>Dringende melding technische dienst</span><b>555</b><span>Buiten de werkuren: de directie van wacht (zie wachtlijst). Die verwittigt de technieker van wacht.</span></div>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Wat doe je bij gasgeur?</h2>${sc('all')}</div>
+  <ol class="keylist">
+    <li><span>1</span><p><b>Verlaat het gebouw.</b> Ga naar buiten, tot waar je geen gas meer ruikt. Eventueel naar een ander gebouw.</p></li>
+    <li><span>2</span><p><b>Meld op 555</b> (dringende melding technische dienst).</p></li>
+    <li><span>3</span><p><b>Tel iedereen.</b> Patiënten, bewoners, medewerkers en anderen, met de aanwezigheidslijsten en de lijst lege bedden. Vergeet de isolatiekamers niet.</p></li>
+    <li><span>4</span><p><b>Houd afstand.</b> Houd iedereen 50 tot 100 meter weg. Geen ontstekingsbronnen in de buurt: rook- en vuurverbod.</p></li>
+    <li><span>5</span><p><b>Verlucht.</b> Zet ramen en deuren open.</p></li>
+  </ol>
+</div>
+<div class="card nooit">
+  <div class="card-head"><h2>Doe dit nooit</h2>${sc('all')}</div>
+  <ul class="plain">
+    <li>Geen gsm gebruiken in de ruimte.</li>
+    <li>Geen elektrische toestellen of verlichting aan- of uitschakelen, ook geen zaklamp.</li>
+    <li>Geen stekkers uit het stopcontact trekken.</li>
+  </ul>
+  <p class="hl">Een vonk kan het gas doen ontploffen.</p>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Bij gasontploffing of gasbrand</h2>${sc('all')}</div>
+  <p><b>Blijf weg.</b> Laat de brand branden zolang het gaslek niet gedicht is.</p>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Koolstofmonoxide (CO)</h2>${sc('all')}</div>
+  <p>CO is reukloos en kleurloos. Het ontstaat bij een onvolledige verbranding, bijvoorbeeld door een slecht werkend gastoestel.</p>
+  <p>Klachten: hoofdpijn, misselijkheid, braken en duizeligheid. Ze verdwijnen wanneer je de ruimte verlaat.</p>
+  <ul class="plain"><li>Zet ramen en deuren open.</li><li>Zet het gastoestel uit.</li><li>Verlaat de ruimte.</li><li>Verwittig de hulpdiensten.</li></ul>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Wat doet de technische dienst?</h2>${sc('all')}</div>
+  <ul class="plain">
+    <li>Verwittigt Fluvius, de brandweer (112) en het interne noodnummer 999.</li>
+    <li>Sluit de gaskranen: eerst de kraan het dichtst bij het toestel, dan de hoofdkraan van het gebouw, dan de hoofdafsluiter buiten.</li>
+    <li>Volgt de richtlijnen van de brandweer en Fluvius op.</li>
+  </ul>
+  <p>Stookplaatsen hebben gasdetectie met een automatische afsluiter.</p>
+</div>
+</div>`;
 V.afd=()=>AFD[W().afd]();
 
 V.route=()=>{const w=W();state.view=state.view||0;if(!w.plans.length)return `
@@ -1041,10 +1097,10 @@ const LBLUS={
 // Each new visit starts on the site overview; a reload in the same tab (e.g. after saving) keeps the current screen.
 let SEEN=false;try{SEEN=sessionStorage.getItem('open')==='1';sessionStorage.setItem('open','1')}catch(e){}
 const state={screen:SEEN&&store.get('plek',null)?null:'home',tab:'brand',lvl:'00',sec:'blussers',round:store.get(qkey(),null),edit:false,draft:null,msg:''};
-const ok=TABS.map(t=>t[0]);
+const ok=[...TABS.map(t=>t[0]),'gas'];
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
-function navHTML(){return TABS.map(([k,l])=>(lang()!=='nl'&&(l=UI[lang()].tabs[k]),k==='afd'&&W().siteLevel&&(l='Site'),`<button class="tab" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
+function navHTML(){return tabs().map(([k,l])=>(lang()!=='nl'&&UI[lang()].tabs[k]&&(l=UI[lang()].tabs[k]),k==='afd'&&W().siteLevel&&(l='Site'),`<button class="tab${k==='gas'?' gas':''}" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
 function homeHTML(){
   if(state.screen==='pz'){const s=SITES[0],ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
 <button class="back" data-home="home">‹ Alle sites</button>
@@ -1062,6 +1118,7 @@ function render(){
   if(state.screen){if(state.edit)cancelEditSilently();main.innerHTML=homeHTML();
     document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
   document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?UI[lang()].hospital:siteName();
+  if(!tabs().some(t=>t[0]===state.tab))state.tab='brand';
   const VV=lang()!=='nl'?LV:V;document.documentElement.lang=lang();
   main.innerHTML=(state.edit?editBar():'')+`<div class="view">${VV[state.tab]()}</div>`+stamp();
   const lb=document.getElementById('langbar');lb.hidden=!W().langs;
@@ -1070,7 +1127,7 @@ function render(){
   applyEdits(main.querySelector('.view'));applyPins(main);
   document.getElementById('whereWard').textContent=W().names?W().names[lang()]:W().name;
   const eb=document.getElementById('editBtn');eb.querySelector('span').textContent=state.edit?'Klaar':'Bewerken';eb.setAttribute('aria-label',state.edit?'Bewerkmodus sluiten':'Bewerken');
-  document.getElementById('tabbar').innerHTML=navHTML();
+  const tb=document.getElementById('tabbar');tb.innerHTML=navHTML();tb.style.gridTemplateColumns=`repeat(${tabs().length},1fr)`;
   document.body.classList.toggle('editmode',state.edit);
   document.getElementById('side').innerHTML=navHTML()+(state.edit?`<div class="legend"><b>Waar geldt een tekst?</b><div>${sc('all')}</div><div>${sc('site')}</div>${W().siteLevel?'':`<div>${sc('ward')}</div>`}</div>`:'');
 }
