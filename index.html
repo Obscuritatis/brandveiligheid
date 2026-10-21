@@ -276,7 +276,7 @@ const WARDS={
   alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat op de verpleegpost.','<b>Handbrandmelders</b> hangen in alle gangen, nooit op een kamer.'],
   plans:[{l:'00',hq:1,views:['img/eetherstel-hq-00a.webp','img/eetherstel-hq-00b.webp','img/eetherstel-hq-00c.webp']},{l:'01',hq:1,views:['img/eetherstel-hq-01a.webp','img/eetherstel-hq-01b.webp']},{l:'02',hq:1,views:['img/eetherstel-hq-02a.webp','img/eetherstel-hq-02b.webp']},{l:'03',hq:1,views:['img/eetherstel-hq-03a.webp'],note:'Niveau 03 is de machinekamer van de lift.'}]},
  hestia:{site:'pz',name:'Mobiel team Hestia',label:'Mobiel team Hestia',afd:'hestia',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
-  alerts:['De opleiding hier focust op het <b>gebouw van Hestia binnen het psychiatrisch ziekenhuis</b>. Veel kan echter ook toegepast worden bij evacuatie in de externe huizen van Hestia.','Je werkt als mobiel team in verschillende huizen. <b>Alle huizen van Hestia hebben bio-schuimblussers.</b>','Bij brand in één van de huizen: <b>verlaat zo snel mogelijk het gebouw</b>. Let bij het verlaten op voor doorgaand verkeer en <b>blijf niet op straat staan</b>.'],
+  alerts:['De opleiding hier focust op het <b>gebouw van Hestia binnen het psychiatrisch ziekenhuis</b>. Veel kan echter ook toegepast worden bij evacuatie in de externe huizen van Hestia.','Je werkt als mobiel team in verschillende huizen. <b>Alle huizen van Hestia hebben bio-schuimblussers, rookdetectoren en branddekens.</b>','Bij brand in één van de huizen: <b>verlaat zo snel mogelijk het gebouw</b>. Let bij het verlaten op voor doorgaand verkeer en <b>blijf niet op straat staan</b>.'],
   plans:[{l:'-01',img:'img/hestia-planm01.webp'},{l:'00',img:'img/hestia-plan00.webp'},{l:'01',img:'img/hestia-plan01.webp'}]},
  ouderen:{site:'pz',name:'Ouderenpsychiatrie',label:'Afdeling ouderenpsychiatrie',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,equip:EQUIP_STD,
   alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat op de verpleegpost.','Op het plan van niveau 00 staan de <b>evacuatie-sleutelcontacten</b> aangeduid.'],
@@ -634,9 +634,9 @@ AFD.hestia=()=>`
 </div>
 <div class="card">
   <div class="card-head"><h2>Werken in de huizen van Hestia</h2>${sc('ward')}</div>
-  <p>Als mobiel team werk je in verschillende huizen. Alle huizen van Hestia hebben <b>bio-schuimblussers</b>.</p>
+  <p>Als mobiel team werk je in verschillende huizen. Alle huizen van Hestia hebben <b>bio-schuimblussers</b>, <b>rookdetectoren</b> en <b>branddekens</b>.</p>
   <p class="hl">Zorg er altijd voor dat je weet waar de blusmiddelen zich bevinden in het huis waar je werkt.</p>
-  <div class="todo"><b>Nog aan te vullen:</b> de PowerPoint bevat geen overzicht per huis van de brandcentrale, branddekens en handbrandmelders.</div>
+  <div class="todo"><b>Nog aan te vullen:</b> de PowerPoint bevat geen overzicht per huis van de brandcentrale en handbrandmelders.</div>
 </div>
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`;
 AFD.site=()=>{const w=W(),c=w.centrale;return `
