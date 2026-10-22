@@ -1,5 +1,5 @@
 // Network first, so updates show right away; the cached copy is used when there is no connection.
-const CACHE='brandveiligheid-v1';
+const CACHE='brandveiligheid-v2';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch',e=>{
