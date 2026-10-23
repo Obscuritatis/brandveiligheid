@@ -2,7 +2,7 @@
 // Content model: every block has a scope. "all" = shared by the 5 sites, "site" = one site, "ward" = one afdeling.
 const SHELL=`<header class="top">
   <div class="top-in">
-    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="8.5" width="8.5" height="13" rx="3.2" fill="currentColor"/><path d="M9.2 8.5V5.5h4v3"/><path d="M13.2 5.5h4.8l1.6 2.2"/><path d="M8.6 3.5h5.2"/><path d="M8.5 14h5.5" stroke="#fff"/></svg></div>
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-3.5 2-5 1 1.5 1.5 2 2.5 2C11.5 7.5 11 5 12 3z"/></svg></div>
     <button class="where" id="whereBtn" aria-label="Site of afdeling wijzigen">
       <small id="whereSite">Psychiatrisch ziekenhuis</small>
       <b id="whereWard">Jeugdpsychiatrie</b>
