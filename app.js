@@ -295,8 +295,8 @@ const V={};
 V.brand=()=>{const w=W();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
 <div class="numbers">
-  <div class="num"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
-  <div class="num alt"><span>Intern noodnummer</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?'Vanuit PSC bel je het volledige nummer. ':''}Melding maken eens je veilig bent</span></div>
+  <div class="num" data-tel="112"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
+  <div class="num alt" data-tel="+3216807999"><span>Intern noodnummer</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?'Vanuit PSC bel je het volledige nummer. ':''}Melding maken eens je veilig bent</span></div>
   ${w.site==='pz'?'<div class="num acc"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer. Indien ernstig bel eerst 112.</span></div>'
     :'<div class="num acc txt"><span>Bij een ongeval</span><b>Bel het interne nummer van de verpleging</b><span>Indien ernstig bel eerst 112.</span></div>'}
 </div>
@@ -469,7 +469,7 @@ V.gas=()=>{const g=GAS[lang()]||GAS.nl;return `
 <div class="gasview">
 <div class="view-head"><h1>${g.h}</h1><p>${g.p}</p></div>
 <div class="numbers">
-  <div class="num gas"><span>${g.num}</span><b>555</b><span>${g.numTxt}</span></div>
+  <div class="num gas" data-tel="+3216807555"><span>${g.num}</span><b>555</b><span>${g.numTxt}</span></div>
 </div>
 <p class="gasext">${g.ext}</p>
 <div class="card">
@@ -793,8 +793,8 @@ const LV={
  brand:()=>{const t=T(),w=W();return `
 <div class="view-head"><h1>${t.brandH}</h1><p>${t.brandP}</p></div>
 <div class="numbers">
-  <div class="num"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
-  <div class="num alt"><span>${t.internal}</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?{fr:'Depuis le PSC, composez le numéro complet. ',en:'From PSC, dial the full number. '}[lang()]:''}${t.thenReport}</span></div>
+  <div class="num" data-tel="112"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
+  <div class="num alt" data-tel="+3216807999"><span>${t.internal}</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?{fr:'Depuis le PSC, composez le numéro complet. ',en:'From PSC, dial the full number. '}[lang()]:''}${t.thenReport}</span></div>
   ${w.site==='pz'?`<div class="num acc"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}</span></div>`}
 </div>
 <div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
@@ -895,7 +895,7 @@ function heroHTML(){const pz=state.screen==='pz';return `<div class="hero"><div 
   ${pz?`<button class="back" data-home="home">‹ Alle sites</button><h1>${SITES[0].name}</h1><p>Kies de afdeling waar je werkt. De app onthoudt je keuze.</p>`
     :`<h1>Samen zorgen we voor een veilige plek</h1><p>Kies waar je werkt en leer wat je doet bij brand.</p>`}
 </div></div>
-<div style="padding:0 16px"><div class="hnums"><div><small>Brandweer</small><b>112</b></div><div><small>Intern noodnummer</small><b>999</b></div></div></div>`}
+<div style="padding:0 16px"><div class="hnums"><div data-tel="112"><small>Brandweer</small><b>112</b></div><div data-tel="+3216807999"><small>Intern noodnummer</small><b>999</b></div></div></div>`}
 function homeHTML(){
   if(state.screen==='pz'){const ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
 <h2 class="home-h">Kies je afdeling</h2>
@@ -933,6 +933,8 @@ let hiddenAt=0;document.addEventListener('visibilitychange',()=>{if(document.hid
   if(hiddenAt&&Date.now()-hiddenAt>10*60e3&&!state.edit&&!state.screen){state.screen='home';render();window.scrollTo({top:0})}});
 document.addEventListener('change',e=>{if(e.target.matches('.lvlsel')){state.lvl=e.target.value;state.view=0;render()}});
 document.addEventListener('click',e=>{
+  // Nummervakken bellen echt. Met de gsm wordt 999 het volledige nummer 016 80 79 99 en 555 wordt 016 80 75 55 (Johan, 23/10/2026).
+  const tl=!state.edit&&e.target.closest('[data-tel]');if(tl){location.href='tel:'+tl.dataset.tel;return}
   if(state.edit&&e.target.closest('[contenteditable="true"]')){e.preventDefault();return}
   if(e.target.closest('#editBtn'))return state.edit?cancelEdit():startEdit();
   if(e.target.closest('#saveBtn'))return saveEdits();
