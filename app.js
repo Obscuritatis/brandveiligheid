@@ -288,7 +288,7 @@ const NOOD=()=>W().site==='psc'?'016 80 79 99':'999';
 const ADDR={pz:{nl:'Psychiatrisch Ziekenhuis Tienen, Liefdestraat 10',fr:'Hôpital psychiatrique de Tienen, Liefdestraat 10',en:'Psychiatric Hospital Tienen, Liefdestraat 10'},
  psc:{nl:'PSC Leuven, Mechelsestraat 84 in Leuven',fr:'PSC Leuven, Mechelsestraat 84 à Louvain',en:'PSC Leuven, Mechelsestraat 84 in Leuven'},
  alexius:{nl:'Woonzorgcentrum Sint-Alexius, Alexianenweg 27 in Tienen',fr:'Maison de repos Sint-Alexius, Alexianenweg 27 à Tirlemont',en:'Sint-Alexius care home, Alexianenweg 27 in Tienen'},
- passionisten:{nl:'Woonzorgcentrum Passionisten, Park Passionisten 1 in Tienen',fr:'Maison de repos Passionisten, Park Passionisten 1 à Tirlemont',en:'Passionisten care home, Park Passionisten 1 in Tienen'},
+ passionisten:{nl:'Woonzorgcentrum Passionisten, Passionisten 1 in Tienen',fr:'Maison de repos Passionisten, Passionisten 1 à Tirlemont',en:'Passionisten care home, Passionisten 1 in Tienen'},
  nazareth:{nl:'Woonzorgcentrum Huize Nazareth, Goetsenhovenplein 22 in Tienen',fr:'Maison de repos Huize Nazareth, Goetsenhovenplein 22 à Tirlemont',en:'Huize Nazareth care home, Goetsenhovenplein 22 in Tienen'},};
 const addr=()=>(ADDR[W().site]||ADDR[WID]||{nl:'de naam en het adres van het woonzorgcentrum',fr:'le nom et l’adresse de la maison de repos',en:'the name and address of the care home'})[lang()];
 const V={};
