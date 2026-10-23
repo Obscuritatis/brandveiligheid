@@ -2,7 +2,7 @@
 // Content model: every block has a scope. "all" = shared by the 5 sites, "site" = one site, "ward" = one afdeling.
 const SHELL=`<header class="top">
   <div class="top-in">
-    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-3.5 2-5 1 1.5 1.5 2 2.5 2C11.5 7.5 11 5 12 3z"/></svg></div>
+    <button class="logo" id="logoBtn" aria-label="Naar het startscherm"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 4 5 5.5 5 10a5 5 0 0 1-10 0c0-2.5 1.5-3.5 2-5 1 1.5 1.5 2 2.5 2C11.5 7.5 11 5 12 3z"/></svg></button>
     <button class="where" id="whereBtn" aria-label="Site of afdeling wijzigen">
       <small id="whereSite">Psychiatrisch ziekenhuis</small>
       <b id="whereWard">Jeugdpsychiatrie</b>
@@ -962,6 +962,7 @@ document.addEventListener('click',e=>{
   const lg=e.target.closest('[data-lang]');if(lg){if(state.edit)return;LANG=lg.dataset.lang;store.set('lang',LANG);state.round=store.get(qkey(),null);return render()}
   const hm=e.target.closest('[data-home]');if(hm){state.screen=hm.dataset.home;render();return window.scrollTo({top:0})}
   const wd=e.target.closest('[data-ward]');if(wd){WID=wd.dataset.ward;store.set('ward',WID);store.set('plek',1);state.round=store.get(qkey(),null);state.screen=null;return go('brand')}
+  if(e.target.closest('#logoBtn')){if(state.edit)return;state.screen='home';render();return window.scrollTo({top:0})}
   if(e.target.closest('#whereBtn')){if(state.edit)return;state.screen=state.screen?'home':(W().site==='pz'?'pz':'home');render();return window.scrollTo({top:0})}
   if(e.target.classList.contains('sheet-bg')||e.target.closest('[data-close]'))return closeSheet();
 });
