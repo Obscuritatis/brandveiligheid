@@ -860,8 +860,9 @@ const LBLUS={
 };
 
 // Each new visit starts on the site overview; a reload in the same tab (e.g. after saving) keeps the current screen.
-let SEEN=false;try{SEEN=sessionStorage.getItem('open')==='1';sessionStorage.setItem('open','1')}catch(e){}
-const state={screen:SEEN&&store.get('plek',null)?null:'home',tab:'brand',lvl:'00',sec:'blussers',round:store.get(qkey(),null),edit:false,draft:null,msg:''};
+// Opening the app (no #page in the address) always starts on the start screen; a refresh keeps the current page via the #page.
+const H0=location.hash.slice(1);
+const state={screen:H0==='pz'?'pz':(H0&&H0!=='home'&&store.get('plek',null))?null:'home',tab:'brand',lvl:'00',sec:'blussers',round:store.get(qkey(),null),edit:false,draft:null,msg:''};
 const ok=[...TABS.map(t=>t[0]),'gas'];
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
@@ -892,6 +893,7 @@ function render(){
   document.body.classList.toggle('homebody',!!state.screen);
   document.getElementById('hero').innerHTML=state.screen?heroHTML():'';
   if(state.screen){if(state.edit)cancelEditSilently();main.innerHTML=homeHTML();
+    if(location.hash!=='#'+state.screen)history.replaceState(null,'','#'+state.screen);
     document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
   document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?UI[lang()].hospital:siteName();
   if(!tabs().some(t=>t[0]===state.tab))state.tab='brand';
@@ -908,6 +910,9 @@ function render(){
   document.getElementById('side').innerHTML=navHTML()+(state.edit?`<div class="legend"><b>Waar geldt een tekst?</b><div>${sc('all')}</div><div>${sc('site')}</div>${W().siteLevel?'':`<div>${sc('ward')}</div>`}</div>`:'');
 }
 function go(t){state.tab=t;history.replaceState(null,'','#'+t);render();window.scrollTo({top:0})}
+// Back to the start screen when the app comes back after a while in the background.
+let hiddenAt=0;document.addEventListener('visibilitychange',()=>{if(document.hidden){hiddenAt=Date.now();return}
+  if(hiddenAt&&Date.now()-hiddenAt>10*60e3&&!state.edit&&!state.screen){state.screen='home';render();window.scrollTo({top:0})}});
 document.addEventListener('change',e=>{if(e.target.matches('.lvlsel')){state.lvl=e.target.value;state.view=0;render()}});
 document.addEventListener('click',e=>{
   if(state.edit&&e.target.closest('[contenteditable="true"]')){e.preventDefault();return}
