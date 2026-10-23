@@ -297,7 +297,7 @@ V.brand=()=>{const w=W();return `
 <div class="numbers">
   <div class="num" data-tel="112"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
   <div class="num alt" data-tel="+3216807999"><span>Intern noodnummer</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?'Vanuit PSC bel je het volledige nummer. ':''}Melding maken eens je veilig bent</span></div>
-  ${w.site==='pz'?'<div class="num acc"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer. Indien ernstig bel eerst 112.</span></div>'
+  ${w.site==='pz'?'<div class="num acc" data-tel="+3216807898"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer. Indien ernstig bel eerst 112.</span></div>'
     :'<div class="num acc txt"><span>Bij een ongeval</span><b>Bel het interne nummer van de verpleging</b><span>Indien ernstig bel eerst 112.</span></div>'}
 </div>
 <div class="card">
@@ -795,7 +795,7 @@ const LV={
 <div class="numbers">
   <div class="num" data-tel="112"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
   <div class="num alt" data-tel="+3216807999"><span>${t.internal}</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?{fr:'Depuis le PSC, composez le numéro complet. ',en:'From PSC, dial the full number. '}[lang()]:''}${t.thenReport}</span></div>
-  ${w.site==='pz'?`<div class="num acc"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}</span></div>`}
+  ${w.site==='pz'?`<div class="num acc" data-tel="+3216807898"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}</span></div>`}
 </div>
 <div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
   <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
@@ -933,7 +933,7 @@ let hiddenAt=0;document.addEventListener('visibilitychange',()=>{if(document.hid
   if(hiddenAt&&Date.now()-hiddenAt>10*60e3&&!state.edit&&!state.screen){state.screen='home';render();window.scrollTo({top:0})}});
 document.addEventListener('change',e=>{if(e.target.matches('.lvlsel')){state.lvl=e.target.value;state.view=0;render()}});
 document.addEventListener('click',e=>{
-  // Nummervakken bellen echt. Met de gsm wordt 999 het volledige nummer 016 80 79 99 en 555 wordt 016 80 75 55 (Johan, 23/10/2026).
+  // Nummervakken bellen echt. Met de gsm wordt 999 het volledige nummer 016 80 79 99 555 wordt 016 80 75 55 en 898 wordt 016 80 78 98 (Johan, 23/10/2026).
   const tl=!state.edit&&e.target.closest('[data-tel]');if(tl){location.href='tel:'+tl.dataset.tel;return}
   if(state.edit&&e.target.closest('[contenteditable="true"]')){e.preventDefault();return}
   if(e.target.closest('#editBtn'))return state.edit?cancelEdit():startEdit();
