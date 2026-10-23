@@ -328,7 +328,7 @@ V.brand=()=>{const w=W();return `
     <p class="hl">Open je onderweg een branddeur, sluit ze opnieuw.</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>${sc('all')}`)}
   ${step('Verlaat de afdeling','Rustig, in groep, naar de verzamelplaats',`
-    <p>Verlaat de afdeling in groep als het kan, rustig en ordelijk. Niet lopen of roepen. Volg de evacuatiepictogrammen.${w.site==='pz'?' De evacuatiedeuren ontgrendelen bij alarm. Gebruik waar nodig de paniekknop of -hendel om ze te openen.':''}</p>
+    <p>Verlaat de afdeling in groep als het kan, rustig en ordelijk. Niet lopen of roepen. Volg de evacuatiepictogrammen. De evacuatiedeuren ontgrendelen bij alarm. Gebruik waar nodig de paniekknop of -hendel om ze te openen.</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
     <p>Laat persoonlijke spullen achter, maar <b>neem de aanwezigheidslijsten mee</b> (${w.site==='pz'||w.site==='psc'?'patiënten':'bewoners'} en medewerkers). Schakel indien mogelijk elektrische toestellen uit.</p>
     ${assembly()}
@@ -807,7 +807,7 @@ const LV={
 </div>
 <div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
   <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
-<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()).replace('%DOORS%',w.site==='pz'?t.doors:'').replace('%WHO%',w.site==='pz'||w.site==='psc'?t.whoP:t.whoR))).join('')}</ol>
+<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()).replace('%DOORS%',t.doors).replace('%WHO%',w.site==='pz'||w.site==='psc'?t.whoP:t.whoR))).join('')}</ol>
 <div class="card" id="shelter">
   <div class="card-head"><h2>${t.shelterH}</h2>${sc('all')}</div>
   <p>${t.shelterP}</p>
