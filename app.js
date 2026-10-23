@@ -12,6 +12,7 @@ const SHELL=`<header class="top">
   </div>
   <div class="langbar" id="langbar" role="group" aria-label="Taal / Langue / Language" hidden></div>
 </header>
+<div id="hero"></div>
 
 <div class="shell">
   <nav class="side" id="side" aria-label="Hoofdmenu"></nav>
@@ -865,20 +866,31 @@ const ok=[...TABS.map(t=>t[0]),'gas'];
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
 function navHTML(){return tabs().map(([k,l])=>(lang()!=='nl'&&UI[lang()].tabs[k]&&(l=UI[lang()].tabs[k]),k==='afd'&&W().siteLevel&&(l='Site'),`<button class="tab${k==='gas'?' gas':''}" data-tab="${k}" ${state.tab===k?'aria-current="page"':''}>${ICON[k]}<span>${l}</span></button>`)).join('')}
+const HICON={
+ pz:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V7l8-4 8 4v14"/><path d="M12 8v6M9 11h6M9 21v-4h6v4"/></svg>',
+ wzc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>',
+ psc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h6v12h-6M8 7h2M8 11h2M8 15h2"/></svg>'};
+function heroHTML(){const pz=state.screen==='pz';return `<div class="hero"><div class="glow"></div><div class="hero-in">
+  <div class="flame" aria-hidden="true">${ICON.brand}</div>
+  <div class="hbrand"><i aria-hidden="true">${ICON.brand}</i>Opleiding brandveiligheid</div>
+  ${pz?`<button class="back" data-home="home">‹ Alle sites</button><h1>${SITES[0].name}</h1><p>Kies de afdeling waar je werkt. De app onthoudt je keuze.</p>`
+    :`<h1>Samen zorgen we voor een veilige plek</h1><p>Kies waar je werkt en leer wat je doet bij brand.</p>`}
+</div></div>
+<div style="padding:0 16px"><div class="hnums"><div><small>Brandweer</small><b>112</b></div><div><small>Intern noodnummer</small><b>999</b></div></div></div>`}
 function homeHTML(){
-  if(state.screen==='pz'){const s=SITES[0],ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
-<button class="back" data-home="home">‹ Alle sites</button>
-<div class="view-head"><h1>${s.name}</h1><p>Kies de afdeling waar je werkt. De app onthoudt je keuze.</p></div>
-<div class="picks">${ws.map(([k,w])=>`<button class="pick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.name}</b>${w.names?`<small>${w.names.fr} · ${w.names.en}</small>`:''}</span></button>`).join('')}
-<button class="pick" disabled><span><b>Andere afdelingen</b><small>Volgen later</small></span></button></div>`}
+  if(state.screen==='pz'){const ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
+<h2 class="home-h">Kies je afdeling</h2>
+<div class="wards">${ws.map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.name}</b>${w.names?`<small>${w.names.fr} · ${w.names.en}</small>`:''}</span></button>`).join('')}
+<button class="wpick" disabled><span><b>Andere afdelingen</b><small>Volgen later</small></span></button></div>`}
   return `
-<div class="view-head"><h1>Waar werk je?</h1><p>Kies je site. Daarna zie je de opleiding brandveiligheid voor jouw afdeling of site.</p></div>
-<div class="picks">${SITES.map(s=>s.id==='pz'
-  ?`<button class="pick" data-home="pz" ${W().site==='pz'&&store.get('plek',null)?'aria-current="true"':''}><span><b>${s.name}</b><small>Kies daarna je afdeling</small></span></button>`
-  :`<button class="pick" data-ward="${s.id}" ${WID===s.id?'aria-current="true"':''}><span><b>${s.name}</b><small>Eén opleiding voor alle afdelingen</small></span></button>`).join('')}</div>`}
+<h2 class="home-h">Waar werk je?</h2>
+<div class="tiles">${SITES.map((s,i)=>{const k='k'+(i+1),ic=`<i aria-hidden="true">${HICON[s.id==='pz'?'pz':s.id==='psc'?'psc':'wzc']}</i>`;return s.id==='pz'
+  ?`<button class="tile wide ${k}" data-home="pz" ${W().site==='pz'&&store.get('plek',null)?'aria-current="true"':''}>${ic}<span><b>${s.name}</b><small>Kies daarna je afdeling</small></span></button>`
+  :`<button class="tile ${k}" data-ward="${s.id}" ${WID===s.id?'aria-current="true"':''}>${ic}<span><b>${s.name}</b><small>Eén opleiding voor alle afdelingen</small></span></button>`}).join('')}</div>`}
 function render(){
   const main=document.getElementById('main');
   document.body.classList.toggle('homebody',!!state.screen);
+  document.getElementById('hero').innerHTML=state.screen?heroHTML():'';
   if(state.screen){if(state.edit)cancelEditSilently();main.innerHTML=homeHTML();
     document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
   document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?UI[lang()].hospital:siteName();
