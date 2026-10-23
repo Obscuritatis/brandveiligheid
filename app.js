@@ -284,10 +284,13 @@ const TODO_SITE='<div class="todo"><b>Nog aan te vullen:</b> de info voor deze s
 
 // PSC Leuven belt het interne noodnummer extern, met het volledige nummer (Johan, 23/10/2026).
 const NOOD=()=>W().site==='psc'?'016 80 79 99':'999';
-// Wat je aan 112 zegt (noodprocedure brand PZ en ziekenhuisnoodplan PSC, 23/10/2026). Adressen van de WZC's: nog op te vragen.
+// Wat je aan 112 zegt (noodprocedure brand PZ en ziekenhuisnoodplan PSC, 23/10/2026). Adressen van de WZC's: website alexianentienen.be.
 const ADDR={pz:{nl:'Psychiatrisch Ziekenhuis Tienen, Liefdestraat 10',fr:'Hôpital psychiatrique de Tienen, Liefdestraat 10',en:'Psychiatric Hospital Tienen, Liefdestraat 10'},
- psc:{nl:'PSC Leuven, Mechelsestraat 84 in Leuven',fr:'PSC Leuven, Mechelsestraat 84 à Louvain',en:'PSC Leuven, Mechelsestraat 84 in Leuven'}};
-const addr=()=>(ADDR[W().site]||{nl:'de naam en het adres van het woonzorgcentrum',fr:'le nom et l’adresse de la maison de repos',en:'the name and address of the care home'})[lang()];
+ psc:{nl:'PSC Leuven, Mechelsestraat 84 in Leuven',fr:'PSC Leuven, Mechelsestraat 84 à Louvain',en:'PSC Leuven, Mechelsestraat 84 in Leuven'},
+ alexius:{nl:'Woonzorgcentrum Sint-Alexius, Alexianenweg 27 in Tienen',fr:'Maison de repos Sint-Alexius, Alexianenweg 27 à Tirlemont',en:'Sint-Alexius care home, Alexianenweg 27 in Tienen'},
+ passionisten:{nl:'Woonzorgcentrum Passionisten, Park Passionisten 1 in Tienen',fr:'Maison de repos Passionisten, Park Passionisten 1 à Tirlemont',en:'Passionisten care home, Park Passionisten 1 in Tienen'},
+ nazareth:{nl:'Woonzorgcentrum Huize Nazareth, Goetsenhovenplein 22 in Tienen',fr:'Maison de repos Huize Nazareth, Goetsenhovenplein 22 à Tirlemont',en:'Huize Nazareth care home, Goetsenhovenplein 22 in Tienen'},};
+const addr=()=>(ADDR[W().site]||ADDR[WID]||{nl:'de naam en het adres van het woonzorgcentrum',fr:'le nom et l’adresse de la maison de repos',en:'the name and address of the care home'})[lang()];
 const V={};
 V.brand=()=>{const w=W();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
