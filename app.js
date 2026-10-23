@@ -49,14 +49,14 @@ const WARDS={
   alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat op de verpleegpost.','Op het plan van niveau 00 staan de <b>evacuatie-sleutelcontacten</b> aangeduid.'],
   plans:[{l:'00',img:'img/ouderen-plan00.webp',leg:'Brandblusser (bio-schuim of CO² (TED)), brandhaspel, branddeken, handbrandmelder, brandmeldingscentrale (BMC), evacuatie-sleutelcontact'},{l:'01',img:'img/ouderen-plan01.webp',note:'Op dit plan is ook het <b>tussenverdiep</b> aangeduid.'},{l:'02',img:'img/ouderen-plan02.webp'}]},
  verslaving:{site:'pz',name:'Verslavingszorg',label:'Afdeling verslavingszorg',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
-  equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdeling.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> op TED niveau 00.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit op een kamer of in een ruimte, met uitzondering van het ergo-lokaal op niveau 00.',EQUIP_STD[6]],
-  alerts:['De <b>brandcentrale</b> staat op TED niveau 00.','In het <b>ergo-lokaal</b> op niveau 00 hangt een handbrandmelder in de ruimte zelf.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
+  equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdeling.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> op TED niveau 00.','<b>Handbrandmelders en evacuatieschakelaars:</b> zo goed als in het hele gebouw, in de gangen. Handbrandmelders hangen nooit op een kamer of in een ruimte, met uitzondering van het ergo-lokaal op niveau 00. Op het <b>gesloten deel</b> zijn er <b>enkel evacuatieschakelaars</b>.',EQUIP_STD[6]],
+  alerts:['De <b>brandcentrale</b> staat op TED niveau 00.','In het <b>ergo-lokaal</b> op niveau 00 hangt een handbrandmelder in de ruimte zelf.','Op het <b>gesloten deel</b> zijn er <b>geen handbrandmelders</b>, enkel evacuatieschakelaars. De evacuatie start je daar met de sleutel uit het rode kastje op de verpleegpost.','Op de plannen staan de <b>evacuatieschakelaars</b> aangeduid.'],
   plans:[{l:'00',img:'img/verslaving-plan00.webp',leg:LEG+', brandmeldingscentrale (BMC), evacuatieschakelaar'},{l:'01',img:'img/verslaving-plan01.webp',leg:LEG+', evacuatieschakelaar'},{l:'02',img:'img/verslaving-plan02.webp',leg:LEG+', evacuatieschakelaar'}]},
 
  // Toegevoegd 13/10/2026 uit tien PZ-decks. Plannen zijn uitsneden van de dia's, HQ-versies volgen.
  algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   meld:'Melding via het sleutelcontact start ook de evacuatie. Met je badge kan je de deuren meteen ontgrendelen.',
-  equip:['<b>Branddekens:</b> aanwezig in elke keuken en in de verpleegpost van AP1.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen van AP1, en ook daarbuiten op AP2. Te herkennen aan het groene handvat.',EQUIP_STD[2],'<b>Brandhaspels:</b> in elke brandkast en op de gang van AP2.','<b>Brandcentrale:</b> in de verpleegpost van AP1.','<b>Handbrandmelders:</b> enkel in de verpleegpost van AP1, niet op de gangen. De evacuatie start je met de <b>sleutel op de verpleegposten</b>.',EQUIP_STD[6]],
+  equip:['<b>Branddekens:</b> aanwezig in elke keuken en in de verpleegpost van AP1.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen van AP1, en ook daarbuiten op AP2. Te herkennen aan het groene handvat.',EQUIP_STD[2],'<b>Brandhaspels:</b> in elke brandkast en op de gang van AP2.','<b>Brandcentrale:</b> in de verpleegpost van AP1.','<b>Handbrandmelders:</b> enkel in de verpleegpost en de technische ruimte van AP1, niet op de gangen. De evacuatie start je met de <b>sleutel op de verpleegposten</b>.',EQUIP_STD[6]],
   alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.'],
   cards:[{h:'Bediening van de brandcentrale (AP1)',html:'<p>Bij brandalarm heb je <b>3 minuten</b> voordat de sirene start en de interne branddeuren sluiten. De buitendeuren en de kasten met blusmiddelen blijven zolang gesloten. Reageert niemand binnen de 3 minuten, dan gaat de centrale <b>automatisch over tot evacuatie</b>.</p><p>Als het alarm afgaat, ga je ter plaatse kijken. Daarna heb je deze opties:</p><ul class="plain"><li><b>Zwarte knop NEGEREN:</b> zet de detector die het alarm gaf tijdelijk buiten dienst. Los de situatie op, ventileer en druk daarna op reset. Het oranje lampje mag niet lang blijven branden.</li><li><b>Rode knop EVAC:</b> start meteen de evacuatie. De interne branddeuren sluiten, de buitendeuren en de kasten met blusmiddelen gaan open.</li><li><b>Groene knop RESET:</b> enkel na vals alarm of als de oorzaak van de melding is opgelost.</li></ul><p>In een normale situatie brandt altijd de <b>groene lamp</b>.</p><figure style="margin:0"><img src="img/algpsy-centrale.webp" alt="Bediening brandcentrale AP1" style="width:100%;border-radius:10px"><figcaption class="muted">Bediening van de centrale op AP1</figcaption></figure>'}],
   plans:[{l:'00',t:'Gelijkvloers',img:'img/algpsy-plan00.webp'},{l:'01',t:'Verdiep 1 · AP2',note:'Verdiep 1 is er enkel voor Algemene psychiatrie 2.',img:'img/algpsy-plan01.webp'}]},
@@ -282,12 +282,18 @@ const assembly=()=>W().verzamel?`<div class="assembly"><img src="img/verzamelpun
   :`<div class="todo"><b>Nog aan te vullen:</b> ${W().siteLevel?'de verzamelplaats van deze site volgt met de PowerPoint.':'in de PowerPoint van deze afdeling staat geen verzamelplaats.'}</div>`;
 const TODO_SITE='<div class="todo"><b>Nog aan te vullen:</b> de info voor deze site volgt zodra de PowerPoint er is.</div>';
 
+// PSC Leuven belt het interne noodnummer extern, met het volledige nummer (Johan, 23/10/2026).
+const NOOD=()=>W().site==='psc'?'016 80 79 99':'999';
+// Wat je aan 112 zegt (noodprocedure brand PZ en ziekenhuisnoodplan PSC, 23/10/2026). Adressen van de WZC's: nog op te vragen.
+const ADDR={pz:{nl:'Psychiatrisch Ziekenhuis Tienen, Liefdestraat 10',fr:'Hôpital psychiatrique de Tienen, Liefdestraat 10',en:'Psychiatric Hospital Tienen, Liefdestraat 10'},
+ psc:{nl:'PSC Leuven, Mechelsestraat 84 in Leuven',fr:'PSC Leuven, Mechelsestraat 84 à Louvain',en:'PSC Leuven, Mechelsestraat 84 in Leuven'}};
+const addr=()=>(ADDR[W().site]||{nl:'de naam en het adres van het woonzorgcentrum',fr:'le nom et l’adresse de la maison de repos',en:'the name and address of the care home'})[lang()];
 const V={};
 V.brand=()=>{const w=W();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
 <div class="numbers">
   <div class="num"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
-  <div class="num alt"><span>Intern noodnummer</span><b>999</b><span>Melding maken eens je veilig bent</span></div>
+  <div class="num alt"><span>Intern noodnummer</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?'Vanuit PSC bel je het volledige nummer. ':''}Melding maken eens je veilig bent</span></div>
   ${w.site==='pz'?'<div class="num acc"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer. Indien ernstig bel eerst 112.</span></div>'
     :'<div class="num acc txt"><span>Bij een ongeval</span><b>Bel het interne nummer van de verpleging</b><span>Indien ernstig bel eerst 112.</span></div>'}
 </div>
@@ -297,12 +303,13 @@ V.brand=()=>{const w=W();return `
 </div>
 <ol class="steps" id="steps">
   ${step('Breng jezelf in veiligheid','Pas daarna kan je handelen',`<p>Wanneer een brand ontstaat op een afdeling is het allerbelangrijkste dat je eerst jezelf in veiligheid brengt.</p>${sc('all')}`)}
-  ${step('Kijk na en meld','Brandcentrale + DECT, 112 en 999',`
+  ${step('Kijk na en meld',`Brandcentrale + DECT, 112 en ${NOOD()}`,`
     ${WID==='jeugd'?'':'<p>Meld via de handbrandmelder of het sleutelcontact: daarmee start meteen ook de evacuatie. Het kan zijn dat de rook al gedetecteerd werd door een rookdetector.</p>'}
     <p>Er komt een melding op de brandcentrale en de DECT. Vanuit elke afdeling wordt gevraagd om te gaan kijken.</p>
+    <p class="hl">Open de deur van het lokaal zeer voorzichtig: er kunnen vlammen naar buiten slaan. Voelt de klink of de deur heet aan, of komt er veel rook? Ga dan niet binnen en doe de deur dicht.</p>
     <p class="hl">Reset NOOIT zonder eerst na te kijken of er effectief brand is ontstaan!</p>
-    <p>Bij brand: bel <b>112</b> en meld via het interne noodnummer <b>999</b>. Geef zoveel mogelijk informatie door:</p>
-    <ul class="plain"><li>plaats en omvang</li><li>eventuele slachtoffers</li><li>extra hulp nodig: druk <b>tweemaal kort</b> op de noodknop bovenaan de DECT</li></ul>
+    <p>Bij brand: bel <b>112</b> en daarna het interne noodnummer <b>${NOOD()}</b>.</p>
+    <ul class="plain"><li><b>Aan 112</b> zeg je: brand, <b>${addr()}</b>, de locatie en de ernst, met eventuele gewonden.</li><li><b>Aan ${NOOD()}</b> geef je de plaats van de brand en het aantal gewonden door, en zeg je dat je de hulpdiensten al verwittigd hebt.</li><li>Extra hulp nodig: druk <b>tweemaal kort</b> op de noodknop bovenaan de DECT.</li></ul>
     <div>${sc('site')}</div>`)}
   ${step('Blus of sluit de deur','Kleine brand blussen, grote brand insluiten',`
     <p>Is de brand op een kamer nog onder controle? Gebruik een brandblusser of branddeken (zie <a href="#blus" data-go="blus">Blussen</a>).</p>
@@ -311,6 +318,8 @@ V.brand=()=>{const w=W();return `
     <p class="hl">Doe geen enkel raam of deur op slot!</p>${sc('all')}`)}
   ${step('Evacueer de afdeling','Meest mobiele personen eerst',`
     <p>Breng naast jezelf eerst de meest mobiele personen in veiligheid. Help de minder mobiele personen pas als alle anderen in veiligheid zijn en het nog kan.</p>
+    <p><b>Waar naartoe?</b> Neem de kortst mogelijke weg:</p>
+    <ol class="keylist"><li><span>1</span><p>naar een veilig <b>aanpalend compartiment op dezelfde verdieping</b>;</p></li><li><span>2</span><p>in uiterste nood naar een <b>lagere verdieping</b>;</p></li><li><span>3</span><p>of <b>naar buiten</b>, naar de verzamelplaats of de plek die de hulpdiensten aanduiden (zie de volgende stap).</p></li></ol>
     ${w.shelter?'<p>Kan dat niet meer, ga dan over op <b>schuilen ter plaatse</b> (zie onderaan deze pagina).</p>':''}
     <p>Moet je door rook? Blijf zo dicht mogelijk bij de grond: rook stijgt, onderaan is nog de meeste zuurstof.</p>
     <p class="hl">Open je onderweg een branddeur, sluit ze opnieuw.</p>
@@ -609,7 +618,7 @@ function quizRound(gen,spec){
   if(!r||!r.ids||!r.perm||r.ids.some((id,i)=>!by[id]||!r.perm[i]||r.perm[i].length!==by[id][2].length)){
     const ids=shuffle([...shuffle(gen).slice(0,7),...shuffle(spec).slice(0,3)].map(x=>x[0]));
     r={ids,perm:ids.map(id=>shuffle(by[id][2].map((_,j)=>j))),ans:{}};state.round=r;store.set(qkey(),r)}
-  return r.ids.map((id,i)=>{const x=by[id],p=r.perm[i];return {q:x[1],opts:p.map(j=>x[2][j]),ok:p.indexOf(x[3])}})}
+  return r.ids.map((id,i)=>{const x=by[id],p=r.perm[i];return {q:x[1],opts:p.map(j=>x[2][j]==='999'?NOOD():x[2][j]),ok:p.indexOf(x[3])}})}
 function quizHtml(Q,head,goodTxt,again){const a=state.round.ans,good=Q.filter((q,i)=>a[i]===q.ok).length;return `
 <div class="view-head">${head}</div>
 <div class="card"><div class="card-head"><b style="font-variant-numeric:tabular-nums">${goodTxt(good,Q.length)}</b><button class="chip" id="reset">${again}</button></div><div class="progress"><span style="width:${good/Q.length*100}%"></span></div></div>
@@ -634,16 +643,19 @@ const LT={
   fire:'Pompiers',callFirst:'Toujours appeler en premier',internal:'Numéro d’urgence interne',thenReport:'Signalez une fois en sécurité',
   accident:'En cas d’accident',accidentTxt:'Les infirmiers viennent, avec la valise d’urgence. Si c’est grave, appelez d’abord le 112.',specific:'Spécifique au service d’entretien',specificSite:'Spécifique à ce site',siteP:'Ce qui est différent sur ce site. Ceci s’applique à tous les services du site.',siteEquipH:'Systèmes de détection et d’extinction',centraleH:'Panneau d’incendie',centralesH:'Panneaux d’incendie',perDept:'Point de rassemblement convenu par service :',accidentSite:'Appelez le numéro interne des infirmiers',accidentSiteTxt:'Si c’est grave, appelez d’abord le 112.',allDepts:'Tous les services',
   s1:['Mettez-vous en sécurité','Ensuite seulement, vous pouvez agir','<p>Assurez-vous d’abord votre propre sécurité avant d’agir.</p>'],
-  s2:['Vérifiez et signalez','Panneau d’incendie + DECT, 112 et 999',`<p>Signalez via le point d’appel manuel ou la clé d’évacuation : cela lance aussi l’évacuation. La fumée peut déjà avoir été détectée par un détecteur de fumée.</p>
+  s2:['Vérifiez et signalez','Panneau d’incendie + DECT, 112 et %NOOD%',`<p>Signalez via le point d’appel manuel ou la clé d’évacuation : cela lance aussi l’évacuation. La fumée peut déjà avoir été détectée par un détecteur de fumée.</p>
     <p>Une notification apparaît sur le panneau d’incendie et le DECT. Chaque service est invité à vérifier la situation.</p>
+    <p class="hl">Ouvrez la porte du local très prudemment : des flammes peuvent jaillir. La poignée ou la porte est chaude, ou il y a beaucoup de fumée ? N’entrez pas et refermez la porte.</p>
     <p class="hl">Ne réinitialisez JAMAIS l’alarme sans d’abord vérifier s’il y a un véritable incendie !</p>
-    <p>En cas d’incendie : appelez le <b>112</b> et signalez via le numéro d’urgence interne <b>999</b>. Donnez le plus d’informations possible :</p>
-    <ul class="plain"><li>localisation et étendue</li><li>victimes éventuelles</li><li>besoin d’aide supplémentaire : appuyez <b>deux fois brièvement</b> sur le bouton d’urgence en haut du DECT</li></ul>`],
+    <p>En cas d’incendie : appelez le <b>112</b>, puis le numéro d’urgence interne <b>%NOOD%</b>.</p>
+    <ul class="plain"><li><b>Au 112</b>, dites : incendie, <b>%ADDR%</b>, l’endroit et la gravité, avec les blessés éventuels.</li><li><b>Au %NOOD%</b>, donnez l’endroit de l’incendie et le nombre de blessés, et dites que vous avez déjà prévenu les secours.</li><li>Besoin d’aide supplémentaire : appuyez <b>deux fois brièvement</b> sur le bouton d’urgence en haut du DECT.</li></ul>`],
   s3:['Éteignez ou fermez la porte','Petit feu : éteindre. Grand feu : enfermer',`<p>Le feu est dans une pièce et encore contrôlable ? Utilisez un extincteur ou une couverture anti-feu (voir <a href="#blus" data-go="blus">Extinction</a>).</p>
     <p>Le feu est trop grand et la porte peut encore être fermée ? <b>Faites-le immédiatement.</b> Cela réduit la fumée dans le couloir.</p>
     <p>Fermez toutes les fenêtres. Les portes coupe-feu se ferment automatiquement quand l’alarme est déclenchée ; sinon, fermez-les manuellement. Une porte coupe-feu vous donne 30 minutes de plus.</p>
     <p class="hl">Ne verrouillez aucune porte ni fenêtre !</p>`],
   s4:['Évacuez le service','Les personnes les plus mobiles d’abord',`<p>Après vous être mis en sécurité, évacuez d’abord les personnes les plus mobiles. Aidez les personnes moins mobiles seulement quand tout le monde est en sécurité et que c’est encore possible.</p>
+    <p><b>Où aller ?</b> Prenez le chemin le plus court :</p>
+    <ol class="keylist"><li><span>1</span><p>vers un <b>compartiment voisin sûr au même étage</b> ;</p></li><li><span>2</span><p>en dernier recours vers un <b>étage inférieur</b> ;</p></li><li><span>3</span><p>ou <b>dehors</b>, vers le point de rassemblement ou l’endroit indiqué par les secours (voir l’étape suivante).</p></li></ol>
     <p>Si ce n’est plus possible, passez au <b>confinement</b> (voir en bas de cette page).</p>
     <p>Vous devez traverser de la fumée ? Restez près du sol : la fumée monte, et il y a plus d’oxygène près du sol.</p>
     <p class="hl">Si vous ouvrez une porte coupe-feu en sortant, refermez-la derrière vous !</p>
@@ -703,16 +715,19 @@ const LT={
   fire:'Fire brigade',callFirst:'Always call first',internal:'Internal emergency number',thenReport:'Report once you are safe',
   accident:'In case of an accident',accidentTxt:'The nurses come, with the emergency kit. If it is serious, call 112 first.',specific:'Specific to maintenance',specificSite:'Specific to this site',siteP:'What is different on this site. This applies to all departments of the site.',siteEquipH:'Detection and extinguishing equipment',centraleH:'Fire panel',centralesH:'Fire panels',perDept:'Agreed assembly point per department:',accidentSite:'Call the nurses’ internal number',accidentSiteTxt:'If it is serious, call 112 first.',allDepts:'All departments',
   s1:['Get yourself to safety','Only then can you take action','<p>First ensure your own safety before taking action.</p>'],
-  s2:['Check and report','Fire panel + DECT, 112 and 999',`<p>Report via the manual call point or the key contact: this also starts the evacuation. The smoke may already have been detected by a smoke detector.</p>
+  s2:['Check and report','Fire panel + DECT, 112 and %NOOD%',`<p>Report via the manual call point or the key contact: this also starts the evacuation. The smoke may already have been detected by a smoke detector.</p>
     <p>A notification appears on the fire panel and the DECT. Each department is asked to go and check.</p>
+    <p class="hl">Open the door of the room very carefully: flames may burst out. Is the handle or door hot, or is there a lot of smoke? Do not go in and close the door.</p>
     <p class="hl">NEVER reset the alarm without first checking whether there is an actual fire!</p>
-    <p>In case of fire: call <b>112</b> and report via the internal emergency number <b>999</b>. Give as much information as possible:</p>
-    <ul class="plain"><li>location and extent</li><li>any victims</li><li>extra help needed: press the emergency button at the top of the DECT <b>twice briefly</b></li></ul>`],
+    <p>In case of fire: call <b>112</b>, then the internal emergency number <b>%NOOD%</b>.</p>
+    <ul class="plain"><li><b>To 112</b> you say: fire, <b>%ADDR%</b>, the location and how serious it is, with any injured.</li><li><b>To %NOOD%</b> you give the location of the fire and the number of injured, and say that you have already alerted the emergency services.</li><li>Extra help needed: press the emergency button at the top of the DECT <b>twice briefly</b>.</li></ul>`],
   s3:['Extinguish or close the door','Small fire: extinguish. Large fire: contain',`<p>Is the fire in a room and still under control? Use a fire extinguisher or fire blanket (see <a href="#blus" data-go="blus">Extinguishing</a>).</p>
     <p>Is the fire too large and can you still close the door? <b>Do it immediately.</b> This reduces smoke in the hallway.</p>
     <p>Close all windows. Fire doors close automatically when the alarm goes off; if one does not, close it manually. A fire door gives you 30 extra minutes.</p>
     <p class="hl">Do not lock any doors or windows!</p>`],
   s4:['Evacuate the department','Most mobile people first',`<p>After securing yourself, evacuate the most mobile people first. Only help the less mobile people once everyone else is safe and it is still possible.</p>
+    <p><b>Where to?</b> Take the shortest possible route:</p>
+    <ol class="keylist"><li><span>1</span><p>to a safe <b>neighbouring compartment on the same floor</b>;</p></li><li><span>2</span><p>as a last resort to a <b>lower floor</b>;</p></li><li><span>3</span><p>or <b>outside</b>, to the assembly point or the place the emergency services point out (see the next step).</p></li></ol>
     <p>If that is no longer possible, switch to <b>shelter-in-place</b> (see the bottom of this page).</p>
     <p>Do you have to go through smoke? Stay low to the ground: smoke rises, and there is more oxygen near the floor.</p>
     <p class="hl">If you open a fire door on your way out, close it behind you!</p>
@@ -776,12 +791,12 @@ const LV={
 <div class="view-head"><h1>${t.brandH}</h1><p>${t.brandP}</p></div>
 <div class="numbers">
   <div class="num"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
-  <div class="num alt"><span>${t.internal}</span><b>999</b><span>${t.thenReport}</span></div>
+  <div class="num alt"><span>${t.internal}</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?{fr:'Depuis le PSC, composez le numéro complet. ',en:'From PSC, dial the full number. '}[lang()]:''}${t.thenReport}</span></div>
   ${w.site==='pz'?`<div class="num acc"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}</span></div>`}
 </div>
 <div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
   <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
-<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1],t[k][2].replace('%ASSEMBLY%',lassembly()))).join('')}</ol>
+<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()))).join('')}</ol>
 <div class="card" id="shelter">
   <div class="card-head"><h2>${t.shelterH}</h2>${sc('all')}</div>
   <p>${t.shelterP}</p>
