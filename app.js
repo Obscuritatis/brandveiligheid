@@ -636,6 +636,12 @@ V.test=()=>{const spec=QW[WID]||[],Q=quizRound(quizPool(),spec);return quizHtml(
 // Languages: only wards with `langs` get FR/EN. NL uses the views above; FR/EN use the views below,
 // built from the translated PowerPoints of Onderhoud. Edit keys get "@fr"/"@en" so translations are edited separately.
 const LANG_NAMES={nl:'NL',fr:'FR',en:'EN'};
+// Start-screen texts. The language chosen here applies to every entry that has FR/EN; the others stay Dutch.
+const HOME={
+ nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
+ fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
+ en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
+const HT=()=>HOME[LANG]||HOME.nl;
 let LANG=store.get('lang','nl');
 const lang=()=>(W().langs&&W().langs.includes(LANG))?LANG:'nl';
 const UI={
@@ -898,34 +904,36 @@ const HICON={
  pz:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V7l8-4 8 4v14"/><path d="M12 8v6M9 11h6M9 21v-4h6v4"/></svg>',
  wzc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>',
  psc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h6v12h-6M8 7h2M8 11h2M8 15h2"/></svg>'};
-function heroHTML(){const pz=state.screen==='pz';return `<div class="hero"><div class="glow"></div><div class="hero-in">
+function heroHTML(){const pz=state.screen==='pz',h=HT();return `<div class="hero"><div class="glow"></div><div class="hero-in">
   <div class="flame" aria-hidden="true">${ICON.brand}</div>
-  <div class="hbrand"><i aria-hidden="true">${ICON.brand}</i>Opleiding brandveiligheid</div>
-  ${pz?`<button class="back" data-home="home">‹ Alle sites</button><h1>${SITES[0].name}</h1><p>Kies de afdeling waar je werkt. De app onthoudt je keuze.</p>`
-    :`<h1>Samen zorgen we voor een veilige plek</h1><p>Kies waar je werkt en leer wat je doet bij brand.</p>`}
+  <div class="hbrand"><i aria-hidden="true">${ICON.brand}</i>${h.brand}</div>
+  ${pz?`<button class="back" data-home="home">${h.back}</button><h1>${pzName()}</h1><p>${h.pzP}</p>`
+    :`<h1>${h.h1}</h1><p>${h.p}</p>`}
 </div></div>
-<div style="padding:0 16px"><div class="hnums"><div data-tel="112"><small>Brandweer</small><b>112</b></div><div data-tel="+3216807999"><small>Intern noodnummer</small><b>999</b></div></div></div>`}
-function homeHTML(){
+<div style="padding:0 16px"><div class="hnums"><div data-tel="112"><small>${h.fire}</small><b>112</b></div><div data-tel="+3216807999"><small>${h.intern}</small><b>999</b></div></div></div>`}
+const pzName=()=>LANG!=='nl'?UI[LANG].hospital:SITES[0].name;
+const langPick=()=>`<div class="hlang" role="group" aria-label="Taal / Langue / Language"><small>Taal · Langue · Language</small><div>${['nl','fr','en'].map(l=>`<button data-lang="${l}" aria-pressed="${l===LANG}">${LANG_NAMES[l]}</button>`).join('')}</div></div>`;
+function homeHTML(){const h=HT();
   if(state.screen==='pz'){const ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
-<h2 class="home-h">Kies je afdeling</h2>
-<div class="wards">${ws.map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.name}</b>${w.names?`<small>${w.names.fr} · ${w.names.en}</small>`:''}</span></button>`).join('')}
-<button class="wpick" disabled><span><b>Andere afdelingen</b><small>Volgen later</small></span></button></div>`}
+<h2 class="home-h">${h.pickWard}</h2>
+<div class="wards">${ws.map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.names&&LANG!=='nl'?w.names[LANG]:w.name}</b>${w.names?`<small>${['nl','fr','en'].filter(l=>l!==LANG).map(l=>w.names[l]||w.name).join(' · ')}</small>`:''}</span></button>`).join('')}
+<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button></div>${langPick()}`}
   return `
-<h2 class="home-h">Waar werk je?</h2>
+<h2 class="home-h">${h.where}</h2>
 <div class="tiles">${SITES.map((s,i)=>{const k='k'+(i+1),ic=`<i aria-hidden="true">${HICON[s.id==='pz'?'pz':s.id==='psc'?'psc':'wzc']}</i>`;return s.id==='pz'
-  ?`<button class="tile wide ${k}" data-home="pz" ${W().site==='pz'&&store.get('plek',null)?'aria-current="true"':''}>${ic}<span><b>${s.name}</b><small>Kies daarna je afdeling</small></span></button>`
-  :`<button class="tile ${k}" data-ward="${s.id}" ${WID===s.id?'aria-current="true"':''}>${ic}<span><b>${s.name}</b><small>Eén opleiding voor alle afdelingen</small></span></button>`}).join('')}</div>`}
+  ?`<button class="tile wide ${k}" data-home="pz" ${W().site==='pz'&&store.get('plek',null)?'aria-current="true"':''}>${ic}<span><b>${pzName()}</b><small>${h.pzSub}</small></span></button>`
+  :`<button class="tile ${k}" data-ward="${s.id}" ${WID===s.id?'aria-current="true"':''}>${ic}<span><b>${s.name}</b><small>${h.siteSub}</small></span></button>`}).join('')}</div>${langPick()}`}
 function render(){
   const main=document.getElementById('main');
   document.body.classList.toggle('homebody',!!state.screen);
   document.getElementById('hero').innerHTML=state.screen?heroHTML():'';
-  if(state.screen){if(state.edit)cancelEditSilently();main.innerHTML=homeHTML();
+  if(state.screen){if(state.edit)cancelEditSilently();document.documentElement.lang=LANG;main.innerHTML=homeHTML();
     if(location.hash!=='#'+state.screen)history.replaceState(null,'','#'+state.screen);
     document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
   document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?UI[lang()].hospital:siteName();
   if(!tabs().some(t=>t[0]===state.tab))state.tab='brand';
   const VV=lang()!=='nl'?LV:V;document.documentElement.lang=lang();
-  main.innerHTML=(state.edit?editBar():'')+`<div class="view">${VV[state.tab]()}</div>`+stamp();
+  main.innerHTML=(state.edit?editBar():'')+(LANG!=='nl'&&lang()==='nl'?`<p class="nlonly" lang="${LANG}">${HT().nlOnly}</p>`:'')+`<div class="view">${VV[state.tab]()}</div>`+stamp();
   const lb=document.getElementById('langbar');lb.hidden=!W().langs;
   if(W().langs)lb.innerHTML=W().langs.map(l=>`<button data-lang="${l}" aria-pressed="${l===lang()}">${LANG_NAMES[l]}</button>`).join('');
   document.getElementById('sosBtn').textContent=lang()!=='nl'?UI[lang()].sos:'Bij brand';
