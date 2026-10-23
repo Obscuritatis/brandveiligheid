@@ -43,7 +43,7 @@ const WARDS={
   alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat op de verpleegpost.','<b>Handbrandmelders</b> hangen in alle gangen, nooit op een kamer.'],
   plans:[{l:'00',hq:1,views:['img/eetherstel-hq-00a.webp','img/eetherstel-hq-00b.webp','img/eetherstel-hq-00c.webp']},{l:'01',hq:1,views:['img/eetherstel-hq-01a.webp','img/eetherstel-hq-01b.webp']},{l:'02',hq:1,views:['img/eetherstel-hq-02a.webp','img/eetherstel-hq-02b.webp']},{l:'03',hq:1,views:['img/eetherstel-hq-03a.webp'],note:'Niveau 03 is de machinekamer van de lift.'}]},
  hestia:{site:'pz',name:'Mobiel team Hestia',label:'Mobiel team Hestia',afd:'hestia',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
-  alerts:['De opleiding hier focust op het <b>gebouw van Hestia binnen het psychiatrisch ziekenhuis</b>. Veel kan echter ook toegepast worden bij evacuatie in de externe huizen van Hestia.','Je werkt als mobiel team in verschillende huizen. <b>Alle huizen van Hestia hebben bio-schuimblussers, rookdetectoren en branddekens.</b>','Bij brand in één van de huizen: <b>verlaat zo snel mogelijk het gebouw</b>. Let bij het verlaten op voor doorgaand verkeer en <b>blijf niet op straat staan</b>.'],
+  alerts:['De opleiding hier focust op het <b>gebouw van Hestia binnen het psychiatrisch ziekenhuis</b>. Veel kan echter ook toegepast worden bij evacuatie in de externe huizen van Hestia.','Je werkt als mobiel team in verschillende huizen. <b>Alle huizen van Hestia hebben bio-schuimblussers, rookdetectoren en branddekens.</b>','Bij brand in één van de huizen: <b>verlaat zo snel mogelijk het gebouw</b>. Let bij het verlaten op voor doorgaand verkeer en <b>blijf niet op straat staan</b>.','De brandmeldingen van de huizen worden <b>niet doorgeschakeld</b> naar het ziekenhuis. <b>Bel zelf 112.</b> Verwittig daarna, als het kan, het onthaal op <b>016 80 79 99</b>.'],
   plans:[{l:'-01',img:'img/hestia-planm01.webp'},{l:'00',img:'img/hestia-plan00.webp'},{l:'01',img:'img/hestia-plan01.webp'}]},
  ouderen:{site:'pz',name:'Ouderenpsychiatrie',label:'Afdeling ouderenpsychiatrie',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,equip:EQUIP_STD,
   alerts:['De dichtstbijzijnde <b>brandcentrale</b> staat op de verpleegpost.','Op het plan van niveau 00 staan de <b>evacuatie-sleutelcontacten</b> aangeduid.'],
@@ -57,7 +57,7 @@ const WARDS={
  algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   meld:'Melding via het sleutelcontact start ook de evacuatie. Met je badge kan je de deuren meteen ontgrendelen.',
   equip:['<b>Branddekens:</b> aanwezig in elke keuken en in de verpleegpost van AP1.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen van AP1, en ook daarbuiten op AP2. Te herkennen aan het groene handvat.',EQUIP_STD[2],'<b>Brandhaspels:</b> in elke brandkast en op de gang van AP2.','<b>Brandcentrale:</b> in de verpleegpost van AP1.','<b>Handbrandmelders:</b> enkel in de verpleegpost en de technische ruimte van AP1, niet op de gangen. De evacuatie start je met de <b>sleutel op de verpleegposten</b>.',EQUIP_STD[6]],
-  alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.'],
+  alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.','<b>\'s Nachts</b> komen de brandmeldingen van het <b>Ooievaarsnest</b>, <b>Hestia Liefdestraat 1</b> en het <b>Ontmoetingscentrum</b> met een gesproken boodschap binnen op <b>AP1</b>. Overdag gaan ze naar het onthaal.'],
   cards:[{h:'Bediening van de brandcentrale (AP1)',html:'<p>Bij brandalarm heb je <b>3 minuten</b> voordat de sirene start en de interne branddeuren sluiten. De buitendeuren en de kasten met blusmiddelen blijven zolang gesloten. Reageert niemand binnen de 3 minuten, dan gaat de centrale <b>automatisch over tot evacuatie</b>.</p><p>Als het alarm afgaat, ga je ter plaatse kijken. Daarna heb je deze opties:</p><ul class="plain"><li><b>Zwarte knop NEGEREN:</b> zet de detector die het alarm gaf tijdelijk buiten dienst. Los de situatie op, ventileer en druk daarna op reset. Het oranje lampje mag niet lang blijven branden.</li><li><b>Rode knop EVAC:</b> start meteen de evacuatie. De interne branddeuren sluiten, de buitendeuren en de kasten met blusmiddelen gaan open.</li><li><b>Groene knop RESET:</b> enkel na vals alarm of als de oorzaak van de melding is opgelost.</li></ul><p>In een normale situatie brandt altijd de <b>groene lamp</b>.</p><figure style="margin:0"><img src="img/algpsy-centrale.webp" alt="Bediening brandcentrale AP1" style="width:100%;border-radius:10px"><figcaption class="muted">Bediening van de centrale op AP1</figcaption></figure>'}],
   plans:[{l:'00',t:'Gelijkvloers',img:'img/algpsy-plan00.webp'},{l:'01',t:'Verdiep 1 · AP2',note:'Verdiep 1 is er enkel voor Algemene psychiatrie 2.',img:'img/algpsy-plan01.webp'}]},
  activering:{site:'pz',name:'Team activering',label:'Team activering',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
@@ -88,7 +88,7 @@ const WARDS={
  onthaal:{site:'pz',name:'Onthaal',label:'Onthaal',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   equip:[EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],EQUIP_STD[6]],
   alerts:['Het onthaal <b>bedient zelf het interne noodnummer 999</b>. Zie de procedure hieronder.'],
-  cards:[{h:'Inkomende oproepen 999: actiekaarten personeel',html:'<ul class="plain"><li>Laat <b>maximum 6 keer</b> bellen en neem altijd op.</li><li>Vraag kort wat de noodsituatie is en of er slachtoffers zijn.</li><li>Bij brand bel je altijd <b>zelf nog de brandweer op 112</b>.</li><li>Volg daarna de stappen op de actiekaarten. Stem intern af volgens de situatie.</li><li>Bij een ramp geef je iedereen zijn actiekaart wanneer die zich aanmeldt.</li></ul>'}],
+  cards:[{h:'Inkomende oproepen 999: actiekaarten personeel',html:'<ul class="plain"><li>Laat <b>maximum 6 keer</b> bellen en neem altijd op.</li><li>Vraag kort wat de noodsituatie is en of er slachtoffers zijn.</li><li>Bij brand bel je altijd <b>zelf nog de brandweer op 112</b>.</li><li>Volg daarna de stappen op de actiekaarten. Stem intern af volgens de situatie.</li><li>Bij een ramp geef je iedereen zijn actiekaart wanneer die zich aanmeldt.</li></ul>'},{h:'Doorgeschakelde brandmeldingen',html:'<ul class="plain"><li>De brandmeldingen van het <b>Ooievaarsnest</b>, <b>Hestia Liefdestraat 1</b> en het <b>Ontmoetingscentrum</b> komen met een gesproken boodschap binnen op het onthaal. <b>\'s Nachts</b> gaan ze naar <b>Algemene psychiatrie 1</b>.</li><li>Bij zo\'n melding gaat de <b>technische dienst (van wacht)</b> meteen ter plaatse kijken. \'s Avonds, \'s nachts en in het weekend of op feestdagen wordt ook meteen <b>112</b> gebeld.</li><li>De <b>sleutels van het Ooievaarsnest</b> hangen in de sleutelkast aan het onthaal.</li></ul>'}],
   plans:[{l:'00',img:'img/onthaal-plan00.webp'}]},
  staf:{site:'pz',name:'IT, communicatie, directiesecretariaat, staf en drukkerij',label:'IT, communicatie, directiesecretariaat, staf en drukkerij',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdelingen, niet in de keuken van de directie.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> de dichtstbijzijnde is die aan het onthaal.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit in een kantoorruimte.','<b>Rookmelders:</b> op alle gangen en in de kantoorruimtes.'],
@@ -164,9 +164,9 @@ Object.assign(WARDS,{
    {l:'03',t:'Niveau 3',img:'img/passionisten-plan03.webp',note:'Assistentiewoningen.'}]},
  psc:{...SITE_BASE,site:'psc',name:'PSC Leuven',label:'PSC Leuven',
   verzamel:'Koer tussen gebouw A en B, achtertuin of externe site Minnepoort',
-  verzamelNote:'Welke verzamelplaats je gebruikt, hangt af van waar de brand is. Ben je op de openbare weg, zorg dan dat je altijd veilig bent.',
+  verzamelNote:'Welke verzamelplaats je gebruikt, hangt af van waar de brand is. Ben je op de openbare weg, zorg dan dat je altijd veilig bent. Moet iedereen voor langere tijd weg, dan gaat de evacuatie naar <b>Sporthal De Rijschool, Rijschoolstraat 21</b> (6 minuten wandelen). Die wordt enkel geopend op vraag van de hulpdiensten.',
   meld:'In de <b>achterbouw</b>: melding via de handbrandmelder of het sleutelcontact. Daarmee start meteen ook de evacuatie.',
-  alerts:['In de <b>voorbouw zijn er geen handbrandmelders</b>. Rookmelders hangen er enkel in de kelder en in het gerenoveerde deel (2de en 3de verdiep).','Zie je brand in de voorbouw? <b>Sluit meteen de ruimte</b> als dat kan en <b>bel naar de achterbouw</b> om een handbrandmelder in te drukken. Dan gaan de sirenes meteen af.','Branddeuren in de traphallen moeten <b>altijd dicht</b> blijven.','De <b>brandcentrale</b> hangt in het staflokaal van de achterbouw.'],
+  alerts:['In de <b>voorbouw zijn er geen handbrandmelders</b>. Rookmelders hangen er enkel in de kelder en in het gerenoveerde deel (2de en 3de verdiep).','Zie je brand in de voorbouw? <b>Sluit meteen de ruimte</b> als dat kan en <b>bel naar de achterbouw</b> om een handbrandmelder in te drukken. Dan gaan de sirenes meteen af.','Branddeuren in de traphallen moeten <b>altijd dicht</b> blijven.','De <b>brandcentrale</b> hangt in het staflokaal van de achterbouw.','<b>Wacht de hulpdiensten op aan de hoofdingang</b>, bij voorkeur met een fluohesje.'],
   equip:['<b>Branddeken:</b> in de keuken en in de gang op het gelijkvloers van de achterbouw.','<b>Poeder- en schuimblussers:</b> op elk verdiep van de voor- en achterbouw. Ze worden vervangen door bio-schuimblussers.','<b>CO² blussers:</b> in de gang van de achterbouw, dicht bij de keuken. Te herkennen aan de bredere bek om mee te blussen.','<b>Brandhaspels:</b> in elke brandkast in de achterbouw.','<b>Brandcentrale:</b> in het staflokaal van de achterbouw.','<b>Handbrandmelders:</b> in alle gangen van de achterbouw.','<b>Rookmelders:</b> op alle gangen en in alle ruimtes van de achterbouw, en in de kelder en het gerenoveerde deel van de voorbouw.'],
   cards:[{h:'Route naar de externe evacuatiesite Minnepoort',html:'<p>Verlaat het PSC via de <b>Mechelsestraat</b> en ga links. Neem de eerste straat rechts (<b>Lei</b>) en volg die tot aan de kruising met de <b>Dirk Boutslaan</b>. Ga daar links: net om de hoek ligt de voortuin van de <b>Minnepoort</b> (muziekacademie).</p><div class="grid2"><img src="img/psc-minnepoort1.webp" alt="Minnepoort" style="width:100%;border-radius:10px"><img src="img/psc-minnepoort2.webp" alt="Voortuin van de Minnepoort" style="width:100%;border-radius:10px"></div>'}],
   plans:[{l:'m01',t:'Onderbouw · -1',img:'img/psc-planm01.webp'},
@@ -233,10 +233,10 @@ const SITE_L={
  },
  psc:{
   verzamelL:{fr:'Cour entre les bâtiments A et B, jardin arrière ou site externe Minnepoort',en:'Courtyard between buildings A and B, back garden or external site Minnepoort'},
-  verzamelNoteL:{fr:'Le point de rassemblement dépend de l’endroit où se trouve le feu. Si vous êtes sur la voie publique, veillez à être toujours en sécurité.',en:'Which assembly point you use depends on where the fire is. If you are on the public road, make sure you are always safe.'},
+  verzamelNoteL:{fr:'Le point de rassemblement dépend de l’endroit où se trouve le feu. Si vous êtes sur la voie publique, veillez à être toujours en sécurité. Si tout le monde doit partir pour plus longtemps, l’évacuation se fait vers le <b>Sporthal De Rijschool, Rijschoolstraat 21</b> (6 minutes à pied). Il n’est ouvert qu’à la demande des services de secours.',en:'Which assembly point you use depends on where the fire is. If you are on the public road, make sure you are always safe. If everyone has to leave for a longer time, the evacuation goes to <b>Sporthal De Rijschool, Rijschoolstraat 21</b> (a 6-minute walk). It is only opened at the request of the emergency services.'},
   meldL:{fr:'Dans le <b>bâtiment arrière</b> : signalement via le point d’appel manuel ou la clé. Cela lance aussi immédiatement l’évacuation.',en:'In the <b>rear building</b>: report via the manual call point or the key contact. This also starts the evacuation immediately.'},
-  alertsL:{fr:['Dans le <b>bâtiment avant, il n’y a pas de points d’appel manuels</b>. Les détecteurs de fumée s’y trouvent uniquement à la cave et dans la partie rénovée (2e et 3e étage).','Vous voyez un feu dans le bâtiment avant ? <b>Fermez immédiatement la pièce, si possible, appelez le 112 puis</b> <b>appelez le bâtiment arrière</b> pour qu’on y enfonce un point d’appel manuel. Les sirènes se déclenchent alors immédiatement.','Les portes coupe-feu des cages d’escalier doivent <b>toujours rester fermées</b>.','Le <b>panneau d’incendie</b> se trouve dans le local du personnel du bâtiment arrière.'],
-   en:['In the <b>front building there are no manual call points</b>. Smoke detectors are only in the basement and in the renovated part (2nd and 3rd floor).','See a fire in the front building? <b>Close the room immediately if you can, call 112 and then</b> <b>call the rear building</b> so someone presses a manual call point there. The sirens then go off immediately.','Fire doors in the stairwells must <b>always stay closed</b>.','The <b>fire panel</b> is in the staff room of the rear building.']},
+  alertsL:{fr:['Dans le <b>bâtiment avant, il n’y a pas de points d’appel manuels</b>. Les détecteurs de fumée s’y trouvent uniquement à la cave et dans la partie rénovée (2e et 3e étage).','Vous voyez un feu dans le bâtiment avant ? <b>Fermez immédiatement la pièce, si possible, appelez le 112 puis</b> <b>appelez le bâtiment arrière</b> pour qu’on y enfonce un point d’appel manuel. Les sirènes se déclenchent alors immédiatement.','Les portes coupe-feu des cages d’escalier doivent <b>toujours rester fermées</b>.','Le <b>panneau d’incendie</b> se trouve dans le local du personnel du bâtiment arrière.','<b>Attendez les secours à l’entrée principale</b>, de préférence avec un gilet fluo.'],
+   en:['In the <b>front building there are no manual call points</b>. Smoke detectors are only in the basement and in the renovated part (2nd and 3rd floor).','See a fire in the front building? <b>Close the room immediately if you can, call 112 and then</b> <b>call the rear building</b> so someone presses a manual call point there. The sirens then go off immediately.','Fire doors in the stairwells must <b>always stay closed</b>.','The <b>fire panel</b> is in the staff room of the rear building.','<b>Wait for the emergency services at the main entrance</b>, preferably wearing a hi-vis vest.']},
   equipL:{fr:['<b>Couverture anti-feu :</b> dans la cuisine et dans le couloir du rez-de-chaussée du bâtiment arrière.','<b>Extincteurs à poudre et à mousse :</b> à chaque étage des bâtiments avant et arrière. Ils sont remplacés par des extincteurs à biomousse.','<b>Extincteurs au CO² :</b> dans le couloir du bâtiment arrière, près de la cuisine. Reconnaissables à la buse plus large.','<b>Dévidoirs d’incendie :</b> dans chaque armoire incendie du bâtiment arrière.','<b>Panneau d’incendie :</b> dans le local du personnel du bâtiment arrière.','<b>Points d’appel manuels :</b> dans tous les couloirs du bâtiment arrière.','<b>Détecteurs de fumée :</b> dans tous les couloirs et pièces du bâtiment arrière, et à la cave et dans la partie rénovée du bâtiment avant.'],
    en:['<b>Fire blanket:</b> in the kitchen and in the ground-floor corridor of the rear building.','<b>Powder and foam extinguishers:</b> on every floor of the front and rear building. They are being replaced by bio-foam extinguishers.','<b>CO² extinguishers:</b> in the corridor of the rear building, near the kitchen. Recognisable by the wider nozzle.','<b>Fire hoses:</b> in every fire cabinet in the rear building.','<b>Fire panel:</b> in the staff room of the rear building.','<b>Manual call points:</b> in all corridors of the rear building.','<b>Smoke detectors:</b> in all corridors and rooms of the rear building, and in the basement and renovated part of the front building.']},
   cardsL:{fr:[{h:'Itinéraire vers le site d’évacuation externe Minnepoort',p:'Quittez le PSC par la <b>Mechelsestraat</b> et tournez à gauche. Prenez la première rue à droite (<b>Lei</b>) et suivez-la jusqu’au carrefour avec la <b>Dirk Boutslaan</b>. Tournez à gauche : juste au coin se trouve le jardin avant de la <b>Minnepoort</b> (académie de musique).'}],
@@ -298,7 +298,7 @@ V.brand=()=>{const w=W();return `
   <div class="num" data-tel="112"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
   <div class="num alt" data-tel="+3216807999"><span>Intern noodnummer</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?'Vanuit PSC bel je het volledige nummer. ':''}Melding maken eens je veilig bent</span></div>
   ${w.site==='pz'?'<div class="num acc" data-tel="+3216807898"><span>Bij een ongeval</span><b>898</b><span>De verpleging komt, met de noodkoffer. Indien ernstig bel eerst 112.</span></div>'
-    :'<div class="num acc txt"><span>Bij een ongeval</span><b>Bel het interne nummer van de verpleging</b><span>Indien ernstig bel eerst 112.</span></div>'}
+    :`<div class="num acc txt"><span>Bij een ongeval</span><b>Bel het interne nummer van de verpleging</b><span>Indien ernstig bel eerst 112.${w.site==='psc'?' De AED en de noodkoffer liggen in het EHBO-lokaal in de achterbouw.':''}</span></div>`}
 </div>
 <div class="card">
   <div class="card-head"><h3>Specifiek op ${w.siteLevel?'deze site':'deze afdeling'}</h3>${sc('ward')}</div>
@@ -328,11 +328,11 @@ V.brand=()=>{const w=W();return `
     <p class="hl">Open je onderweg een branddeur, sluit ze opnieuw.</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>${sc('all')}`)}
   ${step('Verlaat de afdeling','Rustig, in groep, naar de verzamelplaats',`
-    <p>Verlaat de afdeling in groep als het kan, rustig en ordelijk. Niet lopen of roepen. Volg de evacuatiepictogrammen.</p>
+    <p>Verlaat de afdeling in groep als het kan, rustig en ordelijk. Niet lopen of roepen. Volg de evacuatiepictogrammen.${w.site==='pz'?' De evacuatiedeuren ontgrendelen bij alarm. Gebruik waar nodig de paniekknop of -hendel om ze te openen.':''}</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
-    <p>Laat persoonlijke spullen achter. Schakel indien mogelijk elektrische toestellen uit.</p>
+    <p>Laat persoonlijke spullen achter, maar <b>neem de aanwezigheidslijsten mee</b> (${w.site==='pz'||w.site==='psc'?'patiënten':'bewoners'} en medewerkers). Schakel indien mogelijk elektrische toestellen uit.</p>
     ${assembly()}
-    <p>Eens buiten ga je <b>niet</b> opnieuw naar binnen. Neem aanwezigheden op en meld vermisten aan de verantwoordelijke op de verzamelplaats.</p>
+    <p>Eens buiten ga je <b>niet</b> opnieuw naar binnen. Controleer met de lijsten of iedereen er is en meld vermisten aan de verantwoordelijke op de verzamelplaats.</p>
     <p class="hl">Ga pas terug naar binnen na toestemming van de brandweer.</p>
     <div class="chips">${sc('ward')}</div>`)}
 </ol>
@@ -348,7 +348,11 @@ ${w.shelter?`<div class="card" id="shelter">
     <li><span>3</span><p><b>Zorg voor de bewoners.</b> Houd hen rustig en begeleid hen naar een veilige zone binnen de afdeling.</p></li>
     <li><span>4</span><p><b>Wees klaar voor evacuatie</b> wanneer de brandweer aankomt.</p></li>
   </ol>
-</div>`:''}`};
+</div>`:''}
+<div class="card" id="nadien">
+  <div class="card-head"><h2>Na de brand</h2>${sc('all')}</div>
+  <p>Verwittig het <b>diensthoofd</b>, de <b>technische dienst</b> en de <b>preventiedienst</b>, en registreer het incident in het <b>Meld- en leersysteem</b> op het intranet.</p>
+</div>`};
 function step(t,s,body){
   if(state.edit)return `<li class="step open"><div class="step-h"><span class="step-t"><b>${t}</b><span>${s}</span></span></div><div class="step-body">${body}</div></li>`;
   return `<li class="step"><button aria-expanded="false"><span class="step-t"><b>${t}</b><span>${s}</span></span><span class="chev"></span></button><div class="step-body" hidden>${body}</div></li>`}
@@ -663,12 +667,14 @@ const LT={
     <p>Vous devez traverser de la fumée ? Restez près du sol : la fumée monte, et il y a plus d’oxygène près du sol.</p>
     <p class="hl">Si vous ouvrez une porte coupe-feu en sortant, refermez-la derrière vous !</p>
     <div class="ext"><img src="img/deur.webp" alt="Main qui touche une poignée de porte pour sentir la chaleur"><p><b>Vous ne savez pas où est le feu ?</b> Vérifiez la chaleur des portes : cherchez de la fumée sous la porte, approchez la main de la porte et touchez doucement la poignée. S’il y a des signes de feu, prenez un autre chemin.</p></div>`],
-  s5:['Quittez le service','Calmement, en groupe, vers le point de rassemblement',`<p>Quittez le service en groupe si possible, calmement et dans l’ordre. Ne courez pas et ne criez pas. Suivez les panneaux d’évacuation.</p>
+  s5:['Quittez le service','Calmement, en groupe, vers le point de rassemblement',`<p>Quittez le service en groupe si possible, calmement et dans l’ordre. Ne courez pas et ne criez pas. Suivez les panneaux d’évacuation.%DOORS%</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogramme sortie de secours"><img src="img/geenlift.webp" alt="En cas d’incendie : interdit d’utiliser l’ascenseur"></div>
-    <p>Laissez vos effets personnels derrière vous. Si possible, éteignez les appareils électriques.</p>
+    <p>Laissez vos effets personnels derrière vous, mais <b>emportez les listes de présence</b> (%WHO% et collaborateurs). Si possible, éteignez les appareils électriques.</p>
     %ASSEMBLY%
-    <p>Une fois à l’extérieur, ne rentrez <b>pas</b> dans le bâtiment. Faites l’appel et signalez toute personne disparue au responsable du point de rassemblement.</p>
+    <p>Une fois à l’extérieur, ne rentrez <b>pas</b> dans le bâtiment. Vérifiez avec les listes que tout le monde est là et signalez toute personne disparue au responsable du point de rassemblement.</p>
     <p class="hl">Ne rentrez qu’après l’autorisation des pompiers.</p>`],
+  doors:' Les portes d’évacuation se déverrouillent en cas d’alarme. Si nécessaire, utilisez le bouton ou la barre anti-panique pour les ouvrir.',whoP:'patients',whoR:'résidents',
+  afterH:'Après l’incendie',afterP:'Prévenez le <b>chef de service</b>, le <b>service technique</b> et le <b>service de prévention</b>, et enregistrez l’incident dans le <b>système de signalement et d’apprentissage</b> (Meld- en leersysteem) sur l’intranet.',
   shelterH:'Confinement (shelter-in-place)',
   shelterP:'Les personnes restent temporairement dans un lieu sûr au lieu d’évacuer. On le fait quand l’évacuation serait trop risquée, par exemple en cas de fumée qui se propage rapidement, ou quand la sécurité des personnes vulnérables ne peut pas être garantie pendant l’évacuation.',
   goal:'Objectif',goals:['Se protéger contre un danger immédiat, comme la fumée ou le feu, en restant dans une zone protégée derrière une porte coupe-feu.','Gagner du temps jusqu’à l’arrivée des secours et jusqu’à ce que l’évacuation soit possible.','Réduire la panique chez les personnes vulnérables.'],
@@ -735,12 +741,14 @@ const LT={
     <p>Do you have to go through smoke? Stay low to the ground: smoke rises, and there is more oxygen near the floor.</p>
     <p class="hl">If you open a fire door on your way out, close it behind you!</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand feeling a door handle for heat"><p><b>Don’t know where the fire is?</b> Check doors for heat: look for smoke under the door, hold your hand near the door and gently touch the handle. If you notice any sign of fire, take another route.</p></div>`],
-  s5:['Leave the department','Calmly, as a group, to the assembly point',`<p>Leave the department as a group if possible, calmly and in an orderly way. No running or shouting. Follow the evacuation signs.</p>
+  s5:['Leave the department','Calmly, as a group, to the assembly point',`<p>Leave the department as a group if possible, calmly and in an orderly way. No running or shouting. Follow the evacuation signs.%DOORS%</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Emergency exit sign"><img src="img/geenlift.webp" alt="In case of fire: do not use the lift"></div>
-    <p>Leave your personal belongings behind. If possible, switch off electrical devices.</p>
+    <p>Leave your personal belongings behind, but <b>take the attendance lists with you</b> (%WHO% and staff). If possible, switch off electrical devices.</p>
     %ASSEMBLY%
-    <p>Once outside, do <b>not</b> go back in. Take attendance and report any missing persons to the person in charge at the assembly point.</p>
+    <p>Once outside, do <b>not</b> go back in. Check with the lists that everyone is there and report any missing persons to the person in charge at the assembly point.</p>
     <p class="hl">Only go back in after permission from the fire brigade.</p>`],
+  doors:' The evacuation doors unlock when the alarm goes off. Use the panic button or bar to open them if needed.',whoP:'patients',whoR:'residents',
+  afterH:'After the fire',afterP:'Inform the <b>head of department</b>, the <b>technical service</b> and the <b>prevention service</b>, and record the incident in the <b>reporting and learning system</b> (Meld- en leersysteem) on the intranet.',
   shelterH:'Shelter-in-place',
   shelterP:'People temporarily stay in a safe place instead of evacuating. You do this when evacuation would be too risky, for example with rapidly spreading smoke, or when the safety of vulnerable people cannot be guaranteed during an evacuation.',
   goal:'Purpose',goals:['Protection from immediate danger, such as smoke or fire, by staying in a protected area behind a fire door.','Gaining time until the emergency services arrive and evacuation becomes possible.','Reducing panic among vulnerable people.'],
@@ -795,11 +803,11 @@ const LV={
 <div class="numbers">
   <div class="num" data-tel="112"><span>${t.fire}</span><b>112</b><span>${t.callFirst}</span></div>
   <div class="num alt" data-tel="+3216807999"><span>${t.internal}</span><b${w.site==='psc'?' class="long"':''}>${NOOD()}</b><span>${w.site==='psc'?{fr:'Depuis le PSC, composez le numéro complet. ',en:'From PSC, dial the full number. '}[lang()]:''}${t.thenReport}</span></div>
-  ${w.site==='pz'?`<div class="num acc" data-tel="+3216807898"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}</span></div>`}
+  ${w.site==='pz'?`<div class="num acc" data-tel="+3216807898"><span>${t.accident}</span><b>898</b><span>${t.accidentTxt}</span></div>`:`<div class="num acc txt"><span>${t.accident}</span><b>${t.accidentSite}</b><span>${t.accidentSiteTxt}${w.site==='psc'?{fr:' Le DEA et la trousse d’urgence se trouvent dans le local de premiers secours du bâtiment arrière.',en:' The AED and the emergency kit are in the first-aid room of the rear building.'}[lang()]:''}</span></div>`}
 </div>
 <div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
   <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
-<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()))).join('')}</ol>
+<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()).replace('%DOORS%',w.site==='pz'?t.doors:'').replace('%WHO%',w.site==='pz'||w.site==='psc'?t.whoP:t.whoR))).join('')}</ol>
 <div class="card" id="shelter">
   <div class="card-head"><h2>${t.shelterH}</h2>${sc('all')}</div>
   <p>${t.shelterP}</p>
@@ -807,7 +815,8 @@ const LV={
   <ul class="plain">${t.goals.map(g=>`<li>${g}</li>`).join('')}</ul>
   <h3>${t.how}</h3>
   <ol class="keylist">${t.shelterSteps.map((s,i)=>`<li><span>${i+1}</span><p><b>${s[0]}</b> ${s[1]}</p></li>`).join('')}</ol>
-</div>`},
+</div>
+<div class="card" id="nadien"><div class="card-head"><h2>${t.afterH}</h2>${sc('all')}</div><p>${t.afterP}</p></div>`},
  afd:()=>{const t=T(),w=W(),L=lang();if(w.siteLevel){const c=w.centraleL&&w.centraleL[L];return `
 <div class="view-head"><h1>${w.names[L]}</h1><p>${t.siteP}</p></div>
 <div class="card"><div class="card-head"><h2>${t.siteEquipH}</h2>${sc('site')}</div>
