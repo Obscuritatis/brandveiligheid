@@ -257,6 +257,7 @@ Object.entries(SITE_L).forEach(([id,L])=>{const w=WARDS[id];Object.assign(w,{lan
 });
 const SITES=[
   {id:'pz',name:'Psychiatrisch ziekenhuis',more:true},
+  {id:'hestiahuis',name:'Hestia - externe huizen',names:{fr:'Hestia - maisons externes',en:'Hestia - external houses'},more:true,icon:'huizen',k:'k6'},
   {id:'alexius',name:'WZC Sint-Alexius'},
   {id:'passionisten',name:'WZC Passionisten'},
   {id:'nazareth',name:'WZC Huize Nazareth'},
@@ -266,6 +267,9 @@ const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e)
 let WID=store.get('ward','jeugd');if(!WARDS[WID])WID='jeugd';
 const W=()=>WARDS[WID];
 const siteName=()=>SITES.find(x=>x.id===W().site).name;
+// Sites with their own list (PZ: afdelingen, Hestia: externe huizen). The list screen uses the site id as state.screen.
+const LIST_SITES=SITES.filter(s=>s.more).map(s=>s.id);
+const sName=id=>{const s=SITES.find(x=>x.id===id);return id==='pz'?pzName():(LANG!=='nl'&&s.names&&s.names[LANG])||s.name};
 const sc=s=>s==='all'?'<span class="scope all">Alle sites</span>'
  :(s==='site'||W().siteLevel)?`<span class="scope site">${siteName()}</span>`:`<span class="scope ward">${W().label}</span>`;
 const ICON={
@@ -638,9 +642,9 @@ V.test=()=>{const spec=QW[WID]||[],Q=quizRound(quizPool(),spec);return quizHtml(
 const LANG_NAMES={nl:'NL',fr:'FR',en:'EN'};
 // Start-screen texts. The language chosen here applies to every entry that has FR/EN; the others stay Dutch.
 const HOME={
- nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
- fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
- en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
+ nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',hSub:'Kies daarna je huis',hP:'Kies het huis waar je werkt. De app onthoudt je keuze.',pickHouse:'Kies je huis',housesLater:'De huizen volgen later',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
+ fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',hSub:'Choisissez ensuite votre maison',hP:'Choisissez la maison où vous travaillez. L’application retient votre choix.',pickHouse:'Choisissez votre maison',housesLater:'Les maisons suivront',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
+ en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',hSub:'Then choose your house',hP:'Choose the house where you work. The app remembers your choice.',pickHouse:'Choose your house',housesLater:'The houses will follow',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
 const HT=()=>HOME[LANG]||HOME.nl;
 let LANG=store.get('lang','nl');
 const lang=()=>(W().langs&&W().langs.includes(LANG))?LANG:'nl';
@@ -895,7 +899,7 @@ const LBLUS={
 // Each new visit starts on the site overview; a reload in the same tab (e.g. after saving) keeps the current screen.
 // Opening the app (no #page in the address) always starts on the start screen; a refresh keeps the current page via the #page.
 const H0=location.hash.slice(1);
-const state={screen:H0==='pz'?'pz':(H0&&H0!=='home'&&store.get('plek',null))?null:'home',tab:'brand',lvl:'00',sec:'blussers',round:store.get(qkey(),null),edit:false,draft:null,msg:''};
+const state={screen:LIST_SITES.includes(H0)?H0:(H0&&H0!=='home'&&store.get('plek',null))?null:'home',tab:'brand',lvl:'00',sec:'blussers',round:store.get(qkey(),null),edit:false,draft:null,msg:''};
 const ok=[...TABS.map(t=>t[0]),'gas'];
 if(ok.includes(location.hash.slice(1)))state.tab=location.hash.slice(1);
 
@@ -903,25 +907,26 @@ function navHTML(){return tabs().map(([k,l])=>(lang()!=='nl'&&UI[lang()].tabs[k]
 const HICON={
  pz:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V7l8-4 8 4v14"/><path d="M12 8v6M9 11h6M9 21v-4h6v4"/></svg>',
  wzc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg>',
+ huizen:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12l6-5 6 5"/><path d="M4 11v9h8v-9"/><path d="M14 8l4-3 4 3"/><path d="M16 7v13h4V7"/></svg>',
  psc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="10" height="18" rx="1"/><path d="M14 9h6v12h-6M8 7h2M8 11h2M8 15h2"/></svg>'};
-function heroHTML(){const pz=state.screen==='pz',h=HT();return `<div class="hero"><div class="glow"></div><div class="hero-in">
+function heroHTML(){const pz=state.screen!=='home',hu=state.screen==='hestiahuis',h=HT();return `<div class="hero"><div class="glow"></div><div class="hero-in">
   <div class="flame" aria-hidden="true">${ICON.brand}</div>
   <div class="hbrand"><i aria-hidden="true">${ICON.brand}</i>${h.brand}</div>
-  ${pz?`<button class="back" data-home="home">${h.back}</button><h1>${pzName()}</h1><p>${h.pzP}</p>`
+  ${pz?`<button class="back" data-home="home">${h.back}</button><h1>${sName(state.screen)}</h1><p>${hu?h.hP:h.pzP}</p>`
     :`<h1>${h.h1}</h1><p>${h.p}</p>`}
 </div></div>
 <div style="padding:0 16px"><div class="hnums"><div data-tel="112"><small>${h.fire}</small><b>112</b></div><div data-tel="+3216807999"><small>${h.intern}</small><b>999</b></div></div></div>`}
 const pzName=()=>LANG!=='nl'?UI[LANG].hospital:SITES[0].name;
 const langPick=()=>`<div class="hlang" role="group" aria-label="Taal / Langue / Language"><small>Taal · Langue · Language</small><div>${['nl','fr','en'].map(l=>`<button data-lang="${l}" aria-pressed="${l===LANG}">${LANG_NAMES[l]}</button>`).join('')}</div></div>`;
 function homeHTML(){const h=HT();
-  if(state.screen==='pz'){const ws=Object.entries(WARDS).filter(([k,w])=>w.site==='pz').sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
-<h2 class="home-h">${h.pickWard}</h2>
+  if(state.screen!=='home'){const sid=state.screen,hu=sid==='hestiahuis',ws=Object.entries(WARDS).filter(([k,w])=>w.site===sid).sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
+<h2 class="home-h">${hu?h.pickHouse:h.pickWard}</h2>
 <div class="wards">${ws.map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.names&&LANG!=='nl'?w.names[LANG]:w.name}</b>${w.names?`<small>${['nl','fr','en'].filter(l=>l!==LANG).map(l=>w.names[l]||w.name).join(' · ')}</small>`:''}</span></button>`).join('')}
-<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button></div>${langPick()}`}
+${hu?(ws.length?'':`<button class="wpick" disabled><span><b>${h.housesLater}</b></span></button>`):`<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button>`}</div>${langPick()}`}
   return `
 <h2 class="home-h">${h.where}</h2>
-<div class="tiles">${SITES.map((s,i)=>{const k='k'+(i+1),ic=`<i aria-hidden="true">${HICON[s.id==='pz'?'pz':s.id==='psc'?'psc':'wzc']}</i>`;return s.id==='pz'
-  ?`<button class="tile wide ${k}" data-home="pz" ${W().site==='pz'&&store.get('plek',null)?'aria-current="true"':''}>${ic}<span><b>${pzName()}</b><small>${h.pzSub}</small></span></button>`
+<div class="tiles">${SITES.map((s,i)=>{const k=s.k||'k'+(SITES.filter(x=>!x.k).indexOf(s)+1),ic=`<i aria-hidden="true">${HICON[s.icon||(s.id==='pz'?'pz':s.id==='psc'?'psc':'wzc')]}</i>`;return s.more
+  ?`<button class="tile wide ${k}" data-home="${s.id}" ${W().site===s.id&&store.get('plek',null)?'aria-current="true"':''}>${ic}<span><b>${sName(s.id)}</b><small>${s.id==='pz'?h.pzSub:h.hSub}</small></span></button>`
   :`<button class="tile ${k}" data-ward="${s.id}" ${WID===s.id?'aria-current="true"':''}>${ic}<span><b>${s.name}</b><small>${h.siteSub}</small></span></button>`}).join('')}</div>${langPick()}`}
 function render(){
   const main=document.getElementById('main');
@@ -929,8 +934,8 @@ function render(){
   document.getElementById('hero').innerHTML=state.screen?heroHTML():'';
   if(state.screen){if(state.edit)cancelEditSilently();document.documentElement.lang=LANG;main.innerHTML=homeHTML();
     if(location.hash!=='#'+state.screen)history.replaceState(null,'','#'+state.screen);
-    document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='pz'?'Kies je afdeling':'Kies je site';return}
-  document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?UI[lang()].hospital:siteName();
+    document.getElementById('whereSite').textContent='Opleiding brandveiligheid';document.getElementById('whereWard').textContent=state.screen==='home'?'Kies je site':state.screen==='pz'?'Kies je afdeling':'Kies je huis';return}
+  document.getElementById('whereSite').textContent=W().siteLevel?(lang()!=='nl'?T().allDepts:'Alle afdelingen'):lang()!=='nl'?sName(W().site):siteName();
   if(!tabs().some(t=>t[0]===state.tab))state.tab='brand';
   const VV=lang()!=='nl'?LV:V;document.documentElement.lang=lang();
   main.innerHTML=(state.edit?editBar():'')+(LANG!=='nl'&&lang()==='nl'?`<p class="nlonly" lang="${LANG}">${HT().nlOnly}</p>`:'')+`<div class="view">${VV[state.tab]()}</div>`+stamp();
@@ -971,7 +976,7 @@ document.addEventListener('click',e=>{
   const hm=e.target.closest('[data-home]');if(hm){state.screen=hm.dataset.home;render();return window.scrollTo({top:0})}
   const wd=e.target.closest('[data-ward]');if(wd){WID=wd.dataset.ward;store.set('ward',WID);store.set('plek',1);state.round=store.get(qkey(),null);state.screen=null;return go('brand')}
   if(e.target.closest('#logoBtn')){if(state.edit)return;state.screen='home';render();return window.scrollTo({top:0})}
-  if(e.target.closest('#whereBtn')){if(state.edit)return;state.screen=state.screen?'home':(W().site==='pz'?'pz':'home');render();return window.scrollTo({top:0})}
+  if(e.target.closest('#whereBtn')){if(state.edit)return;state.screen=state.screen?'home':(LIST_SITES.includes(W().site)?W().site:'home');render();return window.scrollTo({top:0})}
   if(e.target.classList.contains('sheet-bg')||e.target.closest('[data-close]'))return closeSheet();
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
@@ -981,7 +986,7 @@ function openSheet(){
    <p class="muted">De app onthoudt je keuze. Wie op meerdere afdelingen werkt, wisselt hier.</p>
    ${SITES.map(s=>{const ws=Object.entries(WARDS).filter(([k,w])=>w.site===s.id);return `<div class="site"><div><span>${s.name}</span></div>
      ${ws.map(([k,w])=>`<button class="ward-opt" data-ward="${k}" ${k===WID?'aria-current="true"':''}><span>${w.name}</span><span>${k===WID?'✓':''}</span></button>`).join('')}
-     ${s.more?'<button class="ward-opt" disabled><span>Andere afdelingen</span><span>volgen</span></button>':''}
+     ${s.id==='pz'?'<button class="ward-opt" disabled><span>Andere afdelingen</span><span>volgen</span></button>':''}
      ${!ws.length?'<button class="ward-opt" disabled><span>Afdelingen nog toe te voegen</span><span></span></button>':''}</div>`}).join('')}
   </div></div>`;
   document.querySelector('.sheet [data-close]').focus();
