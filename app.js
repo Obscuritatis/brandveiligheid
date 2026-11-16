@@ -110,6 +110,9 @@ const WARDS={
    en:['<b>Fire blankets:</b> in all kitchens.','<b>Bio-foam extinguishers:</b> in every corridor, on closed wards sometimes in a locked cabinet. Recognisable by the green handle or the push button.','<b>CO² extinguishers:</b> in technical rooms and sometimes in kitchens. Recognisable by the wider nozzle.','<b>Fire hoses:</b> in every corridor.','<b>Fire alarm panels:</b> mostly at the nurses’ station.','<b>Manual call points:</b> in all corridors, never in a patient’s room. Also in technical rooms.','<b>Smoke detectors:</b> in all corridors, rooms and spaces.']},
   planExample:1,plans:[]},
 };
+// Hestia - externe huizen: Park Passionisten (Johan, 2026-11-16). Residents follow the procedure of the apartment building.
+WARDS.parkpass={site:'hestiahuis',name:'Park Passionisten',label:'Park Passionisten',afd:'huis',house:1,bluspoging:1,olie:1,verzamel:'',alerts:[],plans:[],
+  equip:['<b>Schuimblusser:</b> één in het appartement, van Hestia.','<b>Rookmelders:</b> in het appartement.','<b>Brandblussers:</b> op de gangen van het appartementsgebouw. Die worden niet door ons beheerd.','<b>Handbrandmelders:</b> op de gangen.','<b>Sirenes:</b> in het gebouw. Reageer altijd op de sirenes.','<b>Evacuatieplannen:</b> hangen op de gangen.']};
 // Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
 WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
 WARDS.mobiel.plans=WARDS.eetherstel.plans;
@@ -272,7 +275,7 @@ const HOUSES=[
   {a:'Veldbornstraat 15 OC',ok:1},{a:'Veldbornstraat 15 - 1',ok:1},{a:'Veldbornstraat 15 - 2',ok:1},{a:'Veldbornstraat 17 - 1',ok:1},{a:'Veldbornstraat 17 - 2',ok:1},
   {a:'Ooievaarstraat 38',ok:1},{a:'Oorlogsvrijwilligersstraat 20/11',ok:1},{a:'Donystraat 62',ok:1},{a:'Donystraat 96',ok:1},
   {a:'Kapucijnenstraat 40',ok:1},{a:'Leopoldvest 29',ok:1},{a:'Oplintersesteenweg 17',ok:1},{a:'Kabbeekvest 38',ok:1},{a:'Kabbeekvest 87',ok:1},
-  {a:'Park Passionisten',ok:1},{n:'Overhoophuis',a:'Liefdestraat 1',ok:1}];
+  {a:'Park Passionisten',ok:1,w:'parkpass'},{n:'Overhoophuis',a:'Liefdestraat 1',ok:1}];
 // Houses Johan has info on are shown green (2026-11-16); the details stay with Johan, not in the app.
 // Sites with their own list (PZ: afdelingen, Hestia: externe huizen). The list screen uses the site id as state.screen.
 const LIST_SITES=SITES.filter(s=>s.more).map(s=>s.id);
@@ -288,7 +291,7 @@ const ICON={
   test:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>',
 };
 const TABS=[['brand','Bij brand'],['afd','Afdeling'],['route','Vluchtroutes'],['blus','Blussen'],['test','Test']];
-const tabs=()=>[TABS[0],['gas','Bij gas'],...TABS.slice(1)];
+const tabs=()=>W().house?[TABS[0],['afd','Gebouw'],TABS[3]]:[TABS[0],['gas','Bij gas'],...TABS.slice(1)];
 const assembly=()=>W().verzamel?`<div class="assembly"><img src="img/verzamelpunt.webp" alt="Pictogram verzamelplaats"><div><small>Verzamelplaats</small><b>${W().verzamel}</b></div></div>`
   :`<div class="todo"><b>Nog aan te vullen:</b> ${W().siteLevel?'de verzamelplaats van deze site volgt met de PowerPoint.':'in de PowerPoint van deze afdeling staat geen verzamelplaats.'}</div>`;
 const TODO_SITE='<div class="todo"><b>Nog aan te vullen:</b> de info voor deze site volgt zodra de PowerPoint er is.</div>';
@@ -303,7 +306,53 @@ const ADDR={pz:{nl:'Psychiatrisch Ziekenhuis Tienen, Liefdestraat 10',fr:'Hôpit
  nazareth:{nl:'Woonzorgcentrum Huize Nazareth, Goetsenhovenplein 22 in Tienen',fr:'Maison de repos Huize Nazareth, Goetsenhovenplein 22 à Tirlemont',en:'Huize Nazareth care home, Goetsenhovenplein 22 in Tienen'},};
 const addr=()=>(ADDR[W().site]||ADDR[WID]||{nl:'de naam en het adres van het woonzorgcentrum',fr:'le nom et l’adresse de la maison de repos',en:'the name and address of the care home'})[lang()];
 const V={};
-V.brand=()=>{const w=W();return `
+// Brand view for the external Hestia houses: no brandcentrale, DECT or internal 999; alarms are not forwarded to the hospital.
+const houseBrand=()=>{const w=W();return `
+<div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
+<div class="numbers">
+  <div class="num" data-tel="112"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
+  <div class="num alt" data-tel="+3216807999"><span>Daarna: onthaal ziekenhuis</span><b class="long">016 80 79 99</b><span>Verwittig het onthaal eens je veilig bent</span></div>
+</div>
+<div class="card">
+  <div class="card-head"><h3>Specifiek in ${w.name}</h3>${sc('ward')}</div>
+  <div class="alerts">
+    <div class="alert"><i>!</i><p>Je volgt de <b>brandprocedure van het appartementsgebouw</b>. <b>Reageer altijd op de sirenes</b>: verlaat het appartement en het gebouw.</p></div>
+    <div class="alert"><i>!</i><p>De brandmeldingen worden <b>niet doorgeschakeld</b> naar het ziekenhuis. <b>Bel zelf 112.</b> Verwittig daarna, als het kan, het onthaal op <b>016 80 79 99</b>.</p></div>
+  </div>
+</div>
+<ol class="steps" id="steps">
+  ${step('Breng jezelf in veiligheid','Pas daarna kan je handelen',`<p>Wanneer er brand ontstaat, is het allerbelangrijkste dat je eerst jezelf in veiligheid brengt.</p>${sc('all')}`)}
+  ${step('Alarmeer en bel','Handbrandmelder, 112 en het onthaal',`
+    <p>Zie je brand of rook en gaan de sirenes nog niet af? Druk een <b>handbrandmelder op de gang</b> in. Dan gaan de sirenes af en weet iedereen in het gebouw dat er brand is.</p>
+    <p class="hl">Open de deur van een lokaal met brand zeer voorzichtig: er kunnen vlammen naar buiten slaan. Voelt de klink of de deur heet aan, of komt er veel rook? Ga dan niet binnen en doe de deur dicht.</p>
+    <p>Bel <b>112</b> en daarna het onthaal van het ziekenhuis op <b>016 80 79 99</b>.</p>
+    <ul class="plain"><li><b>Aan 112</b> zeg je: brand, het adres van het appartementsgebouw, het appartement of de verdieping, de ernst en eventuele gewonden.</li><li><b>Aan het onthaal</b> zeg je waar het brandt, of er gewonden zijn en dat je de hulpdiensten al verwittigd hebt.</li></ul>
+    <div>${sc('ward')}</div>`)}
+  ${step('Blus of sluit de deur','Kleine brand blussen, grote brand insluiten',`
+    <p>Is de brand nog klein en onder controle? Gebruik de <b>schuimblusser in het appartement</b>, een <b>brandblusser op de gang</b> of een branddeken (zie <a href="#blus" data-go="blus">Blussen</a>). Breng jezelf daarbij nooit in gevaar.</p>
+    <p>Is de brand te groot? Verlaat de kamer en <b>sluit de deur onmiddellijk</b>. Zo blijft de rook binnen en heb je meer tijd om te vluchten.</p>
+    <p>Sluit ook de ramen als dat nog veilig kan.</p>
+    <p class="hl">Doe geen enkel raam of deur op slot!</p>${sc('all')}`)}
+  ${step('Verlaat het gebouw','Help de bewoners, volg de vluchtweg',`
+    <p>Breng naast jezelf eerst de bewoners in veiligheid. Help wie minder mobiel is, zolang dat veilig kan.</p>
+    <p>Volg de <b>vluchtweg op de evacuatieplannen</b> die op de gangen hangen, en de pictogrammen voor de nooduitgang.</p>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
+    <p class="hl">Gebruik nooit de lift.</p>
+    <p>Moet je door rook? Blijf zo dicht mogelijk bij de grond: rook stijgt, onderaan is nog de meeste zuurstof.</p>
+    <p>Sluit elke deur achter je, ook de deur van het appartement.</p>
+    <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>
+    <p>Kan je het appartement niet meer veilig verlaten? Blijf binnen, sluit de deur en leg natte doeken tegen de kieren. Ga aan een raam staan, maak je zichtbaar en bel 112 om te zeggen waar je bent.</p>${sc('all')}`)}
+  ${step('Eens buiten','Weg van het gebouw, niet terug naar binnen',`
+    <p>Let bij het verlaten op voor <b>doorgaand verkeer</b> en <b>blijf niet op straat staan</b>. Ga naar een veilige plek, weg van het gebouw, of naar de plek die de hulpdiensten aanduiden.</p>
+    <p>Controleer of alle bewoners buiten zijn. Meld wie ontbreekt aan de brandweer.</p>
+    <p class="hl">Ga pas terug naar binnen na toestemming van de brandweer.</p>
+    <div class="chips">${sc('ward')}</div>`)}
+</ol>
+<div class="card" id="nadien">
+  <div class="card-head"><h2>Na de brand</h2>${sc('all')}</div>
+  <p>Verwittig het <b>diensthoofd</b>, de <b>technische dienst</b> en de <b>preventiedienst</b>, en registreer het incident in het <b>Meld- en leersysteem</b> op het intranet.</p>
+</div>`};
+V.brand=()=>{const w=W();if(w.house)return houseBrand();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
 <div class="numbers">
   <div class="num" data-tel="112"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
@@ -435,6 +484,17 @@ AFD.hestia=()=>`
   <div class="todo"><b>Nog aan te vullen:</b> de PowerPoint bevat geen overzicht per huis van de brandcentrale en handbrandmelders.</div>
 </div>
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`;
+AFD.huis=()=>{const w=W();return `
+<div class="view-head"><h1>${w.name}</h1><p>Wat je moet weten over dit gebouw.</p></div>
+<div class="card">
+  <div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('ward')}</div>
+  <ul class="plain">${w.equip.map(e=>`<li>${e}</li>`).join('')}</ul>
+  <p class="hl">Zorg er altijd voor dat je weet waar deze zich bevinden.</p>
+</div>
+<div class="card">
+  <div class="card-head"><h2>Vluchtweg</h2>${sc('ward')}</div>
+  <p>De <b>evacuatieplannen hangen op de gangen</b> van het appartementsgebouw. Bekijk ze en ken de vluchtweg vanaf het appartement naar buiten.</p>
+</div>`};
 AFD.site=()=>{const w=W(),c=w.centrale;return `
 <div class="view-head"><h1>${w.name}</h1><p>Wat op deze site anders is dan elders. Dit geldt voor alle afdelingen van de site.</p></div>
 <div class="card"><div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('site')}</div>
@@ -570,7 +630,7 @@ const BLUS={
   <p>Kan een brand nog onder controle worden gebracht, gebruik dan de beschikbare blusmiddelen (brandblussers of branddeken). Je onderneemt enkel een bluspoging als:</p>
   <ul class="plain"><li>je eigen veiligheid gegarandeerd is;</li><li>je niet alleen bent: een collega is aanwezig om te assisteren;</li><li>de brand nog onder controle is en blusbaar met één of meer blustoestellen;</li><li>het brandalarm geactiveerd is, zodat je collega's op de hoogte zijn.</li></ul>
   <p class="hl">Onderneem altijd maar één bluspoging. Is de situatie niet meer onder controle, verlaat dan de plaats van het incident, sluit de deur (niet op slot) en ga over tot volledige evacuatie.</p>
-  <p class="muted">Op de sites: bio-schuimblussers en CO² blussers (technische lokalen).${WID==='hestia'?' Alle huizen van Hestia hebben bio-schuimblussers.':''}</p></div>`
+  <p class="muted">Op de sites: bio-schuimblussers en CO² blussers (technische lokalen).${WID==='hestia'?' Alle huizen van Hestia hebben bio-schuimblussers.':W().house?' In het appartement hangt een schuimblusser van Hestia.':''}</p></div>`
  :`<div class="card"><div class="card-head"><h2>Zelf een brand blussen</h2>${sc('all')}</div>
   <p>Kan een brand nog onder controle worden gebracht, gebruik dan de beschikbare brandblussers of branddeken.</p>
   <p class="hl">Weet altijd waar die zich bevinden op de afdeling waar je werkt.</p>
@@ -649,9 +709,9 @@ V.test=()=>{const spec=QW[WID]||[],Q=quizRound(quizPool(),spec);return quizHtml(
 const LANG_NAMES={nl:'NL',fr:'FR',en:'EN'};
 // Start-screen texts. The language chosen here applies to every entry that has FR/EN; the others stay Dutch.
 const HOME={
- nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',hSub:'Kies daarna je huis',hP:'Kies het huis waar je werkt. De app onthoudt je keuze.',pickHouse:'Kies je huis',housesLater:'De huizen volgen later',trainLater:'Opleiding volgt',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
- fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',hSub:'Choisissez ensuite votre maison',hP:'Choisissez la maison où vous travaillez. L’application retient votre choix.',pickHouse:'Choisissez votre maison',housesLater:'Les maisons suivront',trainLater:'Formation à venir',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
- en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',hSub:'Then choose your house',hP:'Choose the house where you work. The app remembers your choice.',pickHouse:'Choose your house',housesLater:'The houses will follow',trainLater:'Training coming soon',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
+ nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',hSub:'Kies daarna je huis',hP:'Kies het huis waar je werkt. De app onthoudt je keuze.',pickHouse:'Kies je huis',housesLater:'De huizen volgen later',trainLater:'Opleiding volgt',building:'Appartementsgebouw',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
+ fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',hSub:'Choisissez ensuite votre maison',hP:'Choisissez la maison où vous travaillez. L’application retient votre choix.',pickHouse:'Choisissez votre maison',housesLater:'Les maisons suivront',trainLater:'Formation à venir',building:'Immeuble à appartements',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
+ en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',hSub:'Then choose your house',hP:'Choose the house where you work. The app remembers your choice.',pickHouse:'Choose your house',housesLater:'The houses will follow',trainLater:'Training coming soon',building:'Apartment building',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
 const HT=()=>HOME[LANG]||HOME.nl;
 let LANG=store.get('lang','nl');
 const lang=()=>(W().langs&&W().langs.includes(LANG))?LANG:'nl';
@@ -928,8 +988,8 @@ const langPick=()=>`<div class="hlang" role="group" aria-label="Taal / Langue / 
 function homeHTML(){const h=HT();
   if(state.screen!=='home'){const sid=state.screen,hu=sid==='hestiahuis',ws=Object.entries(WARDS).filter(([k,w])=>w.site===sid).sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
 <h2 class="home-h">${hu?h.pickHouse:h.pickWard}</h2>
-<div class="wards">${ws.map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.names&&LANG!=='nl'?w.names[LANG]:w.name}</b>${w.names?`<small>${['nl','fr','en'].filter(l=>l!==LANG).map(l=>w.names[l]||w.name).join(' · ')}</small>`:''}</span></button>`).join('')}
-${hu?(ws.length?'':HOUSES.map(x=>`<button class="wpick${x.ok?' info':''}" disabled><span><b>${x.n?x.n+' - ':''}${x.a}</b><small>${h.trainLater}</small></span></button>`).join('')):`<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button>`}</div>${langPick()}`}
+<div class="wards">${(hu?[]:ws).map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.names&&LANG!=='nl'?w.names[LANG]:w.name}</b>${w.names?`<small>${['nl','fr','en'].filter(l=>l!==LANG).map(l=>w.names[l]||w.name).join(' · ')}</small>`:''}</span></button>`).join('')}
+${hu?(HOUSES.map(x=>x.w?`<button class="wpick info" data-ward="${x.w}" ${x.w===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${x.a}</b><small>${h.building}</small></span></button>`:`<button class="wpick${x.ok?' info':''}" disabled><span><b>${x.n?x.n+' - ':''}${x.a}</b><small>${h.trainLater}</small></span></button>`).join('')):`<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button>`}</div>${langPick()}`}
   return `
 <h2 class="home-h">${h.where}</h2>
 <div class="tiles">${SITES.map((s,i)=>{const k=s.k||'k'+(SITES.filter(x=>!x.k).indexOf(s)+1),ic=`<i aria-hidden="true">${HICON[s.icon||(s.id==='pz'?'pz':s.id==='psc'?'psc':'wzc')]}</i>`;return s.more
