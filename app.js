@@ -119,7 +119,7 @@ WARDS.overhoop={site:'hestiahuis',name:'Overhoophuis',label:'Overhoophuis',afd:'
   verzamel:'Aan het onthaal van het psychiatrisch ziekenhuis',addr:'Overhoophuis, Liefdestraat 1, 3300 Tienen',
   flats:'Een huis met burelen, met een gelijkvloers en drie verdiepingen.',alerts:[],plans:[],
   centrale:'De <b>brandcentrale</b> staat op het gelijkvloers, in de <b>technische berging onder de trap</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
-  equip:['<b>Branddetectie</b> in het huis.','<b>Handbrandmelders.</b>','<b>Brandblussers.</b>','<b>Brandcentrale:</b> op het gelijkvloers, in de technische berging onder de trap.']};
+  equip:['<b>Branddetectie</b> in het huis.','<b>Handbrandmelders.</b>','<b>Brandblussers.</b>','<b>Sirenes</b> in het huis.','<b>Brandcentrale:</b> op het gelijkvloers, in de technische berging onder de trap.']};
 // Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
 WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
 WARDS.mobiel.plans=WARDS.eetherstel.plans;
@@ -377,7 +377,7 @@ const officeBrand=()=>{const w=W();return `
 <ol class="steps" id="steps">
   ${step('Breng jezelf in veiligheid','Pas daarna kan je handelen',`<p>Wanneer er brand ontstaat, is het allerbelangrijkste dat je eerst jezelf in veiligheid brengt.</p>${sc('all')}`)}
   ${step('Kijk na en meld','Handbrandmelder, 112 en het onthaal',`
-    <p>Zie je brand of rook? Druk een <b>handbrandmelder</b> in. Het kan zijn dat de branddetectie de rook al gemeld heeft.</p>
+    <p>Zie je brand of rook? Druk een <b>handbrandmelder</b> in, dan gaan de <b>sirenes</b> af. Het kan zijn dat de branddetectie de rook al gemeld heeft.</p>
     <p>De melding komt op de <b>brandcentrale</b> (gelijkvloers, technische berging onder de trap).</p>
     <p class="hl">Open de deur van het lokaal zeer voorzichtig: er kunnen vlammen naar buiten slaan. Voelt de klink of de deur heet aan, of komt er veel rook? Ga dan niet binnen en doe de deur dicht.</p>
     <p class="hl">Reset NOOIT zonder eerst na te kijken of er effectief brand is ontstaan!</p>
@@ -390,7 +390,7 @@ const officeBrand=()=>{const w=W();return `
     <p>Sluit ook de ramen als dat nog veilig kan.</p>
     <p class="hl">Doe geen enkel raam of deur op slot!</p>${sc('all')}`)}
   ${step('Verlaat het huis','Iedereen naar buiten',`
-    <p>Breng naast jezelf iedereen in het huis in veiligheid. Roep op elke verdieping (gelijkvloers en drie verdiepingen) dat iedereen naar buiten moet, zolang dat veilig kan.</p>
+    <p>Gaan de <b>sirenes</b> af? Verlaat het huis, net als iedereen op het gelijkvloers en de drie verdiepingen. Help wie hulp nodig heeft, zolang dat veilig kan.</p>
     <p>Volg de pictogrammen voor de nooduitgang.</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
     <p class="hl">Gebruik nooit de lift.</p>
