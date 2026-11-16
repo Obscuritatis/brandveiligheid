@@ -57,7 +57,7 @@ const WARDS={
  algpsy:{site:'pz',name:'Algemene psychiatrie 1 & 2',label:'Algemene psychiatrie 1 & 2',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   meld:'Melding via het sleutelcontact start ook de evacuatie. Met je badge kan je de deuren meteen ontgrendelen.',
   equip:['<b>Branddekens:</b> aanwezig in elke keuken en in de verpleegpost van AP1.','<b>Bio-schuimblussers:</b> in elke brandkast op de gangen van AP1, en ook daarbuiten op AP2. Te herkennen aan het groene handvat.',EQUIP_STD[2],'<b>Brandhaspels:</b> in elke brandkast en op de gang van AP2.','<b>Brandcentrale:</b> in de verpleegpost van AP1.','<b>Handbrandmelders:</b> enkel in de verpleegpost en de technische ruimte van AP1, niet op de gangen. De evacuatie start je met de <b>sleutel op de verpleegposten</b>.',EQUIP_STD[6]],
-  alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.','<b>\'s Nachts</b> komen de brandmeldingen van het <b>Ooievaarsnest</b> en het <b>Ontmoetingscentrum</b> met een gesproken boodschap binnen op <b>AP1</b>. Overdag gaan ze naar het onthaal.'],
+  alerts:['Algemene psychiatrie 1 en 2 liggen in <b>één gebouw</b>. Werk bij brand nauw samen en verwittig elkaar meteen.','Detectie via de rookdetector heeft een <b>vertraging van 3 minuten</b>. De kasten met blusmiddelen ontgrendel je in de <b>verpleegpost</b>.','Er zijn <b>geen handbrandmelders op de gangen</b>. De evacuatie start je met de sleutel op de verpleegposten.','<b>\'s Nachts</b> komt de brandmelding van het <b>Ooievaarsnest</b> met een gesproken boodschap binnen op <b>AP1</b>. Overdag gaat die naar het onthaal.'],
   cards:[{h:'Bediening van de brandcentrale (AP1)',html:'<p>Bij brandalarm heb je <b>3 minuten</b> voordat de sirene start en de interne branddeuren sluiten. De buitendeuren en de kasten met blusmiddelen blijven zolang gesloten. Reageert niemand binnen de 3 minuten, dan gaat de centrale <b>automatisch over tot evacuatie</b>.</p><p>Als het alarm afgaat, ga je ter plaatse kijken. Daarna heb je deze opties:</p><ul class="plain"><li><b>Zwarte knop NEGEREN:</b> zet de detector die het alarm gaf tijdelijk buiten dienst. Los de situatie op, ventileer en druk daarna op reset. Het oranje lampje mag niet lang blijven branden.</li><li><b>Rode knop EVAC:</b> start meteen de evacuatie. De interne branddeuren sluiten, de buitendeuren en de kasten met blusmiddelen gaan open.</li><li><b>Groene knop RESET:</b> enkel na vals alarm of als de oorzaak van de melding is opgelost.</li></ul><p>In een normale situatie brandt altijd de <b>groene lamp</b>.</p><figure style="margin:0"><img src="img/algpsy-centrale.webp" alt="Bediening brandcentrale AP1" style="width:100%;border-radius:10px"><figcaption class="muted">Bediening van de centrale op AP1</figcaption></figure>'}],
   plans:[{l:'00',t:'Gelijkvloers',img:'img/algpsy-plan00.webp'},{l:'01',t:'Verdiep 1 · AP2',note:'Verdiep 1 is er enkel voor Algemene psychiatrie 2.',img:'img/algpsy-plan01.webp'}]},
  activering:{site:'pz',name:'Team activering',label:'Team activering',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
@@ -88,7 +88,7 @@ const WARDS={
  onthaal:{site:'pz',name:'Onthaal',label:'Onthaal',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   equip:[EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],EQUIP_STD[6]],
   alerts:['Het onthaal <b>bedient zelf het interne noodnummer 999</b>. Zie de procedure hieronder.'],
-  cards:[{h:'Inkomende oproepen 999: actiekaarten personeel',html:'<ul class="plain"><li>Laat <b>maximum 6 keer</b> bellen en neem altijd op.</li><li>Vraag kort wat de noodsituatie is en of er slachtoffers zijn.</li><li>Bij brand bel je altijd <b>zelf nog de brandweer op 112</b>.</li><li>Volg daarna de stappen op de actiekaarten. Stem intern af volgens de situatie.</li><li>Bij een ramp geef je iedereen zijn actiekaart wanneer die zich aanmeldt.</li></ul>'},{h:'Doorgeschakelde brandmeldingen',html:'<ul class="plain"><li>De brandmeldingen van het <b>Ooievaarsnest</b> en het <b>Ontmoetingscentrum</b> komen met een gesproken boodschap binnen op het onthaal. <b>\'s Nachts</b> gaan ze naar <b>Algemene psychiatrie 1</b>.</li><li>Bij zo\'n melding gaat de <b>technische dienst (van wacht)</b> meteen ter plaatse kijken. \'s Avonds, \'s nachts en in het weekend of op feestdagen wordt ook meteen <b>112</b> gebeld.</li><li>De <b>sleutels van het Ooievaarsnest</b> hangen in de sleutelkast aan het onthaal.</li></ul>'}],
+  cards:[{h:'Inkomende oproepen 999: actiekaarten personeel',html:'<ul class="plain"><li>Laat <b>maximum 6 keer</b> bellen en neem altijd op.</li><li>Vraag kort wat de noodsituatie is en of er slachtoffers zijn.</li><li>Bij brand bel je altijd <b>zelf nog de brandweer op 112</b>.</li><li>Volg daarna de stappen op de actiekaarten. Stem intern af volgens de situatie.</li><li>Bij een ramp geef je iedereen zijn actiekaart wanneer die zich aanmeldt.</li></ul>'},{h:'Doorgeschakelde brandmeldingen',html:'<ul class="plain"><li>De brandmelding van het <b>Ooievaarsnest</b> komt met een gesproken boodschap binnen op het onthaal. <b>\'s Nachts</b> gaan ze naar <b>Algemene psychiatrie 1</b>.</li><li>Bij zo\'n melding gaat de <b>technische dienst (van wacht)</b> meteen ter plaatse kijken. \'s Avonds, \'s nachts en in het weekend of op feestdagen wordt ook meteen <b>112</b> gebeld.</li><li>De <b>sleutels van het Ooievaarsnest</b> hangen in de sleutelkast aan het onthaal.</li></ul>'}],
   plans:[{l:'00',img:'img/onthaal-plan00.webp'}]},
  staf:{site:'pz',name:'IT, communicatie, directiesecretariaat, staf en drukkerij',label:'IT, communicatie, directiesecretariaat, staf en drukkerij',afd:'equip',verzamel:PZ_VERZAMEL,shelter:1,bluspoging:1,olie:1,
   equip:['<b>Branddeken:</b> aanwezig in de keukens van de afdelingen, niet in de keuken van de directie.',EQUIP_STD[1],EQUIP_STD[2],EQUIP_STD[3],'<b>Brandcentrale:</b> de dichtstbijzijnde is die aan het onthaal.','<b>Handbrandmelders:</b> aanwezig in alle gangen. Ze bevinden zich nooit in een kantoorruimte.','<b>Rookmelders:</b> op alle gangen en in de kantoorruimtes.'],
@@ -120,6 +120,17 @@ WARDS.overhoop={site:'hestiahuis',name:'Overhoophuis',label:'Overhoophuis',afd:'
   flats:'Een huis met burelen, met een gelijkvloers en drie verdiepingen.',alerts:[],plans:[],
   centrale:'De <b>brandcentrale</b> staat op het gelijkvloers, in de <b>technische berging onder de trap</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
   equip:['<b>Branddetectie</b> in het huis.','<b>Handbrandmelders.</b>','<b>Brandblussers.</b>','<b>Sirenes</b> in het huis.','<b>Brandcentrale:</b> op het gelijkvloers, in de technische berging onder de trap.']};
+WARDS.veldborn={site:'hestiahuis',name:'Veldbornstraat 15-17',label:'Veldbornstraat 15-17',afd:'huis',house:1,office:1,bluspoging:1,olie:1,
+  verzamel:'',addr:'Veldbornstraat 15-17, 3300 Tienen',
+  flats:'Nummer 15 en 17 zijn met elkaar verbonden. Op het gelijkvloers van 15 is het <b>OC</b> (ontmoetingscentrum), met twee appartementen erboven. Op het gelijkvloers van 17 is het <b>winkeltje</b> van Hestia, met twee appartementen erboven.',alerts:[],plans:[],
+  centrale:'Er is <b>één brandcentrale</b> voor nummer 15 en 17 samen. Ze staat in de <b>berging van de keuken van het OC</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
+  equip:['<b>Rookmelders en branddetectie.</b>','<b>Handbrandmelders.</b>','<b>Sirenes.</b>','<b>Schuimblussers:</b> in het OC, in het winkeltje en in elk appartement.','<b>Branddeken:</b> in de keuken van het OC.','<b>Brandcentrale:</b> in de berging van de keuken van het OC.'],
+  blusNote:'In het OC, het winkeltje en elk appartement hangt een schuimblusser. In de keuken van het OC ligt een branddeken.',
+  ob:{inName:'Veldbornstraat 15-17',loc:'in de berging van de keuken van het OC',
+    alerts:['Het OC, het winkeltje en de vier appartementen zijn <b>met elkaar verbonden</b> en hebben <b>één brandcentrale</b>. Gaan de sirenes af, dan verlaat <b>iedereen</b> het gebouw.'],
+    blus:'de <b>schuimblusser</b> (in het OC, het winkeltje en elk appartement) of de <b>branddeken</b> in de keuken van het OC',
+    leaveH:'Verlaat het gebouw',leaveP:'Verlaat het gebouw, net als iedereen in het OC, het winkeltje en de appartementen.',
+    after:'Ben je bewoner? Contacteer je <b>begeleiding</b>. Ben je medewerker? Maak een melding in het <b>Meld- en leersysteem</b> op het intranet.'}};
 // Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
 WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
 WARDS.mobiel.plans=WARDS.eetherstel.plans;
@@ -279,7 +290,7 @@ const W=()=>WARDS[WID];
 const siteName=()=>SITES.find(x=>x.id===W().site).name;
 // Hestia - externe huizen (Johan's list, 2026-10-29). status: '' | 'bewoond' | 'bezig' | 'gepland'. No training per house yet.
 const HOUSES=[
-  {a:'Veldbornstraat 15 OC',ok:1},{a:'Veldbornstraat 15 - 1',ok:1},{a:'Veldbornstraat 15 - 2',ok:1},{a:'Veldbornstraat 17 - 1',ok:1},{a:'Veldbornstraat 17 - 2',ok:1},
+  {a:'Veldbornstraat 15-17',ok:1,w:'veldborn',k:'complex'},
   {a:'Ooievaarstraat 38',ok:1},{a:'Oorlogsvrijwilligersstraat 20/11',ok:1},{a:'Donystraat 62',ok:1},{a:'Donystraat 96',ok:1},
   {a:'Kapucijnenstraat 40',ok:1},{a:'Leopoldvest 29',ok:1},{a:'Oplintersesteenweg 17',ok:1},{a:'Kabbeekvest 38',ok:1},{a:'Kabbeekvest 87',ok:1},
   {a:'Park Passionisten 7/12 en 7/20',ok:1,w:'parkpass'},{n:'Overhoophuis',a:'Liefdestraat 1',ok:1,w:'overhoop',k:'office'}];
@@ -300,7 +311,7 @@ const ICON={
 const TABS=[['brand','Bij brand'],['afd','Afdeling'],['route','Vluchtroutes'],['blus','Blussen'],['test','Test']];
 const tabs=()=>W().house?[TABS[0],['afd','Gebouw'],TABS[3]]:[TABS[0],['gas','Bij gas'],...TABS.slice(1)];
 const assembly=()=>W().verzamel?`<div class="assembly"><img src="img/verzamelpunt.webp" alt="Pictogram verzamelplaats"><div><small>Verzamelplaats</small><b>${W().verzamel}</b></div></div>`
-  :`<div class="todo"><b>Nog aan te vullen:</b> ${W().siteLevel?'de verzamelplaats van deze site volgt met de PowerPoint.':'in de PowerPoint van deze afdeling staat geen verzamelplaats.'}</div>`;
+  :`<div class="todo"><b>Nog aan te vullen:</b> ${W().house?'de verzamelplaats van dit gebouw.':W().siteLevel?'de verzamelplaats van deze site volgt met de PowerPoint.':'in de PowerPoint van deze afdeling staat geen verzamelplaats.'}</div>`;
 const TODO_SITE='<div class="todo"><b>Nog aan te vullen:</b> de info voor deze site volgt zodra de PowerPoint er is.</div>';
 
 // PSC Leuven belt het interne noodnummer extern, met het volledige nummer (Johan, 23/10/2026).
@@ -362,15 +373,16 @@ const houseBrand=()=>{const w=W();return `
   <p>Contacteer je <b>begeleiding</b> en laat weten wat er gebeurd is.</p>
 </div>`};
 // Brand view for a Hestia house with offices and visitors (Overhoophuis).
-const officeBrand=()=>{const w=W();return `
+const officeBrand=()=>{const w=W(),o=w.ob||{};return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
 <div class="numbers">
   <div class="num" data-tel="112"><span>Brandweer</span><b>112</b><span>Altijd eerst bellen</span></div>
   <div class="num alt" data-tel="+3216807999"><span>Daarna: onthaal ziekenhuis</span><b class="long">016 80 79 99</b><span>Verwittig het onthaal eens je veilig bent</span></div>
 </div>
 <div class="card">
-  <div class="card-head"><h3>Specifiek in het ${w.name}</h3>${sc('ward')}</div>
+  <div class="card-head"><h3>Specifiek in ${o.inName||'het '+w.name}</h3>${sc('ward')}</div>
   <div class="alerts">
+    ${(o.alerts||[]).map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}
     <div class="alert"><i>!</i><p>De brandmeldingen worden <b>niet doorgemeld</b> naar het ziekenhuis. <b>Bel zelf 112.</b> Verwittig daarna, als het kan, het onthaal op <b>016 80 79 99</b>.</p></div>
   </div>
 </div>
@@ -378,26 +390,26 @@ const officeBrand=()=>{const w=W();return `
   ${step('Breng jezelf in veiligheid','Pas daarna kan je handelen',`<p>Wanneer er brand ontstaat, is het allerbelangrijkste dat je eerst jezelf in veiligheid brengt.</p>${sc('all')}`)}
   ${step('Kijk na en meld','Handbrandmelder, 112 en het onthaal',`
     <p>Zie je brand of rook? Druk een <b>handbrandmelder</b> in, dan gaan de <b>sirenes</b> af. Het kan zijn dat de branddetectie de rook al gemeld heeft.</p>
-    <p>De melding komt op de <b>brandcentrale</b> (gelijkvloers, technische berging onder de trap).</p>
+    <p>De melding komt op de <b>brandcentrale</b> (${o.loc||'gelijkvloers, technische berging onder de trap'}).</p>
     <p class="hl">Open de deur van het lokaal zeer voorzichtig: er kunnen vlammen naar buiten slaan. Voelt de klink of de deur heet aan, of komt er veel rook? Ga dan niet binnen en doe de deur dicht.</p>
     <p class="hl">Reset NOOIT zonder eerst na te kijken of er effectief brand is ontstaan!</p>
     <p>Bij brand: bel <b>112</b> en daarna het onthaal van het ziekenhuis op <b>016 80 79 99</b>.</p>
     <ul class="plain"><li><b>Aan 112</b> zeg je: brand, <b>${w.addr}</b>, de verdieping, de ernst en eventuele gewonden.</li><li><b>Aan het onthaal</b> zeg je waar het brandt, of er gewonden zijn en dat je de hulpdiensten al verwittigd hebt.</li></ul>
     <div>${sc('ward')}</div>`)}
   ${step('Blus of sluit de deur','Kleine brand blussen, grote brand insluiten',`
-    <p>Is de brand nog klein en onder controle? Gebruik een <b>brandblusser</b> of een branddeken (zie <a href="#blus" data-go="blus">Blussen</a>). Breng jezelf daarbij nooit in gevaar.</p>
+    <p>Is de brand nog klein en onder controle? Gebruik ${o.blus||'een <b>brandblusser</b> of een branddeken'} (zie <a href="#blus" data-go="blus">Blussen</a>). Breng jezelf daarbij nooit in gevaar.</p>
     <p>Is de brand te groot? Verlaat het lokaal en <b>sluit de deur onmiddellijk</b>. Zo blijft de rook binnen en heeft iedereen meer tijd om te vluchten.</p>
     <p>Sluit ook de ramen als dat nog veilig kan.</p>
     <p class="hl">Doe geen enkel raam of deur op slot!</p>${sc('all')}`)}
-  ${step('Verlaat het huis','Iedereen naar buiten',`
-    <p>Gaan de <b>sirenes</b> af? Verlaat het huis, net als iedereen op het gelijkvloers en de drie verdiepingen. Help wie hulp nodig heeft, zolang dat veilig kan.</p>
+  ${step(o.leaveH||'Verlaat het huis','Iedereen naar buiten',`
+    <p>Gaan de <b>sirenes</b> af? ${o.leaveP||'Verlaat het huis, net als iedereen op het gelijkvloers en de drie verdiepingen.'} Help wie hulp nodig heeft, zolang dat veilig kan.</p>
     <p>Volg de pictogrammen voor de nooduitgang.</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"></div>
     <p>Moet je door rook? Blijf zo dicht mogelijk bij de grond: rook stijgt, onderaan is nog de meeste zuurstof.</p>
     <p>Sluit elke deur achter je.</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>
     <p>Laat persoonlijke spullen achter.</p>${sc('all')}`)}
-  ${step('Naar de verzamelplaats','Aan het onthaal van het ziekenhuis',`
+  ${step('Naar de verzamelplaats',w.verzamel||'Weg van het gebouw',`
     <p>Ga rustig naar de verzamelplaats. Let op voor doorgaand verkeer.</p>
     ${assembly()}
     <p>Eens buiten ga je <b>niet</b> opnieuw naar binnen. Controleer of iedereen er is en meld wie ontbreekt aan de brandweer.</p>
@@ -406,7 +418,7 @@ const officeBrand=()=>{const w=W();return `
 </ol>
 <div class="card" id="nadien">
   <div class="card-head"><h2>Na de brand</h2>${sc('ward')}</div>
-  <p>Maak een melding in het <b>Meld- en leersysteem</b> op het intranet.</p>
+  <p>${o.after||'Maak een melding in het <b>Meld- en leersysteem</b> op het intranet.'}</p>
 </div>`};
 V.brand=()=>{const w=W();if(w.office)return officeBrand();if(w.house)return houseBrand();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
@@ -768,9 +780,9 @@ V.test=()=>{const spec=QW[WID]||[],Q=quizRound(quizPool(),spec);return quizHtml(
 const LANG_NAMES={nl:'NL',fr:'FR',en:'EN'};
 // Start-screen texts. The language chosen here applies to every entry that has FR/EN; the others stay Dutch.
 const HOME={
- nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',hSub:'Kies daarna je huis',hP:'Kies het huis waar je werkt. De app onthoudt je keuze.',pickHouse:'Kies je huis',housesLater:'De huizen volgen later',trainLater:'Opleiding volgt',building:'Appartementsgebouw',office:'Huis met burelen',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
- fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',hSub:'Choisissez ensuite votre maison',hP:'Choisissez la maison où vous travaillez. L’application retient votre choix.',pickHouse:'Choisissez votre maison',housesLater:'Les maisons suivront',trainLater:'Formation à venir',building:'Immeuble à appartements',office:'Maison avec bureaux',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
- en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',hSub:'Then choose your house',hP:'Choose the house where you work. The app remembers your choice.',pickHouse:'Choose your house',housesLater:'The houses will follow',trainLater:'Training coming soon',building:'Apartment building',office:'House with offices',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
+ nl:{brand:'Opleiding brandveiligheid',h1:'Samen zorgen we voor een veilige plek',p:'Kies waar je werkt en leer wat je doet bij brand.',fire:'Brandweer',intern:'Intern noodnummer',where:'Waar werk je?',pzSub:'Kies daarna je afdeling',siteSub:'Eén opleiding voor alle afdelingen',back:'‹ Alle sites',pzP:'Kies de afdeling waar je werkt. De app onthoudt je keuze.',pickWard:'Kies je afdeling',hSub:'Kies daarna je huis',hP:'Kies het huis waar je werkt. De app onthoudt je keuze.',pickHouse:'Kies je huis',housesLater:'De huizen volgen later',trainLater:'Opleiding volgt',building:'Appartementsgebouw',office:'Huis met burelen',complex:'OC, winkeltje en 4 appartementen',other:'Andere afdelingen',later:'Volgen later',lang:'Taal',nlOnly:''},
+ fr:{brand:'Formation sécurité incendie',h1:'Ensemble, nous veillons à un lieu sûr',p:'Choisissez où vous travaillez et apprenez quoi faire en cas d’incendie.',fire:'Pompiers',intern:'Numéro d’urgence interne',where:'Où travaillez-vous ?',pzSub:'Choisissez ensuite votre service',siteSub:'Une formation pour tous les services',back:'‹ Tous les sites',pzP:'Choisissez le service où vous travaillez. L’application retient votre choix.',pickWard:'Choisissez votre service',hSub:'Choisissez ensuite votre maison',hP:'Choisissez la maison où vous travaillez. L’application retient votre choix.',pickHouse:'Choisissez votre maison',housesLater:'Les maisons suivront',trainLater:'Formation à venir',building:'Immeuble à appartements',office:'Maison avec bureaux',complex:'Centre de rencontre, boutique et 4 appartements',other:'Autres services',later:'À venir',lang:'Langue',nlOnly:'Ce service n’est disponible qu’en néerlandais.'},
+ en:{brand:'Fire safety training',h1:'Together we keep this a safe place',p:'Choose where you work and learn what to do in case of fire.',fire:'Fire brigade',intern:'Internal emergency number',where:'Where do you work?',pzSub:'Then choose your department',siteSub:'One training for all departments',back:'‹ All sites',pzP:'Choose the department where you work. The app remembers your choice.',pickWard:'Choose your department',hSub:'Then choose your house',hP:'Choose the house where you work. The app remembers your choice.',pickHouse:'Choose your house',housesLater:'The houses will follow',trainLater:'Training coming soon',building:'Apartment building',office:'House with offices',complex:'Meeting centre, shop and 4 apartments',other:'Other departments',later:'Coming later',lang:'Language',nlOnly:'This department is only available in Dutch.'}};
 const HT=()=>HOME[LANG]||HOME.nl;
 let LANG=store.get('lang','nl');
 const lang=()=>(W().langs&&W().langs.includes(LANG))?LANG:'nl';
