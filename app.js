@@ -685,7 +685,7 @@ const VIDEOS=[
 const VID_UI={nl:{intro:'Korte instructievideo’s. Kijk ze eens rustig, zodat je weet wat te doen als het nodig is.',open:'Bekijk op YouTube'},
  fr:{intro:'Courtes vidéos d’instruction (en néerlandais). Regardez-les calmement, pour savoir quoi faire le moment venu.',open:'Voir sur YouTube'},
  en:{intro:'Short instruction videos (in Dutch). Watch them calmly, so you know what to do when it matters.',open:'Watch on YouTube'}};
-const videoSec=()=>{const L=lang(),u=VID_UI[L];return `<p class="muted">${u.intro}</p>`+VIDEOS.map(v=>`
+const videoSec=()=>{const L=lang(),u=VID_UI[L];return `<p class="muted">${u.intro}</p>`+VIDEOS.filter(v=>!(W().house&&/CO²/.test(v.h.nl))).map(v=>`
  <div class="card"><div class="card-head"><h2>${v.h[L]}</h2>${sc('all')}</div>
   ${CAN_EMBED?`<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${v.id}?rel=0" title="${v.h[L]}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`
    :`<a class="video vplay" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener"><span>▶</span><small>${u.open}</small></a>`}
@@ -701,7 +701,7 @@ const BLUS={
   <p>Kan een brand nog onder controle worden gebracht, gebruik dan de beschikbare blusmiddelen (brandblussers of branddeken). Je onderneemt enkel een bluspoging als:</p>
   <ul class="plain"><li>je eigen veiligheid gegarandeerd is;</li><li>je niet alleen bent: een collega is aanwezig om te assisteren;</li><li>de brand nog onder controle is en blusbaar met één of meer blustoestellen;</li><li>het brandalarm geactiveerd is, zodat je collega's op de hoogte zijn.</li></ul>
   <p class="hl">Onderneem altijd maar één bluspoging. Is de situatie niet meer onder controle, verlaat dan de plaats van het incident, sluit de deur (niet op slot) en ga over tot volledige evacuatie.</p>
-  <p class="muted">Op de sites: bio-schuimblussers en CO² blussers (technische lokalen).${WID==='hestia'?' Alle huizen van Hestia hebben bio-schuimblussers.':W().blusNote?' '+W().blusNote:''}</p></div>`
+  <p class="muted">${W().house?W().blusNote||'':`Op de sites: bio-schuimblussers en CO² blussers (technische lokalen).${WID==='hestia'?' Alle huizen van Hestia hebben bio-schuimblussers.':W().blusNote?' '+W().blusNote:''}`}</p></div>`
  :`<div class="card"><div class="card-head"><h2>Zelf een brand blussen</h2>${sc('all')}</div>
   <p>Kan een brand nog onder controle worden gebracht, gebruik dan de beschikbare brandblussers of branddeken.</p>
   <p class="hl">Weet altijd waar die zich bevinden op de afdeling waar je werkt.</p>
@@ -710,9 +710,9 @@ const BLUS={
  <div class="card"><div class="ext"><img src="img/blusser.webp" alt=""><div><h3>Bio-schuimblusser</h3><p class="muted">Brandklasse A en B</p></div></div>
   <div class="facts"><span class="fact">Afstand <b>4 tot 1–1,5 m</b></span><span class="fact">Autonomie <b>20–45 s</b></span><span class="fact">Weinig schade</span></div>
   <ul class="plain"><li>Neem de blusser uit de houder en verwijder de veiligheidspin.</li><li>Hou de blusser recht en richt op de basis van de vlammen.</li><li>Vaste stoffen: afwisselende, onderbroken straal. Vloeistoffen: continue straal.</li><li>De schuimlaag voorkomt nieuwe ontbranding.</li><li>Veilig om te gebruiken op personen die vuur hebben gevat.</li></ul></div>
- <div class="card"><div class="ext"><img src="img/blusser.webp" alt=""><div><h3>CO² blusser</h3><p class="muted">Brandklasse B, C en E</p></div></div>
+ ${W().house?'':`<div class="card"><div class="ext"><img src="img/blusser.webp" alt=""><div><h3>CO² blusser</h3><p class="muted">Brandklasse B, C en E</p></div></div>
   <div class="facts"><span class="fact">Afstand <b>min. 1–1,5 m</b></span><span class="fact">Autonomie <b>±20 s</b></span><span class="fact">Geen schade</span></div>
-  <ul class="plain"><li>Neem de blusser uit de houder en verwijder de veiligheidspin.</li><li>Geschikt voor computers en elektrische installaties.</li><li>Vloeistoffen: continue straal.</li><li class="hl">Richt nooit op een persoon: vrieswonden (−78 °C).</li><li class="hl">Nooit in een kleine, afgesloten ruimte: de zuurstof daalt heel snel.</li></ul></div>
+  <ul class="plain"><li>Neem de blusser uit de houder en verwijder de veiligheidspin.</li><li>Geschikt voor computers en elektrische installaties.</li><li>Vloeistoffen: continue straal.</li><li class="hl">Richt nooit op een persoon: vrieswonden (−78 °C).</li><li class="hl">Nooit in een kleine, afgesloten ruimte: de zuurstof daalt heel snel.</li></ul></div>`}
  </div>`,
  tips:()=>`<div class="card"><div class="card-head"><h2>Tips &amp; tricks</h2>${sc('all')}</div><div class="pairs">${TIPS.map(t=>`<div class="pair">
   <figure class="no"><img src="img/tip${t[0]}.webp" alt=""><figcaption><i>✕</i>${t[1]}</figcaption></figure>
