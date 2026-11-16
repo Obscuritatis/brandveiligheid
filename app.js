@@ -111,7 +111,8 @@ const WARDS={
   planExample:1,plans:[]},
 };
 // Hestia - externe huizen: Park Passionisten (Johan, 2026-11-16). Residents follow the procedure of the apartment building.
-WARDS.parkpass={site:'hestiahuis',name:'Park Passionisten',label:'Park Passionisten',afd:'huis',house:1,bluspoging:1,olie:1,verzamel:'Het grasplein net voor het gebouw',alerts:[],plans:[],
+WARDS.parkpass={site:'hestiahuis',name:'Park Passionisten',label:'Park Passionisten',afd:'huis',house:1,bluspoging:1,olie:1,verzamel:'Het grasplein net voor het gebouw',addr:'Park Passionisten 7, 3300 Tienen',
+  flats:'Er zijn twee appartementen: <b>7/12</b> en <b>7/20</b>. Eén ligt op de tweede verdieping, het andere op de derde.',alerts:[],plans:[],
   equip:['<b>Schuimblusser:</b> één in het appartement, van Hestia.','<b>Rookmelders:</b> in het appartement.','<b>Brandblussers:</b> op de gangen van het appartementsgebouw. Die worden niet door ons beheerd.','<b>Handbrandmelders:</b> op de gangen.','<b>Sirenes:</b> in het gebouw. Reageer altijd op de sirenes.','<b>Evacuatieplannen:</b> hangen op de gangen.']};
 // Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
 WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
@@ -275,7 +276,7 @@ const HOUSES=[
   {a:'Veldbornstraat 15 OC',ok:1},{a:'Veldbornstraat 15 - 1',ok:1},{a:'Veldbornstraat 15 - 2',ok:1},{a:'Veldbornstraat 17 - 1',ok:1},{a:'Veldbornstraat 17 - 2',ok:1},
   {a:'Ooievaarstraat 38',ok:1},{a:'Oorlogsvrijwilligersstraat 20/11',ok:1},{a:'Donystraat 62',ok:1},{a:'Donystraat 96',ok:1},
   {a:'Kapucijnenstraat 40',ok:1},{a:'Leopoldvest 29',ok:1},{a:'Oplintersesteenweg 17',ok:1},{a:'Kabbeekvest 38',ok:1},{a:'Kabbeekvest 87',ok:1},
-  {a:'Park Passionisten',ok:1,w:'parkpass'},{n:'Overhoophuis',a:'Liefdestraat 1',ok:1}];
+  {a:'Park Passionisten 7/12 en 7/20',ok:1,w:'parkpass'},{n:'Overhoophuis',a:'Liefdestraat 1',ok:1}];
 // Houses Johan has info on are shown green (2026-11-16); the details stay with Johan, not in the app.
 // Sites with their own list (PZ: afdelingen, Hestia: externe huizen). The list screen uses the site id as state.screen.
 const LIST_SITES=SITES.filter(s=>s.more).map(s=>s.id);
@@ -326,7 +327,7 @@ const houseBrand=()=>{const w=W();return `
     <p>Zie je brand of rook en gaan de sirenes nog niet af? Druk een <b>handbrandmelder op de gang</b> in. Dan gaan de sirenes af en weet iedereen in het gebouw dat er brand is.</p>
     <p class="hl">Open de deur van een lokaal met brand zeer voorzichtig: er kunnen vlammen naar buiten slaan. Voelt de klink of de deur heet aan, of komt er veel rook? Ga dan niet binnen en doe de deur dicht.</p>
     <p>Bel <b>112</b> en daarna het onthaal van het ziekenhuis op <b>016 80 79 99</b>.</p>
-    <ul class="plain"><li><b>Aan 112</b> zeg je: brand, het adres van het appartementsgebouw, het appartement of de verdieping, de ernst en eventuele gewonden.</li><li><b>Aan het onthaal</b> zeg je waar het brandt, of er gewonden zijn en dat je de hulpdiensten al verwittigd hebt.</li></ul>
+    <ul class="plain"><li><b>Aan 112</b> zeg je: brand, <b>${w.addr||'het adres van het appartementsgebouw'}</b>, je appartement en de verdieping, de ernst en eventuele gewonden.</li><li><b>Aan het onthaal</b> zeg je waar het brandt, of er gewonden zijn en dat je de hulpdiensten al verwittigd hebt.</li></ul>
     <div>${sc('ward')}</div>`)}
   ${step('Blus of sluit de deur','Kleine brand blussen, grote brand insluiten',`
     <p>Is de brand nog klein en onder controle? Gebruik de <b>schuimblusser in het appartement</b>, een <b>brandblusser op de gang</b> of een branddeken (zie <a href="#blus" data-go="blus">Blussen</a>). Breng jezelf daarbij nooit in gevaar.</p>
@@ -488,6 +489,7 @@ AFD.hestia=()=>`
 <div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}</div>`;
 AFD.huis=()=>{const w=W();return `
 <div class="view-head"><h1>${w.name}</h1><p>Wat je moet weten over dit gebouw.</p></div>
+${w.addr?`<div class="card"><div class="card-head"><h2>Adres</h2>${sc('ward')}</div><p><b>${w.addr}</b></p>${w.flats?`<p>${w.flats}</p>`:''}<p class="muted">Dit adres geef je door als je 112 belt.</p></div>`:''}
 <div class="card">
   <div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('ward')}</div>
   <ul class="plain">${w.equip.map(e=>`<li>${e}</li>`).join('')}</ul>
