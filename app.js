@@ -392,8 +392,7 @@ const officeBrand=()=>{const w=W();return `
   ${step('Verlaat het huis','Iedereen naar buiten',`
     <p>Gaan de <b>sirenes</b> af? Verlaat het huis, net als iedereen op het gelijkvloers en de drie verdiepingen. Help wie hulp nodig heeft, zolang dat veilig kan.</p>
     <p>Volg de pictogrammen voor de nooduitgang.</p>
-    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
-    <p class="hl">Gebruik nooit de lift.</p>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"></div>
     <p>Moet je door rook? Blijf zo dicht mogelijk bij de grond: rook stijgt, onderaan is nog de meeste zuurstof.</p>
     <p>Sluit elke deur achter je.</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>
