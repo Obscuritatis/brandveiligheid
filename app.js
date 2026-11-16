@@ -121,7 +121,7 @@ WARDS.overhoop={site:'hestiahuis',name:'Overhoophuis',label:'Overhoophuis',afd:'
   centrale:'De <b>brandcentrale</b> staat op het gelijkvloers, in de <b>technische berging onder de trap</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
   equip:['<b>Branddetectie</b> in het huis.','<b>Handbrandmelders.</b>','<b>Brandblussers.</b>','<b>Sirenes</b> in het huis.','<b>Brandcentrale:</b> op het gelijkvloers, in de technische berging onder de trap.']};
 WARDS.veldborn={site:'hestiahuis',name:'Veldbornstraat 15-17',label:'Veldbornstraat 15-17',afd:'huis',house:1,office:1,bluspoging:1,olie:1,
-  verzamel:'',addr:'Veldbornstraat 15-17, 3300 Tienen',
+  verzamel:'Aan het onthaal van het psychiatrisch ziekenhuis',addr:'Veldbornstraat 15-17, 3300 Tienen',
   flats:'Nummer 15 en 17 zijn met elkaar verbonden. Op het gelijkvloers van 15 is het <b>OC</b> (ontmoetingscentrum), met twee appartementen erboven. Op het gelijkvloers van 17 is het <b>winkeltje</b> van Hestia, met twee appartementen erboven.',alerts:[],plans:[],
   centrale:'Er is <b>één brandcentrale</b> voor nummer 15 en 17 samen. Ze staat in de <b>berging van de keuken van het OC</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
   equip:['<b>Rookmelders en branddetectie.</b>','<b>Handbrandmelders.</b>','<b>Sirenes.</b>','<b>Schuimblussers:</b> in het OC, in het winkeltje en in elk appartement.','<b>Branddeken:</b> in de keuken van het OC.','<b>Brandcentrale:</b> in de berging van de keuken van het OC.'],
