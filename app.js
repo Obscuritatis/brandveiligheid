@@ -406,8 +406,8 @@ const officeBrand=()=>{const w=W();return `
     <div class="chips">${sc('ward')}</div>`)}
 </ol>
 <div class="card" id="nadien">
-  <div class="card-head"><h2>Na de brand</h2>${sc('all')}</div>
-  <p>Verwittig het <b>diensthoofd</b>, de <b>technische dienst</b> en de <b>preventiedienst</b>, en registreer het incident in het <b>Meld- en leersysteem</b> op het intranet.</p>
+  <div class="card-head"><h2>Na de brand</h2>${sc('ward')}</div>
+  <p>Maak een melding in het <b>Meld- en leersysteem</b> op het intranet.</p>
 </div>`};
 V.brand=()=>{const w=W();if(w.office)return officeBrand();if(w.house)return houseBrand();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
