@@ -111,7 +111,7 @@ const WARDS={
   planExample:1,plans:[]},
 };
 // Hestia - externe huizen: Park Passionisten (Johan, 2026-11-16). Residents follow the procedure of the apartment building.
-WARDS.parkpass={site:'hestiahuis',name:'Park Passionisten',label:'Park Passionisten',afd:'huis',house:1,bluspoging:1,olie:1,verzamel:'',alerts:[],plans:[],
+WARDS.parkpass={site:'hestiahuis',name:'Park Passionisten',label:'Park Passionisten',afd:'huis',house:1,bluspoging:1,olie:1,verzamel:'Het grasplein net voor het gebouw',alerts:[],plans:[],
   equip:['<b>Schuimblusser:</b> één in het appartement, van Hestia.','<b>Rookmelders:</b> in het appartement.','<b>Brandblussers:</b> op de gangen van het appartementsgebouw. Die worden niet door ons beheerd.','<b>Handbrandmelders:</b> op de gangen.','<b>Sirenes:</b> in het gebouw. Reageer altijd op de sirenes.','<b>Evacuatieplannen:</b> hangen op de gangen.']};
 // Onderhoud: de plannen van Eetherstel dienen als voorbeeld.
 WARDS.onderhoud.plans=WARDS.eetherstel.plans.map(p=>Object.assign({},p,p.l==='03'?{noteL:{fr:'Le niveau 03 est la salle des machines de l’ascenseur.',en:'Level 03 is the lift machine room.'}}:{}));
@@ -343,7 +343,9 @@ const houseBrand=()=>{const w=W();return `
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>
     <p>Kan je het appartement niet meer veilig verlaten? Blijf binnen, sluit de deur en leg natte doeken tegen de kieren. Ga aan een raam staan, maak je zichtbaar en bel 112 om te zeggen waar je bent.</p>${sc('all')}`)}
   ${step('Eens buiten','Weg van het gebouw, niet terug naar binnen',`
-    <p>Let bij het verlaten op voor <b>doorgaand verkeer</b> en <b>blijf niet op straat staan</b>. Ga naar een veilige plek, weg van het gebouw, of naar de plek die de hulpdiensten aanduiden.</p>
+    <p>Let bij het verlaten op voor <b>doorgaand verkeer</b> en <b>blijf niet op straat staan</b>. Ga naar de verzamelplaats, of naar de plek die de hulpdiensten aanduiden.</p>
+    ${assembly()}
+    <p>De verzamelplaats staat ook aangeduid op de evacuatieplannen op de gangen.</p>
     <p>Weet je dat er nog iemand binnen is? Zeg het aan de brandweer.</p>
     <p class="hl">Ga pas terug naar binnen na toestemming van de brandweer.</p>
     <div class="chips">${sc('ward')}</div>`)}
@@ -494,7 +496,8 @@ AFD.huis=()=>{const w=W();return `
 <div class="card">
   <div class="card-head"><h2>Vluchtweg</h2>${sc('ward')}</div>
   <p>De <b>evacuatieplannen hangen op de gangen</b> van het appartementsgebouw. Bekijk ze en ken de vluchtweg vanaf het appartement naar buiten.</p>
-</div>`};
+</div>
+<div class="card"><div class="card-head"><h2>Verzamelplaats</h2>${sc('ward')}</div>${assembly()}<p>Ook aangeduid op de evacuatieplannen.</p></div>`};
 AFD.site=()=>{const w=W(),c=w.centrale;return `
 <div class="view-head"><h1>${w.name}</h1><p>Wat op deze site anders is dan elders. Dit geldt voor alle afdelingen van de site.</p></div>
 <div class="card"><div class="card-head"><h2>Detectie- en blusmiddelen</h2>${sc('site')}</div>
