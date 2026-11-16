@@ -333,8 +333,8 @@ const houseBrand=()=>{const w=W();return `
     <p>Is de brand te groot? Verlaat de kamer en <b>sluit de deur onmiddellijk</b>. Zo blijft de rook binnen en heb je meer tijd om te vluchten.</p>
     <p>Sluit ook de ramen als dat nog veilig kan.</p>
     <p class="hl">Doe geen enkel raam of deur op slot!</p>${sc('all')}`)}
-  ${step('Verlaat het gebouw','Help de bewoners, volg de vluchtweg',`
-    <p>Breng naast jezelf eerst de bewoners in veiligheid. Help wie minder mobiel is, zolang dat veilig kan.</p>
+  ${step('Verlaat het gebouw','Volg de vluchtweg naar buiten',`
+    <p>Verlaat meteen je appartement. Kan je iemand helpen, zoals een huisgenoot of buur? Doe dat alleen als het veilig kan.</p>
     <p>Volg de <b>vluchtweg op de evacuatieplannen</b> die op de gangen hangen, en de pictogrammen voor de nooduitgang.</p>
     <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
     <p class="hl">Gebruik nooit de lift.</p>
@@ -344,13 +344,13 @@ const houseBrand=()=>{const w=W();return `
     <p>Kan je het appartement niet meer veilig verlaten? Blijf binnen, sluit de deur en leg natte doeken tegen de kieren. Ga aan een raam staan, maak je zichtbaar en bel 112 om te zeggen waar je bent.</p>${sc('all')}`)}
   ${step('Eens buiten','Weg van het gebouw, niet terug naar binnen',`
     <p>Let bij het verlaten op voor <b>doorgaand verkeer</b> en <b>blijf niet op straat staan</b>. Ga naar een veilige plek, weg van het gebouw, of naar de plek die de hulpdiensten aanduiden.</p>
-    <p>Controleer of alle bewoners buiten zijn. Meld wie ontbreekt aan de brandweer.</p>
+    <p>Weet je dat er nog iemand binnen is? Zeg het aan de brandweer.</p>
     <p class="hl">Ga pas terug naar binnen na toestemming van de brandweer.</p>
     <div class="chips">${sc('ward')}</div>`)}
 </ol>
 <div class="card" id="nadien">
-  <div class="card-head"><h2>Na de brand</h2>${sc('all')}</div>
-  <p>Verwittig het <b>diensthoofd</b>, de <b>technische dienst</b> en de <b>preventiedienst</b>, en registreer het incident in het <b>Meld- en leersysteem</b> op het intranet.</p>
+  <div class="card-head"><h2>Na de brand</h2>${sc('ward')}</div>
+  <p>Contacteer je <b>begeleiding</b> en laat weten wat er gebeurd is.</p>
 </div>`};
 V.brand=()=>{const w=W();if(w.house)return houseBrand();return `
 <div class="view-head"><h1>Bij brand</h1><p>Wat je doet, in deze volgorde. Tik een stap open voor de details.</p></div>
