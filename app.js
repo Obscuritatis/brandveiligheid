@@ -269,11 +269,21 @@ const W=()=>WARDS[WID];
 const siteName=()=>SITES.find(x=>x.id===W().site).name;
 // Hestia - externe huizen (Johan's list, 2026-10-29). status: '' | 'bewoond' | 'bezig' | 'gepland'. No training per house yet.
 const HOUSES=[
-  {a:'Veldbornstraat 15 OC'},{a:'Veldbornstraat 15 - 1'},{a:'Veldbornstraat 15 - 2'},{a:'Veldbornstraat 17 - 1'},{a:'Veldbornstraat 17 - 2'},
-  {a:'Ooievaarstraat 38'},{a:'Oorlogsvrijwilligersstraat 6'},{a:'Oorlogsvrijwilligersstraat 4'},{a:'Donystraat 62'},{a:'Donystraat 96'},
-  {a:'Leopoldvest 61'},{a:'Kapucijnenstraat 40'},{a:'Leopoldvest 29'},{a:'Oplintersesteenweg 17'},{a:'Kabbeekvest 38'},{a:'Kabbeekvest 87'},
-  {n:'Overhoophuis',a:'Liefdestraat 1'}].map(h=>({status:'',...h}));
-const HSTATUS={bewoond:{nl:'Bewoond',fr:'Habitée',en:'Occupied'},bezig:{nl:'Renovatie bezig',fr:'Rénovation en cours',en:'Renovation ongoing'},gepland:{nl:'Renovatie gepland',fr:'Rénovation prévue',en:'Renovation planned'}};
+  {a:'Veldbornstraat 15 OC',st:'samen'},{a:'Veldbornstraat 15 - 1',st:'ren'},{a:'Veldbornstraat 15 - 2',st:'ren'},{a:'Veldbornstraat 17 - 1',st:'ren'},{a:'Veldbornstraat 17 - 2',st:'ren'},
+  {a:'Ooievaarstraat 38',st:'leeg'},{a:'Oorlogsvrijwilligersstraat 20/11',st:'app'},{a:'Donystraat 62',st:'klaar'},{a:'Donystraat 96',st:'buffer'},
+  {a:'Kapucijnenstraat 40',st:'ren'},{a:'Leopoldvest 29',st:'klaar'},{a:'Oplintersesteenweg 17',st:'r27'},{a:'Kabbeekvest 38',st:'klaar'},{a:'Kabbeekvest 87',st:'ren'},
+  {a:'Park Passionisten',st:'park'},{n:'Overhoophuis',a:'Liefdestraat 1',st:'huis'}];
+// Status per house (Johan, 2026-11-16). A house with a status is shown green.
+const HSTATUS={
+ ren:{nl:'Bewoond · nog te renoveren',fr:'Habitée · à rénover',en:'Occupied · to be renovated'},
+ klaar:{nl:'Bewoond · gerenoveerd',fr:'Habitée · rénovée',en:'Occupied · renovated'},
+ r27:{nl:'Bewoond · renovatie in 2027',fr:'Habitée · rénovation en 2027',en:'Occupied · renovation in 2027'},
+ leeg:{nl:'Onbewoond · net gerenoveerd, inrichting bezig',fr:'Inoccupée · rénovation terminée, aménagement en cours',en:'Unoccupied · just renovated, being furnished'},
+ buffer:{nl:'Bufferhuis tijdens verbouwingen · 1 bewoner',fr:'Maison tampon pendant les travaux · 1 résident',en:'Temporary house during renovations · 1 resident'},
+ app:{nl:'Appartement · bewoond',fr:'Appartement · habité',en:'Apartment · occupied'},
+ park:{nl:'2 appartementen · bewoond',fr:'2 appartements · habités',en:'2 apartments · occupied'},
+ samen:{nl:'Samenkomstplaats op het gelijkvloers, appartementen erboven',fr:'Lieu de rencontre au rez-de-chaussée, appartements au-dessus',en:'Meeting place on the ground floor, apartments above'},
+ huis:{nl:'Samenkomsthuis',fr:'Maison de rencontre',en:'Meeting house'}};
 // Sites with their own list (PZ: afdelingen, Hestia: externe huizen). The list screen uses the site id as state.screen.
 const LIST_SITES=SITES.filter(s=>s.more).map(s=>s.id);
 const sName=id=>{const s=SITES.find(x=>x.id===id);return id==='pz'?pzName():(LANG!=='nl'&&s.names&&s.names[LANG])||s.name};
@@ -929,7 +939,7 @@ function homeHTML(){const h=HT();
   if(state.screen!=='home'){const sid=state.screen,hu=sid==='hestiahuis',ws=Object.entries(WARDS).filter(([k,w])=>w.site===sid).sort((a,b)=>a[1].name.localeCompare(b[1].name,'nl'));return `
 <h2 class="home-h">${hu?h.pickHouse:h.pickWard}</h2>
 <div class="wards">${ws.map(([k,w])=>`<button class="wpick" data-ward="${k}" ${k===WID&&store.get('plek',null)?'aria-current="true"':''}><span><b>${w.names&&LANG!=='nl'?w.names[LANG]:w.name}</b>${w.names?`<small>${['nl','fr','en'].filter(l=>l!==LANG).map(l=>w.names[l]||w.name).join(' · ')}</small>`:''}</span></button>`).join('')}
-${hu?(ws.length?'':HOUSES.map(x=>`<button class="wpick" disabled><span><b>${x.n?x.n+' - ':''}${x.a}</b><small>3300 Tienen · ${x.status?HSTATUS[x.status][LANG]+' · ':''}${h.trainLater}</small></span></button>`).join('')):`<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button>`}</div>${langPick()}`}
+${hu?(ws.length?'':HOUSES.map(x=>`<button class="wpick${x.st?' info':''}" disabled><span><b>${x.n?x.n+' - ':''}${x.a}</b><small>${x.st?HSTATUS[x.st][LANG]+' · ':''}${h.trainLater}</small></span></button>`).join('')):`<button class="wpick" disabled><span><b>${h.other}</b><small>${h.later}</small></span></button>`}</div>${langPick()}`}
   return `
 <h2 class="home-h">${h.where}</h2>
 <div class="tiles">${SITES.map((s,i)=>{const k=s.k||'k'+(SITES.filter(x=>!x.k).indexOf(s)+1),ic=`<i aria-hidden="true">${HICON[s.icon||(s.id==='pz'?'pz':s.id==='psc'?'psc':'wzc')]}</i>`;return s.more
