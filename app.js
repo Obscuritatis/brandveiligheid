@@ -118,12 +118,12 @@ WARDS.parkpass.blusNote='In het appartement hangt een schuimblusser van Hestia.'
 WARDS.overhoop={site:'hestiahuis',name:'Overhoophuis',label:'Overhoophuis',afd:'huis',house:1,office:1,bluspoging:1,olie:1,
   verzamel:'Aan het onthaal van het psychiatrisch ziekenhuis',addr:'Overhoophuis, Liefdestraat 1, 3300 Tienen',
   flats:'Een huis met burelen, met een gelijkvloers en drie verdiepingen.',alerts:[],plans:[],
-  centrale:'De <b>brandcentrale</b> staat op het gelijkvloers, in de <b>technische berging onder de trap</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
+  centrale:'De <b>brandcentrale</b> staat op het gelijkvloers, in de <b>technische berging onder de trap</b>. Een alarm wordt <b>telefonisch doorgemeld</b> naar het onthaal van het ziekenhuis.',
   equip:['<b>Branddetectie</b> in het huis.','<b>Handbrandmelders.</b>','<b>Brandblussers.</b>','<b>Sirenes</b> in het huis.','<b>Brandcentrale:</b> op het gelijkvloers, in de technische berging onder de trap.']};
 WARDS.veldborn={site:'hestiahuis',name:'Veldbornstraat 15-17',label:'Veldbornstraat 15-17',afd:'huis',house:1,office:1,bluspoging:1,olie:1,
   verzamel:'Aan het onthaal van het psychiatrisch ziekenhuis',addr:'Veldbornstraat 15-17, 3300 Tienen',
   flats:'Nummer 15 en 17 zijn met elkaar verbonden. Op het gelijkvloers van 15 is het <b>OC</b> (ontmoetingscentrum), met twee appartementen erboven. Op het gelijkvloers van 17 is het <b>winkeltje</b> van Hestia, met twee appartementen erboven.',alerts:[],plans:[],
-  centrale:'Er is <b>één brandcentrale</b> voor nummer 15 en 17 samen. Ze staat in de <b>berging van de keuken van het OC</b>. Een alarm wordt <b>niet doorgemeld</b> naar het ziekenhuis.',
+  centrale:'Er is <b>één brandcentrale</b> voor nummer 15 en 17 samen. Ze staat in de <b>berging van de keuken van het OC</b>. Een alarm wordt <b>telefonisch doorgemeld</b> naar het onthaal van het ziekenhuis.',
   equip:['<b>Rookmelders en branddetectie.</b>','<b>Handbrandmelders.</b>','<b>Sirenes.</b>','<b>Schuimblussers:</b> in het OC, in het winkeltje en in elk appartement.','<b>Branddeken:</b> in de keuken van het OC.','<b>Brandcentrale:</b> in de berging van de keuken van het OC.'],
   blusNote:'In het OC, het winkeltje en elk appartement hangt een schuimblusser. In de keuken van het OC ligt een branddeken.',
   ob:{inName:'Veldbornstraat 15-17',loc:'in de berging van de keuken van het OC',
@@ -383,7 +383,7 @@ const officeBrand=()=>{const w=W(),o=w.ob||{};return `
   <div class="card-head"><h3>Specifiek in ${o.inName||'het '+w.name}</h3>${sc('ward')}</div>
   <div class="alerts">
     ${(o.alerts||[]).map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}
-    <div class="alert"><i>!</i><p>De brandmeldingen worden <b>niet doorgemeld</b> naar het ziekenhuis. <b>Bel zelf 112.</b> Verwittig daarna, als het kan, het onthaal op <b>016 80 79 99</b>.</p></div>
+    <div class="alert"><i>!</i><p>Een brandmelding wordt <b>telefonisch doorgemeld</b> naar het onthaal van het ziekenhuis, met de boodschap <b>brand + adres</b>. <b>Bel toch altijd zelf 112.</b> Verwittig daarna, als het kan, het onthaal op <b>016 80 79 99</b>.</p></div>
   </div>
 </div>
 <ol class="steps" id="steps">
