@@ -354,7 +354,7 @@ const houseBrand=()=>{const w=W();return `
   ${step('Verlaat het gebouw','Volg de vluchtweg naar buiten',`
     <p>Verlaat meteen je appartement. Kan je iemand helpen, zoals een huisgenoot of buur? Doe dat alleen als het veilig kan.</p>
     <p>Volg de <b>vluchtweg op de evacuatieplannen</b> die op de gangen hangen, en de pictogrammen voor de nooduitgang.</p>
-    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift-v2.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
     <p class="hl">Gebruik nooit de lift.</p>
     <p>Moet je door rook? Blijf zo dicht mogelijk bij de grond: rook stijgt, onderaan is nog de meeste zuurstof.</p>
     <p>Sluit elke deur achter je, ook de deur van het appartement.</p>
@@ -457,7 +457,7 @@ V.brand=()=>{const w=W();if(w.office)return officeBrand();if(w.house)return hous
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>${sc('all')}`)}
   ${step('Verlaat de afdeling','Rustig, in groep, naar de verzamelplaats',`
     <p>Verlaat de afdeling in groep als het kan, rustig en ordelijk. Niet lopen of roepen. Volg de evacuatiepictogrammen. De evacuatiedeuren ontgrendelen bij alarm. Gebruik waar nodig de paniekknop of -hendel om ze te openen.</p>
-    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogram nooduitgang"><img src="img/geenlift-v2.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
     <p>Laat persoonlijke spullen achter, maar <b>neem de aanwezigheidslijsten mee</b> (${w.site==='pz'||w.site==='psc'?'patiënten':'bewoners'} en medewerkers). Schakel indien mogelijk elektrische toestellen uit.</p>
     ${assembly()}
     <p>Eens buiten ga je <b>niet</b> opnieuw naar binnen. Controleer met de lijsten of iedereen er is en meld vermisten aan de verantwoordelijke op de verzamelplaats.</p>
@@ -816,7 +816,7 @@ const LT={
     <p class="hl">Si vous ouvrez une porte coupe-feu en sortant, refermez-la derrière vous !</p>
     <div class="ext"><img src="img/deur.webp" alt="Main qui touche une poignée de porte pour sentir la chaleur"><p><b>Vous ne savez pas où est le feu ?</b> Vérifiez la chaleur des portes : cherchez de la fumée sous la porte, approchez la main de la porte et touchez doucement la poignée. S’il y a des signes de feu, prenez un autre chemin.</p></div>`],
   s5:['Quittez le service','Calmement, en groupe, vers le point de rassemblement',`<p>Quittez le service en groupe si possible, calmement et dans l’ordre. Ne courez pas et ne criez pas. Suivez les panneaux d’évacuation.%DOORS%</p>
-    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogramme sortie de secours"><img src="img/geenlift.webp" alt="En cas d’incendie : interdit d’utiliser l’ascenseur"></div>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Pictogramme sortie de secours"><img src="img/geenlift-v2.webp" alt="En cas d’incendie : interdit d’utiliser l’ascenseur"></div>
     <p>Laissez vos effets personnels derrière vous, mais <b>emportez les listes de présence</b> (%WHO% et collaborateurs). Si possible, éteignez les appareils électriques.</p>
     %ASSEMBLY%
     <p>Une fois à l’extérieur, ne rentrez <b>pas</b> dans le bâtiment. Vérifiez avec les listes que tout le monde est là et signalez toute personne disparue au responsable du point de rassemblement.</p>
@@ -890,7 +890,7 @@ const LT={
     <p class="hl">If you open a fire door on your way out, close it behind you!</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand feeling a door handle for heat"><p><b>Don’t know where the fire is?</b> Check doors for heat: look for smoke under the door, hold your hand near the door and gently touch the handle. If you notice any sign of fire, take another route.</p></div>`],
   s5:['Leave the department','Calmly, as a group, to the assembly point',`<p>Leave the department as a group if possible, calmly and in an orderly way. No running or shouting. Follow the evacuation signs.%DOORS%</p>
-    <div class="signs"><img src="img/nooduitgang.webp" alt="Emergency exit sign"><img src="img/geenlift.webp" alt="In case of fire: do not use the lift"></div>
+    <div class="signs"><img src="img/nooduitgang.webp" alt="Emergency exit sign"><img src="img/geenlift-v2.webp" alt="In case of fire: do not use the lift"></div>
     <p>Leave your personal belongings behind, but <b>take the attendance lists with you</b> (%WHO% and staff). If possible, switch off electrical devices.</p>
     %ASSEMBLY%
     <p>Once outside, do <b>not</b> go back in. Check with the lists that everyone is there and report any missing persons to the person in charge at the assembly point.</p>
