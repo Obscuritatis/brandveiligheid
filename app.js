@@ -434,14 +434,14 @@ V.brand=()=>{const w=W();if(w.office)return officeBrand();if(w.house)return hous
 </div>
 <ol class="steps" id="steps">
   ${step('Breng jezelf in veiligheid','Pas daarna kan je handelen',`<p>Wanneer een brand ontstaat op een afdeling is het allerbelangrijkste dat je eerst jezelf in veiligheid brengt.</p>${sc('all')}`)}
-  ${step('Kijk na en meld',`Brandcentrale + DECT, 112 en ${NOOD()}`,`
+  ${nd(step('Kijk na en meld',`Brandcentrale + DECT, 112 en ${NOOD()}`,`
     ${WID==='jeugd'?'':'<p>Meld via de handbrandmelder of het sleutelcontact: daarmee start meteen ook de evacuatie. Het kan zijn dat de rook al gedetecteerd werd door een rookdetector.</p>'}
     <p>Er komt een melding op de brandcentrale en de DECT. Vanuit elke afdeling wordt gevraagd om te gaan kijken.</p>
     <p class="hl">Open de deur van het lokaal zeer voorzichtig: er kunnen vlammen naar buiten slaan. Voelt de klink of de deur heet aan, of komt er veel rook? Ga dan niet binnen en doe de deur dicht.</p>
     <p class="hl">Reset NOOIT zonder eerst na te kijken of er effectief brand is ontstaan!</p>
     <p>Bij brand: bel <b>112</b> en daarna het interne noodnummer <b>${NOOD()}</b>.</p>
     <ul class="plain"><li><b>Aan 112</b> zeg je: brand, <b>${addr()}</b>, de locatie en de ernst, met eventuele gewonden.</li><li><b>Aan ${NOOD()}</b> geef je de plaats van de brand en het aantal gewonden door, en zeg je dat je de hulpdiensten al verwittigd hebt.</li>${WID==='onthaal'?'':'<li>Extra hulp nodig: druk <b>tweemaal kort</b> op de noodknop bovenaan de DECT.</li>'}</ul>
-    <div>${sc('site')}</div>`)}
+    <div>${sc('site')}</div>`),'nl')}
   ${step('Blus of sluit de deur','Kleine brand blussen, grote brand insluiten',`
     <p>Is de brand op een kamer nog onder controle? Gebruik een brandblusser of branddeken (zie <a href="#blus" data-go="blus">Blussen</a>).</p>
     <p>Is de brand te groot en kan je de deur van de kamer nog sluiten? <b>Doe dit onmiddellijk.</b> Zo komt er minder rook in de gang.</p>
@@ -455,14 +455,14 @@ V.brand=()=>{const w=W();if(w.office)return officeBrand();if(w.house)return hous
     <p>Moet je door rook? Blijf zo dicht mogelijk bij de grond: rook stijgt, onderaan is nog de meeste zuurstof.</p>
     <p class="hl">Open je onderweg een branddeur, sluit ze opnieuw.</p>
     <div class="ext"><img src="img/deur.webp" alt="Hand die een deurklink voelt op warmte"><p><b>Weet je niet waar de brand is?</b> Controleer deuren op warmte: kijk of er rook onder de deur komt, houd je hand bij de deur en raak de klink licht aan. Merk je iets, volg een andere route.</p></div>${sc('all')}`)}
-  ${step('Verlaat de afdeling','Rustig, in groep, naar de verzamelplaats',`
+  ${nd(step('Verlaat de afdeling','Rustig, in groep, naar de verzamelplaats',`
     <p>Verlaat de afdeling in groep als het kan, rustig en ordelijk. Niet lopen of roepen. Volg de evacuatiepictogrammen. De evacuatiedeuren ontgrendelen bij alarm. Gebruik waar nodig de paniekknop of -hendel om ze te openen.</p>
     <div class="signs"><img src="img/nooduitgang-v2.webp" alt="Pictogram nooduitgang"><img src="img/geenlift-v2.webp" alt="Bij brand: verboden de lift te gebruiken"></div>
     <p>Laat persoonlijke spullen achter, maar <b>neem de aanwezigheidslijsten mee</b> (${w.site==='pz'||w.site==='psc'?'patiënten':'bewoners'} en medewerkers). Schakel indien mogelijk elektrische toestellen uit.</p>
     ${assembly()}
     <p>Eens buiten ga je <b>niet</b> opnieuw naar binnen. Controleer met de lijsten of iedereen er is en meld vermisten aan de verantwoordelijke op de verzamelplaats.</p>
     <p class="hl">Ga pas terug naar binnen na toestemming van de brandweer.</p>
-    <div class="chips">${sc('ward')}</div>`)}
+    <div class="chips">${sc('ward')}</div>`),'nl')}
 </ol>
 ${w.shelter?`<div class="card" id="shelter">
   <div class="card-head"><h2>Schuilen ter plaatse (shelter-in-place)</h2>${sc('all')}</div>
@@ -610,6 +610,11 @@ const GAS={
   boomH:'Gas explosion or gas fire',boom:'<b>Stay away.</b> Let the fire burn as long as the gas leak has not been stopped.',
   coH:'Carbon monoxide (CO)',co:['CO has no smell and no colour. It forms when burning is incomplete, for example from a faulty gas appliance.','Symptoms: headache, nausea, vomiting and dizziness. They go away once you leave the room.'],coDo:['Open windows and doors.','Switch off the gas appliance.','Leave the room.','Warn the emergency services.'],
   tdH:'What does the technical service do?',td:['Warns Fluvius, the fire brigade (112) and the internal emergency number 999.','Closes the gas taps: first the one nearest the appliance, then the building’s main tap, then the main valve outside.','Follows the instructions of the fire brigade and Fluvius.'],tdP:'Boiler rooms have gas detection with an automatic shut-off valve.'}};
+// Onderhoud - logistiek (Johan, 2026-11-18): geen DECT en geen noodknop; ze gaan af op de sirene. Ze nemen ook geen aanwezigheidslijsten mee.
+const ND={nl:[['Brandcentrale + DECT, 112 en','Sirene, 112 en'],['<p>Er komt een melding op de brandcentrale en de DECT. Vanuit elke afdeling wordt gevraagd om te gaan kijken.</p>','<p>Je hebt geen DECT: een brandmelding hoor je aan de <b>sirene</b>.</p>'],['<li>Extra hulp nodig: druk <b>tweemaal kort</b> op de noodknop bovenaan de DECT.</li>',''],['Laat persoonlijke spullen achter, maar <b>neem de aanwezigheidslijsten mee</b> (patiënten en medewerkers).','Laat persoonlijke spullen achter.'],['Controleer met de lijsten of iedereen er is en meld vermisten','Meld vermisten'],[', met de aanwezigheidslijsten en de lijst lege bedden.','.']],
+ fr:[['Panneau d’incendie + DECT, 112 et','Sirène, 112 et'],['<p>Une notification apparaît sur le panneau d’incendie et le DECT. Chaque service est invité à vérifier la situation.</p>','<p>Vous n’avez pas de DECT : une alarme incendie, vous l’entendez à la <b>sirène</b>.</p>'],['<li>Besoin d’aide supplémentaire : appuyez <b>deux fois brièvement</b> sur le bouton d’urgence en haut du DECT.</li>',''],['Laissez vos effets personnels derrière vous, mais <b>emportez les listes de présence</b> (patients et collaborateurs).','Laissez vos effets personnels derrière vous.'],['Vérifiez avec les listes que tout le monde est là et signalez toute personne disparue','Signalez toute personne disparue'],[', avec les listes de présence et la liste des lits vides.','.']],
+ en:[['Fire panel + DECT, 112 and','Siren, 112 and'],['<p>A notification appears on the fire panel and the DECT. Each department is asked to go and check.</p>','<p>You have no DECT: you hear a fire alarm through the <b>siren</b>.</p>'],['<li>Extra help needed: press the emergency button at the top of the DECT <b>twice briefly</b>.</li>',''],['Leave your personal belongings behind, but <b>take the attendance lists with you</b> (patients and staff).','Leave your personal belongings behind.'],['Check with the lists that everyone is there and report any missing persons','Report any missing persons'],[', using the attendance lists and the list of empty beds.','.']]};
+const nd=(s,l)=>WID==='onderhoud'?(ND[l]||[]).reduce((a,[f,t])=>a.split(f).join(t),s):s;
 const li=a=>a.map(x=>`<li>${x}</li>`).join('');
 V.gas=()=>{const g=GAS[lang()]||GAS.nl;return `
 <div class="gasview">
@@ -620,7 +625,7 @@ V.gas=()=>{const g=GAS[lang()]||GAS.nl;return `
 <p class="gasext">${g.ext}</p>
 <div class="card">
   <div class="card-head"><h2>${g.stepsH}</h2>${sc('all')}</div>
-  <ol class="keylist">${g.steps.map(([b,t],i)=>`<li><span>${i+1}</span><p><b>${b}</b> ${t}</p></li>`).join('')}</ol>
+  <ol class="keylist">${nd(g.steps.map(([b,t],i)=>`<li><span>${i+1}</span><p><b>${b}</b> ${t}</p></li>`).join(''),lang())}</ol>
 </div>
 <div class="card nooit">
   <div class="card-head"><h2>${g.neverH}</h2>${sc('all')}</div>
@@ -955,7 +960,7 @@ const LV={
 </div>
 <div class="card"><div class="card-head"><h3>${w.siteLevel?t.specificSite:t.specific}</h3>${sc(w.siteLevel?'site':'ward')}</div>
   <div class="alerts">${w.alertsL[lang()].map(a=>`<div class="alert"><i>!</i><p>${a}</p></div>`).join('')}</div></div>
-<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()).replace('%DOORS%',t.doors).replace('%WHO%',w.site==='pz'||w.site==='psc'?t.whoP:t.whoR))).join('')}</ol>
+<ol class="steps" id="steps">${['s1','s2','s3','s4','s5'].map(k=>nd(step(t[k][0],t[k][1].replace(/%NOOD%/g,NOOD()),t[k][2].replace('%ASSEMBLY%',lassembly()).replace(/%NOOD%/g,NOOD()).replace(/%ADDR%/g,addr()).replace('%DOORS%',t.doors).replace('%WHO%',w.site==='pz'||w.site==='psc'?t.whoP:t.whoR)),lang())).join('')}</ol>
 <div class="card" id="shelter">
   <div class="card-head"><h2>${t.shelterH}</h2>${sc('all')}</div>
   <p>${t.shelterP}</p>
